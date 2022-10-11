@@ -2,37 +2,44 @@
 
 return [
 
-    'dashboard'             => 'Dashboard',
+  'dashboard' => 'Dashboard',
 
-    'user'                  => 'User',
-    'user-activity'         => 'User Activity',
-    'users'                 => 'Users',
+  'user' => 'User',
+  'user-activity' => 'User Activity',
+  'users' => 'Users',
 
-    'role'                  => 'Role',
-    'roles'                 => 'Roles',
+  'role' => 'Role',
+  'roles' => 'Roles',
 
-    'permission'            => 'Permission',
-    'permissions'           => 'Permissions',
+  'permission' => 'Permission',
+  'permissions' => 'Permissions',
 
-    'read-log'              => 'Read Log',
-    'read-logs'             => 'Read Logs',
+  'read-log' => 'Read Log',
+  'read-logs' => 'Read Logs',
 
-    'file-manager'          => 'File Manager',
-    'website-setting'       => 'Website Setting',
+  'file-manager' => 'File Manager',
+  'website-setting' => 'Website Setting',
 
-    'setting'               => 'Setting',
-    'settings'              => 'Settings',
-   
-    'cms'                   => 'CMS',
-    'cms-pages'             => 'CMS Pages',
+  'setting' => 'Setting',
+  'settings' => 'Settings',
 
-    'category'              => 'Category',
-    'categories'            => 'Categories',
+  'cms' => 'CMS',
+  'cms-pages' => 'CMS Pages',
 
-    'page'                  => 'Page',
-    'pages'                 => 'Pages',
-    
-    'currency'              => 'Currency',
-    'currencies'            => 'Currencies',
+  'horses' => [
+    'menu_title' => 'Horses',
+    'types' => 'Types',
+    'types_title' => 'Horses Types',
+    'passports' => 'Passports',
+    'passports_title' => 'Horses Passports'
+  ],
+  'category' => 'Category',
+  'categories' => 'Categories',
+
+  'page' => 'Page',
+  'pages' => 'Pages',
+
+  'currency' => 'Currency',
+  'currencies' => 'Currencies',
 
 ];
