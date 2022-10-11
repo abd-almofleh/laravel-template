@@ -55,7 +55,7 @@
 									<td>{{$role->code}}</td>
 
 									<td>
-										@if(Gate::check('role-edit'))
+										@if(Gate::check('role-edit') && $role->name !== "Super Admin")
 											<a href="{{route('roles.edit', $role->id)}}" class="custom-edit-btn mr-1">
 												<i class="fe fe-pencil"></i>
 													{{__('default.form.edit-button')}}
