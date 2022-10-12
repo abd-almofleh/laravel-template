@@ -14,4 +14,9 @@ class HorseType extends Model
     'name',
     'status'
   ];
+
+  public function horses()
+  {
+    return $this->hasMany(Horse::class, 'type_id');
+  }
 }

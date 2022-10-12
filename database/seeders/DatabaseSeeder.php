@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
       CurrencySeeder::class,
       SettingSeeder::class,
       HorseTypeSeeder::class,
-      HorsePassportSeeder::class
+      HorsePassportSeeder::class,
+      HorseSeeder::class
     ]);
   }
 }

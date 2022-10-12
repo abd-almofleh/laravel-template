@@ -22,7 +22,7 @@ class HorsePassportController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('permission:horsePassport-list', ['only' => ['index', 'store']]);
+    $this->middleware('permission:horsePassport-list', ['only' => ['index']]);
     $this->middleware('permission:horsePassport-create', ['only' => ['create', 'store']]);
     $this->middleware('permission:horsePassport-edit', ['only' => ['edit', 'update', 'updateStatus']]);
   }

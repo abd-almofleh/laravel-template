@@ -80,6 +80,15 @@
                   </a>
                 </li>
               @endcan
+
+              @can('horses-list')
+                <li>
+                  <a href="{{ route('horses.listed-horses.index') }}" title="{{ __('sidebar.horses.listed_horses') }}"
+                     class="sidebar-link {{ request()->is('admin/horses/listed-horses*') ? 'active' : '' }}">
+                    <span class="hide-menu">{{ __('sidebar.horses.listed_horses') }}</span>
+                  </a>
+                </li>
+              @endcan
             </ul>
           </li>
         @endif

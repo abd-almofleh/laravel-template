@@ -1,7 +1,8 @@
 <?php
 
 return [
-
+  'yes' => 'Yes',
+  'no' => 'No',
   'table' => [
     'sl' => 'SL',
     'name' => 'Name',
@@ -19,6 +20,11 @@ return [
     'status' => 'Status',
     'edit' => 'Edit',
     'delete' => 'Delete',
+    'sex' => 'Sex',
+    'is_deleted' => 'Is Deleted',
+    'id' => 'ID',
+    'type' => 'Type',
+    'contact_number' => 'Contact Number',
   ],
 
   'form' => [
@@ -52,6 +58,7 @@ return [
     'add-button' => 'Add New User',
     'save-button' => 'Save',
     'edit-button' => 'Edit',
+    'view-button' => 'View',
     'update-button' => 'Update',
     'delete-button' => 'Delete',
     'user-since' => 'User Since',
@@ -153,4 +160,9 @@ return [
       ],
     ],
   ],
+
+  'sex' => [
+    'male' => 'Male',
+    'female' => 'Female',
+  ]
 ];

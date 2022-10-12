@@ -31,7 +31,8 @@ return [
     'types' => 'Types',
     'types_title' => 'Horses Types',
     'passports' => 'Passports',
-    'passports_title' => 'Horses Passports'
+    'passports_title' => 'Horses Passports',
+    'listed_horses' => 'Listed Horses'
   ],
   'category' => 'Category',
   'categories' => 'Categories',

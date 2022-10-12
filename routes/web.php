@@ -128,6 +128,8 @@ Route::group(['middleware' => 'language'], function () {
 
       // horses
       Route::prefix('horses')->name('horses.')->group(function () {
+        Route::resource('listed-horses', App\Http\Controllers\Admin\Horses\ListedHorseController::class);
+
         Route::resource('types', App\Http\Controllers\Admin\Horses\HorseTypeController::class)->except(['show', 'destroy']);
         Route::patch('/types/updateStatus/{type}', [App\Http\Controllers\Admin\Horses\HorseTypeController::class, 'updateStatus'])->name('types.updateStatus');
 
