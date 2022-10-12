@@ -20,7 +20,7 @@ class HorseTypeController extends Controller
     $this->middleware('auth');
     $this->middleware('permission:horseType-list', ['only' => ['index']]);
     $this->middleware('permission:horseType-create', ['only' => ['create', 'store']]);
-    $this->middleware('permission:horseType-edit', ['only' => ['edit', 'update']]);
+    $this->middleware('permission:horseType-edit', ['only' => ['edit', 'update', 'updateStatus']]);
     $this->middleware('permission:horseType-delete', ['only' => ['destroy']]);
   }
 
