@@ -129,6 +129,8 @@ Route::group(['middleware' => 'language'], function () {
       // horses
       Route::prefix('horses')->name('horses.')->group(function () {
         Route::resource('types', App\Http\Controllers\Admin\Horses\HorseTypeController::class)->except(['show']);
+        Route::patch('/types/updateStatus/{type}', [App\Http\Controllers\Admin\Horses\HorseTypeController::class, 'updateStatus'])->name('types.updateStatus');
+
         Route::resource('passport', App\Http\Controllers\Admin\Horses\HorsePassportController::class);
       });
     });

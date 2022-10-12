@@ -109,17 +109,17 @@
     function changeHorseTypeStatus(_this, id) {
       var status = $(_this).prop('checked') == true ? 1 : 0;
       let _token = $('meta[name="csrf-token"]').attr('content');
-
       $.ajax({
-        url: `{{ url('horses.types.update') }}/id`,
-        type: 'get',
+        url: `{{ route('horses.types.updateStatus', '') }}/${id}`,
+        type: 'POST',
         data: {
           _token: _token,
-          id: id,
+          _method: 'PATCH',
           status: status
         },
         success: function(result) {
-          if (status == 1) {
+          console.log(`🚀 - file: index.blade.php - line 121 - result`, result);
+          if (result.status === 'success') {
             toastr.success(result.message);
           } else {
             toastr.error(result.message);

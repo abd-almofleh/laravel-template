@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Admin\Horses;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Horses\Types\StoreHorseTypeRequest;
-use App\Http\Requests\Admin\Horses\Types\updateHorseTypeRequest;
 use App\Models\HorseType;
 use Auth;
 use Illuminate\Http\Request;
 use DataTables;
 use Exception;
 use Toastr;
+use App\http\Requests\Admin\Horses\Types\UpdateHorseTypeStatusRequest;
+use App\http\Requests\Admin\Horses\Types\UpdateHorseTypeRequest;
 
 class HorseTypeController extends Controller
 {
@@ -124,6 +125,18 @@ class HorseTypeController extends Controller
     } catch (Exception $e) {
       Toastr::error(__('horsestype.message.update.error'));
       return redirect()->route('horses.types.index');
+    }
+  }
+
+  public function updateStatus(UpdateHorseTypeStatusRequest $request, HorseType $type)
+  {
+    $input = $request->validated();
+
+    try {
+      $type->update($input);
+      return response()->json(['status' => 'success', 'message' => __('horsestype.message.update.success')]);
+    } catch (Exception $e) {
+      return response()->json(['status' => 'failed', 'message' => __('horsestype.message.update.error')]);
     }
   }
 
