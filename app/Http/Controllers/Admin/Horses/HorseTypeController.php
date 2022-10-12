@@ -113,7 +113,7 @@ class HorseTypeController extends Controller
    * @param  \App\Models\HorseType  $type
    * @return \Illuminate\Http\Response
    */
-  public function update(updateHorseTypeRequest $request, HorseType $type)
+  public function update(UpdateHorseTypeRequest $request, HorseType $type)
   {
     $input = $request->validated();
 
