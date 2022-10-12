@@ -74,8 +74,8 @@
 
               @can('horsePassport-list')
                 <li>
-                  <a href="{{ route('cmspages.index') }}" title="{{ __('sidebar.horses.passports_title') }}"
-                     class="sidebar-link {{ request()->is('admin/cmspage*') ? 'active' : '' }}">
+                  <a href="{{ route('horses.passports.index') }}" title="{{ __('sidebar.horses.passports_title') }}"
+                     class="sidebar-link {{ request()->is('admin/horses/passports*') ? 'active' : '' }}">
                     <span class="hide-menu">{{ __('sidebar.horses.passports') }}</span>
                   </a>
                 </li>
@@ -83,7 +83,7 @@
             </ul>
           </li>
         @endif
-        <!-- /CMS -->
+        <!-- /Horses -->
 
         <!-- Users -->
         @if (auth()->user()->can('user-list') ||

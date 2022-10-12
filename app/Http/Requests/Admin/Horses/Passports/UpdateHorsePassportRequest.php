@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\Horses\Types;
+namespace App\Http\Requests\Admin\Horses\Passports;
 
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateHorseTypeStatusRequest extends FormRequest
+class UpdateHorsePassportRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -14,7 +15,7 @@ class UpdateHorseTypeStatusRequest extends FormRequest
    */
   public function authorize()
   {
-    return Auth::user()->can('horseType-edit');
+    return Auth::user()->can('horsePassport-edit');
     ;
   }
 
@@ -26,6 +27,7 @@ class UpdateHorseTypeStatusRequest extends FormRequest
   public function rules()
   {
     return [
+      'name' => ['required', 'string', Rule::unique('horse_passports', 'name')->ignore($this->passport->id)],
       'status' => 'required|boolean',
     ];
   }
@@ -33,6 +35,8 @@ class UpdateHorseTypeStatusRequest extends FormRequest
   public function messages()
   {
     return [
+      'name.required' => __('default.form.validation.name.required'),
+      'name.unique' => __('default.form.validation.name.unique'),
       'status.required' => __('default.form.validation.status.required'),
     ];
   }

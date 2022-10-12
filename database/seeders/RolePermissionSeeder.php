@@ -58,8 +58,11 @@ class RolePermissionSeeder extends Seeder
       'horseType-list',
       'horseType-create',
       'horseType-edit',
-      'horseType-delete',
 
+      'horsePassport-list',
+      'horsePassport-create',
+      'horsePassport-edit',
+      
       'currency-list',
       'currency-create',
       'currency-edit',

@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class HorsePassport extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  /* A list of attributes that can be mass assigned. */
+  protected $fillable = [
+    'name',
+    'status'
+  ];
 }

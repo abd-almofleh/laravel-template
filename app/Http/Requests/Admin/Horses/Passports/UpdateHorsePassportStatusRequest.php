@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin\Horses\Types;
+namespace App\Http\Requests\Admin\Horses\Passports;
 
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateHorseTypeStatusRequest extends FormRequest
+class updateHorsePassportStatusRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class UpdateHorseTypeStatusRequest extends FormRequest
    */
   public function authorize()
   {
-    return Auth::user()->can('horseType-edit');
+    return Auth::user()->can('horsePassport-edit');
     ;
   }
 

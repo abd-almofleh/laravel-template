@@ -21,7 +21,6 @@ class HorseTypeController extends Controller
     $this->middleware('permission:horseType-list', ['only' => ['index']]);
     $this->middleware('permission:horseType-create', ['only' => ['create', 'store']]);
     $this->middleware('permission:horseType-edit', ['only' => ['edit', 'update', 'updateStatus']]);
-    $this->middleware('permission:horseType-delete', ['only' => ['destroy']]);
   }
 
   /**
@@ -85,7 +84,6 @@ class HorseTypeController extends Controller
   public function store(StoreHorseTypeRequest $request)
   {
     $input = $request->validated();
-    // dd($input);
     try {
       HorseType::create($input);
       Toastr::success(__('horsesType.message.store.success'));
@@ -138,16 +136,5 @@ class HorseTypeController extends Controller
     } catch (Exception $e) {
       return response()->json(['status' => 'failed', 'message' => __('horsestype.message.update.error')]);
     }
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  \App\Models\HorseType  $horseType
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy(HorseType $horseType)
-  {
-        //
   }
 }
