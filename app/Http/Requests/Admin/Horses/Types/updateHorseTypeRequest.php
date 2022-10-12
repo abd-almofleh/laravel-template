@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Horses\Types;
 
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class updateHorseTypeRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class updateHorseTypeRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => 'required|string|unique:horse_types,name',
+      'name' => ['required', 'string', Rule::unique('horse_types', 'name')->ignore($this->type->id)],
       'status' => 'required|boolean',
     ];
   }
