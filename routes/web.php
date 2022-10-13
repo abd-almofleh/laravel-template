@@ -128,13 +128,14 @@ Route::group(['middleware' => 'language'], function () {
 
       // horses
       Route::prefix('horses')->name('horses.')->group(function () {
+        Route::post('listed-horses/media', [App\Http\Controllers\Admin\Horses\ListedHorseController::class, 'storeMedia'])->name('listed-horses.storeMedia');
         Route::resource('listed-horses', App\Http\Controllers\Admin\Horses\ListedHorseController::class);
 
-        Route::resource('types', App\Http\Controllers\Admin\Horses\HorseTypeController::class)->except(['show', 'destroy']);
         Route::patch('/types/updateStatus/{type}', [App\Http\Controllers\Admin\Horses\HorseTypeController::class, 'updateStatus'])->name('types.updateStatus');
+        Route::resource('types', App\Http\Controllers\Admin\Horses\HorseTypeController::class)->except(['show', 'destroy']);
 
-        Route::resource('passports', App\Http\Controllers\Admin\Horses\HorsePassportController::class)->except(['show', 'destroy']);
         Route::patch('/passports/updateStatus/{passport}', [App\Http\Controllers\Admin\Horses\HorsePassportController::class, 'updateStatus'])->name('passports.updateStatus');
+        Route::resource('passports', App\Http\Controllers\Admin\Horses\HorsePassportController::class)->except(['show', 'destroy']);
       });
     });
   });

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
       SettingSeeder::class,
       HorseTypeSeeder::class,
       HorsePassportSeeder::class,
-      HorseSeeder::class
+      ListedHorseSeeder::class
     ]);
   }
 }

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Horse;
+use App\Models\ListedHorse;
 use Illuminate\Database\Seeder;
 
-class HorseSeeder extends Seeder
+class ListedHorseSeeder extends Seeder
 {
   /**
    * Run the database seeds.
@@ -14,6 +14,6 @@ class HorseSeeder extends Seeder
    */
   public function run()
   {
-    Horse::factory()->count(100)->create();
+    ListedHorse::factory()->count(100)->create();
   }
 }

@@ -17,6 +17,6 @@ class HorseType extends Model
 
   public function horses()
   {
-    return $this->hasMany(Horse::class, 'type_id');
+    return $this->hasMany(ListedHorse::class, 'type_id');
   }
 }

@@ -6,7 +6,7 @@ use App\Models\HorsePassport;
 use App\Models\HorseType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class HorseFactory extends Factory
+class ListedHorseFactory extends Factory
 {
   /**
    * Define the model's default state.
@@ -18,11 +18,10 @@ class HorseFactory extends Factory
     return [
       'name' => $this->faker->sentence,
       'sex' => $this->faker->boolean,
-      'bread' => $this->faker->sentence,
-      'berth_year' => $this->faker->numberBetween(2015, 2022),
-      'bread' => $this->faker->sentence,
+      'birth_year' => $this->faker->numberBetween(2015, 2022),
+      'race' => $this->faker->sentence,
       'height' => $this->faker->randomFloat(2, 1.5, 3.5),
-      'Weight' => $this->faker->randomFloat(2, 100, 200),
+      'weight' => $this->faker->randomFloat(2, 100, 200),
       'color' => $this->faker->colorName,
       'health' => $this->faker->sentence,
       'description' => $this->faker->paragraph,

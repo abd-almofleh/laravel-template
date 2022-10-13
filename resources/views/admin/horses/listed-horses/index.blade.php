@@ -28,7 +28,7 @@
             </li>
           </ul>
         </div>
-        @if (Auth::user()->can('horse-create'))
+        @if (Auth::user()->can('listedHorses-create'))
           <div class="col-md-3">
             <div class="create-btn pull-right">
               <a href="{{ route('horses.listed-horses.create') }}"
@@ -55,7 +55,7 @@
                 <th class="">{{ __('default.table.sex') }}</th>
                 <th class="">{{ __('default.table.type') }}</th>
                 <th class="">{{ __('default.table.contact_number') }}</th>
-                @if (Auth::user()->can('horse-edit'))
+                @if (Auth::user()->can('listedHorses-edit'))
                   <th class="">{{ __('default.table.action') }}</th>
                 @endif
               </tr>

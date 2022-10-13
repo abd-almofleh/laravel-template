@@ -3,21 +3,29 @@
 namespace App\Http\Controllers\Admin\Horses;
 
 use App\Http\Controllers\Controller;
-use App\Models\Horse;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
+use App\Http\Requests\Admin\Horses\ListedHorses\StoreListedHorseRequest;
+use App\Models\ListedHorse;
+use App\Models\HorsePassport;
+use App\Models\HorseType;
 use Auth;
 use DataTables;
+use Exception;
 use Illuminate\Http\Request;
+use Toastr;
 
 class ListedHorseController extends Controller
 {
+  use MediaUploadingTrait;
+
   public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('permission:horse-list', ['only' => ['index']]);
-    $this->middleware('permission:horse-create', ['only' => ['create', 'store']]);
-    $this->middleware('permission:horse-edit', ['only' => ['edit', 'update', 'updateStatus']]);
-    $this->middleware('permission:horse-show', ['only' => ['show']]);
-    $this->middleware('permission:horse-delete', ['only' => ['destroy']]);
+    $this->middleware('permission:listedHorses-list', ['only' => ['index']]);
+    $this->middleware('permission:listedHorses-create', ['only' => ['create', 'store']]);
+    $this->middleware('permission:listedHorses-edit', ['only' => ['edit', 'update', 'updateStatus']]);
+    $this->middleware('permission:listedHorses-show', ['only' => ['show']]);
+    $this->middleware('permission:listedHorses-delete', ['only' => ['destroy']]);
   }
 
     /**
@@ -28,7 +36,7 @@ class ListedHorseController extends Controller
     public function index(Request $request)
     {
       if ($request->ajax()) {
-        $data = Horse::with(['type' => function ($query) {
+        $data = ListedHorse::with(['type' => function ($query) {
           $query->select(['id', 'name']);
         }])->get();
         return DataTables::of($data)
@@ -84,7 +92,10 @@ class ListedHorseController extends Controller
      */
     public function create()
     {
-        //
+      $horsesTypes = HorseType::where('status', 1)->get();
+      $horsesPassports = HorsePassport::where('status', 1)->get();
+
+      return view('admin.horses.listed-horses.create', compact('horsesTypes', 'horsesPassports'));
     }
 
     /**
@@ -93,18 +104,35 @@ class ListedHorseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreListedHorseRequest $request)
     {
-        //
+      $input = $request->except(['videos', 'photos']);
+      $photos = $request->input('photos', []);
+      $videos = $request->input('videos', []);
+      try {
+        $listedHorse = ListedHorse::create($input);
+        foreach ($photos as $photo) {
+          $listedHorse->addMedia(storage_path('tmp/uploads/' . basename($photo)))->toMediaCollection('photo');
+        }
+        foreach ($videos as $video) {
+          $listedHorse->addMedia(storage_path('tmp/uploads/' . basename($video)))->toMediaCollection('video');
+        }
+        Toastr::success(__('listedHorses.message.store.success'));
+        return redirect()->route('horses.listed-horses.index');
+      } catch (Exception $e) {
+        return $e->getMessage();
+        Toastr::error(__('listedHorses.message.store.error'));
+        return redirect()->back()->withInput();
+      }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Horse  $horse
+     * @param  \App\Models\ListedHorse  $horse
      * @return \Illuminate\Http\Response
      */
-    public function show(Horse $horse)
+    public function show(ListedHorse $horse)
     {
         //
     }
@@ -112,10 +140,10 @@ class ListedHorseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Horse  $horse
+     * @param  \App\Models\ListedHorse  $horse
      * @return \Illuminate\Http\Response
      */
-    public function edit(Horse $horse)
+    public function edit(ListedHorse $horse)
     {
         //
     }
@@ -124,10 +152,10 @@ class ListedHorseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Horse  $horse
+     * @param  \App\Models\ListedHorse  $horse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Horse $horse)
+    public function update(Request $request, ListedHorse $horse)
     {
         //
     }
@@ -135,10 +163,10 @@ class ListedHorseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Horse  $horse
+     * @param  \App\Models\ListedHorse  $horse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Horse $horse)
+    public function destroy(ListedHorse $horse)
     {
         //
     }

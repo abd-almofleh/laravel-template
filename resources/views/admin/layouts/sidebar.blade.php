@@ -53,7 +53,7 @@
         <!-- /CMS -->
 
         <!-- Horses -->
-        @if (auth()->user()->can('horse-list') ||
+        @if (auth()->user()->can('listedHorses-list') ||
             auth()->user()->can('horseType-list'))
           <li class="submenu">
             <a class="" href="javascript:void(0)" aria-expanded="false">
