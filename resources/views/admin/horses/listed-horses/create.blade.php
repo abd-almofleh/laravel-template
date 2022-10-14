@@ -261,13 +261,12 @@
                     @enderror
                   </div>
                   <div class="form-group @error('photos') has-error @enderror">
-                    <label for="photos">{{ __('default.form.photos') }}</label>
+                    <label for="photos">{{ __('default.form.photos') }}:</label>
                     <div class="needsclick dropzone" id="photos-dropzone">
                     </div>
                     @error('photos')
                       <span class="help-block" role="alert">{{ $message }}</span>
                     @enderror
-                    <span class="help-block">{{ trans('default.form.photos_helper') }}</span>
                   </div>
                   <div class="form-group @error('videos') has-error @enderror">
                     <label for="videos">{{ __('default.form.videos') }}</label>
@@ -276,7 +275,6 @@
                     @error('videos')
                       <span class="help-block" role="alert">{{ $message }}</span>
                     @enderror
-                    <span class="help-block">{{ trans('default.form.videos_helper') }}</span>
                   </div>
 
                 </div>
@@ -287,7 +285,7 @@
           <div class="card">
 
             <div class="card-header">
-              <h4 class="card-name">SEO Information</h4>
+              <h4 class="card-name">{{ __('default.form.seo_information') }}</h4>
             </div>
 
             <div class="card-body">
@@ -441,8 +439,6 @@
       },
       params: {
         size: 30,
-        width: 4096,
-        height: 4096
       },
       success: function(file, response) {
         $('form').append('<input type="hidden" name="videos[]" value="' + response.name + '">')

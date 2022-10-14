@@ -73,6 +73,8 @@ return [
     'inactive' => 'Inactive',
     'type' => 'Type',
     'choose_horse_type' => 'Choose Horse Type',
+    'choose_birth_year' => 'Choose Birth Year',
+    'choose_horse_passport' => 'Choose Horse Passport',
     'race' => 'Race',
     'birth_year' => 'Birth Year',
     'passport' => 'Passport',
@@ -86,6 +88,9 @@ return [
     'comma_suppurated' => 'Comma Suppurated',
     'meter' => 'Meter',
     'kg' => 'KG',
+    'photos' => 'Photos',
+    'videos' => 'Videos',
+    'seo_information' => 'SEO Information',
 
     'facebook' => 'Facebook',
     'twitter' => 'Twitter',
