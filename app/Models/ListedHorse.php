@@ -5,8 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ListedHorse extends Model implements HasMedia
 {
@@ -35,15 +38,22 @@ class ListedHorse extends Model implements HasMedia
     'meta_keywords',
   ];
 
-  protected $appends = [
-    // 'photos',
-  ];
-
   protected $dates = [
     'created_at',
     'updated_at',
     'deleted_at',
   ];
+
+  protected $appends = [
+    'photos',
+    'videos',
+  ];
+
+  public function registerMediaConversions(Media $media = null): void
+  {
+    $this->addMediaConversion('thumb')->fit(Manipulations::FIT_CROP, 50, 50)->performOnCollections('photos');
+    $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 120, 120)->performOnCollections('photos');
+  }
 
   public function type()
   {
@@ -55,15 +65,25 @@ class ListedHorse extends Model implements HasMedia
     return $this->belongsTo(HorsePassport::class, 'passport_type_id', 'id');
   }
 
-  public function getPhotosAttribute()
+  public function getPhotosAttribute(): MediaCollection
   {
-    $file = $this->getMedia('photo')->last();
-    if ($file) {
+    $files = $this->getMedia('photos');
+    foreach ($files as $file) {
       $file->url = $file->getUrl();
-      $file->thumbnail = $file->getUrl('thumb');
-      $file->preview = $file->getUrl('preview');
+      $file->thumbnail = $file->getFullUrl('thumb');
+      $file->preview = $file->getFullUrl('preview');
     }
+    return $files;
+  }
 
-    return $file;
+  public function getVideosAttribute(): MediaCollection
+  {
+    $files = $this->getMedia('videos');
+    foreach ($files as $file) {
+      $file->url = $file->getUrl();
+      $file->thumbnail = $file->getFullUrl('thumb');
+      $file->preview = $file->getFullUrl('preview');
+    }
+    return $files;
   }
 }

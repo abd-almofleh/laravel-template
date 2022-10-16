@@ -16,12 +16,12 @@
   <form method="post" action="{{ route('horses.types.update', $type->id) }}">
     @csrf()
     @method('PUT')
-    <!-- Page Header -->
+
     <div class="page-header">
       <div class="card breadcrumb-card">
         <div class="row justify-content-between align-content-between" style="height: 100%;">
           <div class="col-md-6">
-            <h3 class="page-title">{{ __('horsesType.index.title') }}</h3>
+            <h3 class="page-title">{{ __('horsesType.edit.title') }}</h3>
             <ul class="breadcrumb">
               <li class="breadcrumb-item">
                 <a href="{{ route('dashboard') }}">{{ __('dashboard.title') }}</a>
@@ -55,6 +55,23 @@
             </div>
 
             <div class="card-body">
+              @if ($errors->any())
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="custom-alert alert-danger">
+                      <h4 class="alert-heading">{{ __('default.form.error') }}</h4>
+                      <p>{{ __('default.form.following_error_exits') }}:</p>
+                      <hr>
+                      <ul>
+                        @foreach ($errors->all() as $error)
+                          <li class="mb-0">{{ $error }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              @endif
+
               <div class="row">
                 <div class="col-md-12">
 

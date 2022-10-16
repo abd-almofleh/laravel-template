@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Horses;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\Admin\Horses\ListedHorses\StoreListedHorseRequest;
+use App\Http\Requests\Admin\Horses\ListedHorses\UpdateListedHorseRequest;
 use App\Models\ListedHorse;
 use App\Models\HorsePassport;
 use App\Models\HorseType;
@@ -12,6 +13,7 @@ use Auth;
 use DataTables;
 use Exception;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Toastr;
 
 class ListedHorseController extends Controller
@@ -112,10 +114,10 @@ class ListedHorseController extends Controller
       try {
         $listedHorse = ListedHorse::create($input);
         foreach ($photos as $photo) {
-          $listedHorse->addMedia(storage_path('tmp/uploads/' . basename($photo)))->toMediaCollection('photo');
+          $listedHorse->addMedia(storage_path('tmp/uploads/' . basename($photo)))->toMediaCollection('photos');
         }
         foreach ($videos as $video) {
-          $listedHorse->addMedia(storage_path('tmp/uploads/' . basename($video)))->toMediaCollection('video');
+          $listedHorse->addMedia(storage_path('tmp/uploads/' . basename($video)))->toMediaCollection('videos');
         }
         Toastr::success(__('listedHorses.message.store.success'));
         return redirect()->route('horses.listed-horses.index');
@@ -143,31 +145,81 @@ class ListedHorseController extends Controller
      * @param  \App\Models\ListedHorse  $horse
      * @return \Illuminate\Http\Response
      */
-    public function edit(ListedHorse $horse)
+    public function edit(ListedHorse $ListedHorse)
     {
-        //
+      $horsesTypes = HorseType::where('status', 1)->get();
+      $horsesPassports = HorsePassport::where('status', 1)->get();
+
+      return view('admin.horses.listed-horses.edit', compact('ListedHorse', 'horsesTypes', 'horsesPassports'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ListedHorse  $horse
+     * @param  \App\Models\ListedHorse  $listedHorse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ListedHorse $horse)
+    public function update(UpdateListedHorseRequest $request, ListedHorse $listedHorse)
     {
-        //
+      $listedHorse->update($request->validated());
+      if ($request->input('photos', false)) {
+        $photos = $listedHorse->photos->toArray();
+        $newPhotos = $request->photos;
+        $toDelete = [];
+        for ($i = 0; $i < count($photos); $i++) {
+          if (($key = array_search($photos[$i]['file_name'], $newPhotos)) === false) {
+            array_push($toDelete, $photos[$i]['id']);
+          } else {
+            unset($newPhotos[$key]);
+          }
+        }
+        Media::whereIn('id', $toDelete)->delete();
+        $newPhotos = array_values($newPhotos);
+
+        foreach ($newPhotos as $photo) {
+          $listedHorse->addMedia(storage_path('tmp/uploads/' . basename($photo)))->toMediaCollection('photos');
+        }
+      }
+      if ($request->input('videos', false)) {
+        $videos = $listedHorse->videos->toArray();
+        $newVideos = $request->videos;
+        $toDelete = [];
+        for ($i = 0; $i < count($videos); $i++) {
+          if (($key = array_search($videos[$i]['file_name'], $newVideos)) === false) {
+            array_push($toDelete, $videos[$i]['id']);
+          } else {
+            unset($newVideos[$key]);
+          }
+        }
+        Media::whereIn('id', $toDelete)->delete();
+        $newVideos = array_values($newVideos);
+
+        foreach ($newVideos as $video) {
+          $listedHorse->addMedia(storage_path('tmp/uploads/' . basename($video)))->toMediaCollection('videos');
+        }
+      }
+      Toastr::success(__('listedHorses.message.update.success'));
+
+      return redirect()->route('horses.listed-horses.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ListedHorse  $horse
+     * @param  \App\Models\ListedHorse  $listedHorse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ListedHorse $horse)
+    public function destroy(ListedHorse $listedHorse)
     {
         //
     }
+
+        /**
+         * Get the value of listedHorse
+         */
+        public function getListedHorse()
+        {
+          return $this->listedHorse;
+        }
 }

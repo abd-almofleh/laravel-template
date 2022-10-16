@@ -11,7 +11,6 @@
     }
   </style>
 @endpush
-
 @section('content')
   <form method="POST" action="{{ route('horses.listed-horses.store') }}" enctype="multipart/form-data">
     @csrf()
@@ -305,7 +304,7 @@
 
                   <div class="form-group">
                     <label for="meta_description" class="required">{{ __('default.form.meta_description') }}:</label>
-                    <textarea name="meta_description" id="meta_description" class="form-control" rows="10">{{ old('meta_keywords') }}</textarea>
+                    <textarea name="meta_description" id="meta_description" class="form-control" rows="10">{{ old('meta_description') }}</textarea>
 
                     @error('meta_keywords')
                       <span class="text-danger">{{ $message }}</span>
