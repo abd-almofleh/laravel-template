@@ -38,7 +38,7 @@ class ListedHorseController extends Controller
     public function index(Request $request)
     {
       if ($request->ajax()) {
-        $data = ListedHorse::with(['type' => function ($query) {
+        $data = ListedHorse::withTrashed()->with(['type' => function ($query) {
           $query->select(['id', 'name']);
         }])->get();
         return DataTables::of($data)
@@ -51,7 +51,7 @@ class ListedHorseController extends Controller
               } else {
                 $view = '';
               }
-              if (Auth::user()->can('horses-edit')) {
+              if (Auth::user()->can('horses-edit') && $row->deleted_at === null) {
                 $edit = '<a href="' . route('horses.listed-horses.edit', $row->id) . '" class="custom-edit-btn mr-1">
                                     <i class="fe fe-pencil"></i> ' . __('default.form.edit-button') . '
                                 </a>';
@@ -59,7 +59,7 @@ class ListedHorseController extends Controller
                 $edit = '';
               }
 
-              if (Auth::user()->can('horses-delete')) {
+              if (Auth::user()->can('horses-delete') && $row->deleted_at === null) {
                 $delete = '<button class="custom-delete-btn remove-listed-horse" data-id="' . $row->id . '" data-action="' . route('horses.listed-horses.destroy', $row->id) . '">
             <i class="fe fe-trash"></i> ' . __('default.form.delete-button') . '
           </button>';
@@ -131,12 +131,12 @@ class ListedHorseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ListedHorse  $ListedHorse
+     * @param  \App\Models\ListedHorse  $listedHorse
      * @return \Illuminate\Http\Response
      */
-    public function show(ListedHorse $ListedHorse)
+    public function show(ListedHorse $listedHorse)
     {
-      return view('admin.horses.listed-horses.show', compact('ListedHorse'));
+      return view('admin.horses.listed-horses.show', compact('listedHorse'));
     }
 
     /**
@@ -145,12 +145,12 @@ class ListedHorseController extends Controller
      * @param  \App\Models\ListedHorse  $horse
      * @return \Illuminate\Http\Response
      */
-    public function edit(ListedHorse $ListedHorse)
+    public function edit(ListedHorse $listedHorse)
     {
       $horsesTypes = HorseType::where('status', 1)->get();
       $horsesPassports = HorsePassport::where('status', 1)->get();
 
-      return view('admin.horses.listed-horses.edit', compact('ListedHorse', 'horsesTypes', 'horsesPassports'));
+      return view('admin.horses.listed-horses.edit', compact('listedHorse', 'horsesTypes', 'horsesPassports'));
     }
 
     /**
@@ -212,14 +212,10 @@ class ListedHorseController extends Controller
      */
     public function destroy(ListedHorse $listedHorse)
     {
-        //
-    }
+      $listedHorse->delete();
 
-        /**
-         * Get the value of listedHorse
-         */
-        public function getListedHorse()
-        {
-          return $this->listedHorse;
-        }
+      Toastr::success(__('listedHorses.message.destroy.success'));
+
+      return redirect()->route('horses.listed-horses.index');
+    }
 }

@@ -12,7 +12,7 @@
   </style>
 @endpush
 @section('content')
-  <form method="POST" action="{{ route('horses.listed-horses.update', $ListedHorse->id) }}" enctype="multipart/form-data">
+  <form method="POST" action="{{ route('horses.listed-horses.update', $listedHorse->id) }}" enctype="multipart/form-data">
     @csrf()
     @method('PUT')
 
@@ -30,7 +30,7 @@
               </li>
               <li class="breadcrumb-item active-breadcrumb">
                 <a
-                   href="{{ route('horses.listed-horses.edit', $ListedHorse->id) }}">{{ __('listedHorses.edit.title') }}</a>
+                   href="{{ route('horses.listed-horses.edit', $listedHorse->id) }}">{{ __('listedHorses.edit.title') }}</a>
               </li>
             </ul>
           </div>
@@ -80,7 +80,7 @@
                     <label for="name" class="required">{{ __('default.form.name') }}:</label>
                     <input type="text" name="name" id="name"
                            class="form-control @error('name') form-control-error @enderror" required="required"
-                           value="{{ old('name', $ListedHorse->name) }}">
+                           value="{{ old('name', $listedHorse->name) }}">
 
                     @error('name')
                       <span class="text-danger">{{ $message }}</span>
@@ -91,9 +91,9 @@
 
                     <select type="text" name="sex" id="sex"
                             class="form-control @error('sex') form-control-error @enderror" required="required">
-                      <option value="1" @if (old('sex', $ListedHorse->sex) == 1) selected @endif>
+                      <option value="1" @if (old('sex', $listedHorse->sex) == 1) selected @endif>
                         {{ __('default.sex.male') }}</option>
-                      <option value="0" @if (old('sex', $ListedHorse->sex) == 0) selected @endif>
+                      <option value="0" @if (old('sex', $listedHorse->sex) == 0) selected @endif>
                         {{ __('default.sex.female') }}
                       </option>
                     </select>
@@ -112,7 +112,7 @@
 
                       <option value="">{{ __('default.form.choose_horse_type') }}</option>
                       @foreach ($horsesTypes as $horsesType)
-                        <option value="{{ $horsesType->id }}" @if (old('type_id', $ListedHorse->type_id) == $horsesType->id) selected @endif>
+                        <option value="{{ $horsesType->id }}" @if (old('type_id', $listedHorse->type_id) == $horsesType->id) selected @endif>
                           {{ $horsesType->name }}</option>
                       @endforeach
 
@@ -128,7 +128,7 @@
                     <label for="race" class="required">{{ __('default.form.race') }}:</label>
                     <input type="text" name="race" id="race"
                            class="form-control @error('race') form-control-error @enderror" required="required"
-                           value="{{ old('race', $ListedHorse->race) }}">
+                           value="{{ old('race', $listedHorse->race) }}">
 
                     @error('race')
                       <span class="text-danger">{{ $message }}</span>
@@ -142,7 +142,7 @@
 
                       <option value="">{{ __('default.form.choose_birth_year') }}</option>
                       @for ($i = config('constants.horse_birth_year.end'); $i >= config('constants.horse_birth_year.start'); $i--)
-                        <option value="{{ $i }}" @if (old('birth_year', $ListedHorse->birth_year) == $i) selected @endif>
+                        <option value="{{ $i }}" @if (old('birth_year', $listedHorse->birth_year) == $i) selected @endif>
                           {{ $i }}</option>
                       @endfor
 
@@ -162,7 +162,7 @@
 
                       <option value="">{{ __('default.form.choose_horse_passport') }}</option>
                       @foreach ($horsesPassports as $horsesPassport)
-                        <option value="{{ $horsesPassport->id }}" @if (old('passport_type_id', $ListedHorse->passport_type_id) == $horsesPassport->id) selected @endif>
+                        <option value="{{ $horsesPassport->id }}" @if (old('passport_type_id', $listedHorse->passport_type_id) == $horsesPassport->id) selected @endif>
                           {{ $horsesPassport->name }}</option>
                       @endforeach
 
@@ -178,7 +178,7 @@
                     <div class="input-group">
                       <input type="number" step="0.1" name="height" id="height"
                              class="form-control @error('height') form-control-error @enderror" required="required"
-                             value="{{ old('height', $ListedHorse->height) }}">
+                             value="{{ old('height', $listedHorse->height) }}">
                       <span class="input-group-text">{{ __('default.form.meter') }}</span>
                     </div>
 
@@ -191,7 +191,7 @@
                     <div class="input-group">
                       <input type="number" step="0.1" name="weight" id="weight"
                              class="form-control @error('weight') form-control-error @enderror" required="required"
-                             value="{{ old('weight', $ListedHorse->weight) }}">
+                             value="{{ old('weight', $listedHorse->weight) }}">
                       <span class="input-group-text">{{ __('default.form.kg') }}</span>
                     </div>
                     @error('weight')
@@ -203,7 +203,7 @@
                     <label for="color" class="required">{{ __('default.form.color') }}:</label>
                     <input type="text" name="color" id="color"
                            class="form-control @error('color') form-control-error @enderror" required="required"
-                           value="{{ old('color', $ListedHorse->color) }}">
+                           value="{{ old('color', $listedHorse->color) }}">
 
                     @error('color')
                       <span class="text-danger">{{ $message }}</span>
@@ -214,7 +214,7 @@
                     <label for="health" class="required">{{ __('default.form.health') }}:</label>
                     <input type="text" name="health" id="health"
                            class="form-control @error('health') form-control-error @enderror" required="required"
-                           value="{{ old('health', $ListedHorse->health) }}">
+                           value="{{ old('health', $listedHorse->health) }}">
 
                     @error('health')
                       <span class="text-danger">{{ $message }}</span>
@@ -225,7 +225,7 @@
                     <label for="contact_number" class="required">{{ __('default.form.contact_number') }}:</label>
                     <input type="tel" name="contact_number" id="contact_number"
                            class="form-control @error('contact_number') form-control-error @enderror"
-                           required="required" value="{{ old('contact_number', $ListedHorse->contact_number) }}">
+                           required="required" value="{{ old('contact_number', $listedHorse->contact_number) }}">
 
                     @error('contact_number')
                       <span class="text-danger">{{ $message }}</span>
@@ -236,7 +236,7 @@
                     <label for="father_name">{{ __('default.form.father_name') }}:</label>
                     <input type="text" name="father_name" id="father_name"
                            class="form-control @error('father_name') form-control-error @enderror"
-                           value="{{ old('father_name', $ListedHorse->father_name) }}">
+                           value="{{ old('father_name', $listedHorse->father_name) }}">
 
                     @error('father_name')
                       <span class="text-danger">{{ $message }}</span>
@@ -246,7 +246,7 @@
                     <label for="mother_name">{{ __('default.form.mother_name') }}:</label>
                     <input type="text" name="mother_name" id="mother_name"
                            class="form-control @error('mother_name') form-control-error @enderror"
-                           value="{{ old('mother_name', $ListedHorse->mother_name) }}">
+                           value="{{ old('mother_name', $listedHorse->mother_name) }}">
 
                     @error('mother_name')
                       <span class="text-danger">{{ $message }}</span>
@@ -255,7 +255,7 @@
                   <div class="form-group">
                     <label for="description" class="required">{{ __('default.form.description') }}:</label>
                     <textarea name="description" id="description" rows="20"
-                              class="form-control @error('description') form-control-error @enderror">{{ old('description', $ListedHorse->description) }}</textarea>
+                              class="form-control @error('description') form-control-error @enderror">{{ old('description', $listedHorse->description) }}</textarea>
 
                     @error('description')
                       <span class="text-danger">{{ $message }}</span>
@@ -297,7 +297,7 @@
                   <div class="form-group">
                     <label for="meta_title" class="required">{{ __('default.form.meta_title') }}:</label>
                     <input type="text" class="form-control" name="meta_title" id="meta_title"
-                           value="{{ old('meta_title', $ListedHorse->meta_title) }}" required>
+                           value="{{ old('meta_title', $listedHorse->meta_title) }}" required>
 
                     @error('meta_title')
                       <span class="text-danger">{{ $message }}</span>
@@ -306,7 +306,7 @@
 
                   <div class="form-group">
                     <label for="meta_description" class="required">{{ __('default.form.meta_description') }}:</label>
-                    <textarea name="meta_description" id="meta_description" class="form-control" rows="10">{{ old('meta_description', $ListedHorse->meta_description) }}</textarea>
+                    <textarea name="meta_description" id="meta_description" class="form-control" rows="10">{{ old('meta_description', $listedHorse->meta_description) }}</textarea>
 
                     @error('meta_keywords')
                       <span class="text-danger">{{ $message }}</span>
@@ -317,7 +317,8 @@
                     <label for="meta_keywords" class="required">{{ __('default.form.meta_keywords') }}:
                       ({{ __('default.form.comma_suppurated') }})</label>
                     <input type="text" class="form-control" name="meta_keywords"
-                           value="{{ old('meta_keywords', $ListedHorse->meta_keywords) }}" id="meta_keywords" required>
+                           value="{{ old('meta_keywords', $listedHorse->meta_keywords) }}" id="meta_keywords"
+                           required>
 
                     @error('meta_keywords')
                       <span class="text-danger">{{ $message }}</span>
@@ -407,8 +408,8 @@
         }
       },
       init: function() {
-        @if (isset($ListedHorse))
-          const files = {!! json_encode($ListedHorse->photos->toArray()) !!}
+        @if (isset($listedHorse))
+          const files = {!! json_encode($listedHorse->photos->toArray()) !!}
           for (let i = 0; i < files.length; i++) {
             var file = files[i];
             this.options.addedfile.call(this, file)
@@ -463,8 +464,8 @@
         }
       },
       init: function() {
-        @if (isset($ListedHorse))
-          const files = {!! json_encode($ListedHorse->videos->toArray()) !!}
+        @if (isset($listedHorse))
+          const files = {!! json_encode($listedHorse->videos->toArray()) !!}
           for (let i = 0; i < files.length; i++) {
             var file = files[i];
             this.options.addedfile.call(this, file)

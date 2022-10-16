@@ -90,4 +90,16 @@ class ListedHorse extends Model implements HasMedia
     }
     return $files;
   }
+
+  /**
+ * Retrieve the model for a bound value.
+ *
+ * @param  mixed  $value
+ * @param  string|null  $field
+ * @return \Illuminate\Database\Eloquent\Model|null
+ */
+public function resolveRouteBinding($value, $field = null)
+{
+  return $this->withTrashed()->where('id', $value)->firstOrFail();
+}
 }

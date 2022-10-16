@@ -60,15 +60,15 @@
               <a href="{{ route('horses.listed-horses.index') }}">{{ __('listedHorses.index.title') }}</a>
             </li>
             <li class="breadcrumb-item active-breadcrumb">
-              <a href="{{ route('horses.listed-horses.show', $ListedHorse->id) }}">{{ __('listedHorses.show.title') }} -
-                ({{ $ListedHorse->name }})</a>
+              <a href="{{ route('horses.listed-horses.show', $listedHorse->id) }}">{{ __('listedHorses.show.title') }} -
+                ({{ $listedHorse->name }})</a>
             </li>
           </ul>
         </div>
         @can('horses-edit')
           <div class="col-md-3">
             <div class="create-btn pull-right">
-              <a href="{{ route('horses.listed-horses.edit', $ListedHorse) }}" class="btn custom-create-btn">
+              <a href="{{ route('horses.listed-horses.edit', $listedHorse) }}" class="btn custom-create-btn">
                 {{ __('default.form.edit-button') }}
               </a>
             </div>
@@ -86,7 +86,7 @@
 
           <div class="card-header">
             <h5 class="card-title">
-              {{ $ListedHorse->name }}
+              {{ $listedHorse->name }}
             </h5>
           </div>
 
@@ -96,7 +96,7 @@
                 <!-- Swiper -->
                 <div class="swiper photosSwiper">
                   <div class="swiper-wrapper">
-                    @foreach ($ListedHorse->photos as $photo)
+                    @foreach ($listedHorse->photos as $photo)
                       <div class="swiper-slide">
                         <img src="{{ $photo->url }}" alt="horse">
                       </div>
@@ -120,7 +120,7 @@
                               {{ __('default.form.id') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->id }}
+                              {{ $listedHorse->id }}
                             </td>
                           </tr>
                           <tr>
@@ -128,7 +128,7 @@
                               {{ __('default.form.name') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->name }}
+                              {{ $listedHorse->name }}
                             </td>
                           </tr>
                           <tr>
@@ -136,7 +136,7 @@
                               {{ __('default.form.sex') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->sex == 1 ? __('default.sex.male') : __('default.sex.female') }}
+                              {{ $listedHorse->sex == 1 ? __('default.sex.male') : __('default.sex.female') }}
                             </td>
                           </tr>
                           <tr>
@@ -145,7 +145,7 @@
                               {{ __('default.form.type') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->type->name }}
+                              {{ $listedHorse->type->name }}
                             </td>
                           </tr>
                           <tr>
@@ -154,7 +154,7 @@
                               {{ __('default.form.race') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->race }}
+                              {{ $listedHorse->race }}
                             </td>
                           </tr>
                           <tr>
@@ -163,7 +163,7 @@
                               {{ __('default.form.birth_year') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->birth_year }}
+                              {{ $listedHorse->birth_year }}
                             </td>
                           </tr>
                           <tr>
@@ -172,7 +172,7 @@
                               {{ __('default.form.passport') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->passport->name }}
+                              {{ $listedHorse->passport->name }}
                             </td>
                           </tr>
                           <tr>
@@ -180,7 +180,7 @@
                               {{ __('default.form.height') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->height }} <small>{{ __('default.form.meter') }}</small>
+                              {{ $listedHorse->height }} <small>{{ __('default.form.meter') }}</small>
                             </td>
                           </tr>
                           <tr>
@@ -188,7 +188,7 @@
                               {{ __('default.form.weight') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->weight }} <small>{{ __('default.form.kg') }}</small>
+                              {{ $listedHorse->weight }} <small>{{ __('default.form.kg') }}</small>
                             </td>
                           </tr>
                           <tr>
@@ -196,7 +196,7 @@
                               {{ __('default.form.color') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->color }}
+                              {{ $listedHorse->color }}
                             </td>
                           </tr>
                           <tr>
@@ -205,7 +205,7 @@
                               {{ __('default.form.health') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->health }}
+                              {{ $listedHorse->health }}
                             </td>
                           </tr>
                           <tr>
@@ -213,26 +213,26 @@
                               {{ __('default.form.contact_number') }}
                             </th>
                             <td>
-                              {{ $ListedHorse->contact_number }}
+                              {{ $listedHorse->contact_number }}
                             </td>
                           </tr>
-                          @if ($ListedHorse->father_name)
+                          @if ($listedHorse->father_name)
                             <tr>
                               <th>
                                 {{ __('default.form.father_name') }}
                               </th>
                               <td>
-                                {{ $ListedHorse->father_name }}
+                                {{ $listedHorse->father_name }}
                               </td>
                             </tr>
                           @endif
-                          @if ($ListedHorse->mother_name)
+                          @if ($listedHorse->mother_name)
                             <tr>
                               <th>
                                 {{ __('default.form.mother_name') }}
                               </th>
                               <td>
-                                {{ $ListedHorse->mother_name }}
+                                {{ $listedHorse->mother_name }}
                               </td>
                             </tr>
                           @endif
@@ -241,7 +241,7 @@
                               {{ __('default.form.description') }}
                             </th>
                             <td>
-                              {!! $ListedHorse->description !!}
+                              {!! $listedHorse->description !!}
                             </td>
                           </tr>
                         </tbody>
@@ -254,7 +254,7 @@
                 <!-- Swiper -->
                 <div class="swiper videosSwiper">
                   <div class="swiper-wrapper">
-                    @foreach ($ListedHorse->videos as $video)
+                    @foreach ($listedHorse->videos as $video)
                       <div class="swiper-slide">
                         <video controls>
 
@@ -294,7 +294,7 @@
                                   {{ __('default.form.meta_title') }}
                                 </th>
                                 <td>
-                                  {{ $ListedHorse->meta_title }}
+                                  {{ $listedHorse->meta_title }}
                                 </td>
                               </tr>
                               <tr>
@@ -302,7 +302,7 @@
                                   {{ __('default.form.meta_description') }}
                                 </th>
                                 <td>
-                                  {{ $ListedHorse->meta_description }}
+                                  {{ $listedHorse->meta_description }}
                                 </td>
                               </tr>
                               <tr>
@@ -310,7 +310,7 @@
                                   {{ __('default.form.meta_keywords') }}
                                 </th>
                                 <td>
-                                  {{ $ListedHorse->meta_keywords }}
+                                  {{ $listedHorse->meta_keywords }}
                                 </td>
                               </tr>
 
