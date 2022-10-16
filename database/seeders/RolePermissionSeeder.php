@@ -8,72 +8,84 @@ use Spatie\Permission\Models\Permission;
 
 class RolePermissionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        $role = Role::create([
-            'name' => 'Super Admin',
-            'code' => 'super_admin',
-        ]);
+  /**
+   * Run the database seeds.
+   *
+   * @return void
+   */
+  public function run()
+  {
+    $role = Role::create([
+      'name' => 'Super Admin',
+      'code' => 'super_admin',
+    ]);
 
-        //create role
-        $role = Role::create([
-            'name' => 'Admin',
-            'code' => 'admin',
-        ]);
+    //create role
+    $role = Role::create([
+      'name' => 'Admin',
+      'code' => 'admin',
+    ]);
 
-        //permission list as array
-        $permissions = [
-            'user-list',
-            'user-create',
-            'user-edit',
-            'user-delete',
+    //permission list as array
+    $permissions = [
+      'user-list',
+      'user-create',
+      'user-edit',
+      'user-delete',
 
-            'profile-index',
+      'profile-index',
 
-            'role-list',
-            'role-create',
-            'role-edit',
-            'role-delete',
+      'role-list',
+      'role-create',
+      'role-edit',
+      'role-delete',
 
-            'permission-list',
-            'permission-create',
-            'permission-edit',
-            'permission-delete',
+      'permission-list',
+      'permission-create',
+      'permission-edit',
+      'permission-delete',
 
-            'cmscategory-list',
-            'cmscategory-create',
-            'cmscategory-edit',
-            'cmscategory-delete',
+      'cmscategory-list',
+      'cmscategory-create',
+      'cmscategory-edit',
+      'cmscategory-delete',
 
-            'cmspage-list',
-            'cmspage-create',
-            'cmspage-edit',
-            'cmspage-delete',
+      'cmspage-list',
+      'cmspage-create',
+      'cmspage-edit',
+      'cmspage-delete',
 
-            'currency-list',
-            'currency-create',
-            'currency-edit',
-            'currency-delete',
+      'horseType-list',
+      'horseType-create',
+      'horseType-edit',
 
-            'file-manager',
-            'websetting-edit',
-            'user-activity',
-            'log-view',
-        ];
+      'horsePassport-list',
+      'horsePassport-create',
+      'horsePassport-edit',
 
-        //create and assign permission 
-        for($i=0; $i<count($permissions); $i++)
-        {
-            $permission = Permission::create(['name' => $permissions[$i]]);
+      'listedHorses-list',
+      'listedHorses-create',
+      'listedHorses-edit',
+      'listedHorses-delete',
+      'listedHorses-show',
 
-            $role->givePermissionTo($permission);
-            $permission->assignRole($role);
-        }
-       
+      'currency-list',
+      'currency-create',
+      'currency-edit',
+      'currency-delete',
+
+      'file-manager',
+      'websetting-edit',
+      'user-activity',
+      'log-view',
+    ];
+
+    //create and assign permission
+    for ($i = 0; $i < count($permissions); $i++) {
+      $permission = Permission::create(['name' => $permissions[$i]]);
+
+      $role->givePermissionTo($permission);
+      $permission->assignRole($role);
     }
+  }
 }
