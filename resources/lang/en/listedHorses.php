@@ -16,6 +16,10 @@ return [
     'header' => 'Listed Horses Information'
 
   ],
+  'show' => [
+    'title' => 'Listed Horses - Show',
+    'header' => 'Listed Horses Information',
+  ],
 
   'delete' => [
     'title' => 'Delete',

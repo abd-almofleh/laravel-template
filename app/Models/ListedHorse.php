@@ -48,6 +48,10 @@ class ListedHorse extends Model implements HasMedia
     'photos',
     'videos',
   ];
+  protected $with = [
+    'type',
+    'passport'
+  ];
 
   public function registerMediaConversions(Media $media = null): void
   {

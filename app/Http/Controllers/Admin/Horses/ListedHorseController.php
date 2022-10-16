@@ -131,12 +131,12 @@ class ListedHorseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ListedHorse  $horse
+     * @param  \App\Models\ListedHorse  $ListedHorse
      * @return \Illuminate\Http\Response
      */
-    public function show(ListedHorse $horse)
+    public function show(ListedHorse $ListedHorse)
     {
-        //
+      return view('admin.horses.listed-horses.show', compact('ListedHorse'));
     }
 
     /**
