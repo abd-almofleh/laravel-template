@@ -29,7 +29,8 @@ Route::prefix('v1')->group(
           }
         );
         Route::middleware('auth:api')->group(function () {
-          Route::post('update-profile', [ProfileController::class, 'update']);
+          Route::get('profile', [ProfileController::class, 'update']);
+          Route::post('profile', [ProfileController::class, 'update']);
         });
       }
     );

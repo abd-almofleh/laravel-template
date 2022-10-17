@@ -17,6 +17,13 @@ class ProfileController extends \App\Http\Controllers\Controller
     $this->middleware('auth:api');
   }
 
+    public function index()
+    {
+      $user = Auth::user();
+
+      return $this->response('success', ['user' => $user]);
+    }
+
     public function update(UpdateCustomerProfileRequest $request)
     {
       $data = $request->validated();
