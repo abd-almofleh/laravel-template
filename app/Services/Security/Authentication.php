@@ -44,4 +44,27 @@ class Authentication
 
     return $token->accessToken;
   }
+
+  public function resetPassword(string $email, string $new_password)
+  {
+    $customer = Customer::where('email', $email)->first();
+    if ($customer) {
+      $customer->password = $new_password;
+      $customer->save();
+    } else {
+      abort(404, 'Account not found!');
+    }
+
+    return response()->noContent();
+  }
+
+  public function checkCustomerEmail(string $email)
+  {
+    $customer = Customer::where('email', $email)->first();
+    if ($customer) {
+      return $customer;
+    } else {
+      abort(404, 'Account not found!');
+    }
+  }
 }

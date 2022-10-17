@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Requests\Api\Auth\CheckCustomerEmailRequest;
+use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterCustomerRequest;
+use App\Http\Requests\Api\Auth\ResetPasswordRequest;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Services\Security\SecurityService;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 /**
  * Class AuthController
@@ -22,7 +27,7 @@ class AuthController extends \App\Http\Controllers\Controller
     $this->middleware('guest:api')->except('logout');
   }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
       $password = $request->input('password');
       $email = $request->input('email');
@@ -44,22 +49,22 @@ class AuthController extends \App\Http\Controllers\Controller
       return $this->response('success', ['user' => $customer, 'access_token' => $token]);
     }
 
-    // public function sendEmailResetPassword(): \Illuminate\ php artisan passport:install Http\Response
-    // {
-  //   if (!$email = \request()->get('email')) {
-  //     throw new \InvalidArgumentException('Email is required!');
-  //   }
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+      $email = $request->email;
+      $new_password = $request->new_password;
+      $this->security->authentication->resetPassword($email,$new_password);
 
-  //   /** @var User $user */
-  //   $user = User::where('email', $email)->first();
-  //   if ($user) {
-  //     $user->sendEmailResetPassword();
-  //   } else {
-  //     abort(404, 'Account not found!');
-  //   }
+      return $this->response('success');
+    }
 
-  //   return response()->noContent();
-    // }
+    public function checkCustomerEmail(CheckCustomerEmailRequest $request)
+    {
+      $email = $request->email;
+      $customer = $this->security->authentication->checkCustomerEmail($email);
+
+      return $this->response('success', compact('customer'));
+    }
 
     /**
      * @param \Illuminate\Http\Request $request

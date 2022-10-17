@@ -17,15 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(
   function () {
-    Route::prefix('auth')->group(
+    Route::prefix('customer/auth')->group(
       function () {
         Route::post('register', [AuthController::class, 'register']);
         Route::post('login', [AuthController::class, 'login']);
+        Route::post('reset-password', [AuthController::class, 'resetPassword']);
+        Route::post('check-email', [AuthController::class, 'checkCustomerEmail']);
       }
     );
   }
 );
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-  return $request->user();
-});
