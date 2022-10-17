@@ -4,15 +4,17 @@ namespace App\Models;
 
 use Hash;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
   use HasFactory;
   use HasApiTokens;
   use Notifiable;
+  use HasRoles;
 
   protected $fillable = [
     'email',
@@ -29,4 +31,12 @@ class Customer extends Model
   {
     $this->attributes['password'] = Hash::make($password);
   }
+    /**
+   * The attributes that should be cast to native types.
+   *
+   * @var array
+   */
+  protected $casts = [
+    'email_verified_at' => 'datetime',
+  ];
 }
