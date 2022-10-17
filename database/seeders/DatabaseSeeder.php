@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
       HorseTypeSeeder::class,
       HorsePassportSeeder::class,
       ListedHorseSeeder::class,
+      ApiRolePermissionSeeder::class,
       CustomerSeeder::class
     ]);
   }

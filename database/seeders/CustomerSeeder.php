@@ -14,6 +14,14 @@ class CustomerSeeder extends Seeder
    */
   public function run()
   {
+    $customer = Customer::create([
+      'name' => 'Abdullah Almofleh',
+      'password' => 'password',
+      'email' => 'customer@temp.com',
+      'phone_number' => '9876536748',
+    ]);
+    $customer->assignRole('customer');
+
     Customer::factory()->count(10)->create();
   }
 }
