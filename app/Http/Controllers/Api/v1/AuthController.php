@@ -66,8 +66,7 @@ class AuthController extends \App\Http\Controllers\Controller
       $email = $request->email;
       $customer = $this->security->authentication->checkCustomerEmail($email);
 
-      return /* A function that returns a JsonResponse. */
-      $this->response('success', compact('customer'));
+      return $this->response('success', compact('customer'));
     }
 
     public function logout(): JsonResponse
