@@ -3,7 +3,10 @@
 namespace App\Services\Security;
 
 use App\Models\Customer;
+use Auth;
 use Exception;
+use Hash;
+use Illuminate\Auth\AuthenticationException;
 
 class Authentication
 {
@@ -23,9 +26,21 @@ class Authentication
     return $customer;
   }
 
-  public function createApiToken($user, $tag = null)
+  public function login_customer(string $email, string $password)
   {
-    $token = $user->createToken(($tag ? "_$tag" : ''));
+    $customer = Customer::where('email', 'LIKE', $email)->first();
+    if (!$customer || !Hash::check($password, $customer->password)) {
+      throw new AuthenticationException('Invalid username or password');
+    }
+
+    $accessToken = $this->createApiToken($customer);
+
+    return ['user' => $customer, 'access_token' => $accessToken];
+  }
+
+  public function createApiToken($user, $tag = 'authToken')
+  {
+    $token = $user->createToken($tag);
 
     return $token->accessToken;
   }
