@@ -9,7 +9,9 @@ use App\Http\Requests\Api\Auth\ResetPasswordRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Services\Security\SecurityService;
+use Auth;
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Http\JsonResponse;
 
 /**
  * Class AuthController
@@ -25,9 +27,10 @@ class AuthController extends \App\Http\Controllers\Controller
     $this->security = $security;
 
     $this->middleware('guest:api')->except('logout');
+    $this->middleware('auth:api')->only('logout');
   }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
       $password = $request->input('password');
       $email = $request->input('email');
@@ -36,7 +39,7 @@ class AuthController extends \App\Http\Controllers\Controller
       return $this->response('success', $data);
     }
 
-    public function register(RegisterCustomerRequest $request)
+    public function register(RegisterCustomerRequest $request): JsonResponse
     {
       $name = $request->input('name');
       $password = $request->input('password');
@@ -49,33 +52,27 @@ class AuthController extends \App\Http\Controllers\Controller
       return $this->response('success', ['user' => $customer, 'access_token' => $token]);
     }
 
-    public function resetPassword(ResetPasswordRequest $request)
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
       $email = $request->email;
       $new_password = $request->new_password;
-      $this->security->authentication->resetPassword($email,$new_password);
+      $this->security->authentication->resetPassword($email, $new_password);
 
       return $this->response('success');
     }
 
-    public function checkCustomerEmail(CheckCustomerEmailRequest $request)
+    public function checkCustomerEmail(CheckCustomerEmailRequest $request): JsonResponse
     {
       $email = $request->email;
       $customer = $this->security->authentication->checkCustomerEmail($email);
 
-      return $this->response('success', compact('customer'));
+      return /* A function that returns a JsonResponse. */
+      $this->response('success', compact('customer'));
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    // public function logout(Request $request): \Illuminate\Http\JsonResponse
-    // {
-  //   $request->user()->token()->revoke();
-  //   return response()->json([
-  //     'message' => 'Successfully logged out',
-  //   ]);
-    // }->provider_id = $userDetails->id;
+    public function logout(): JsonResponse
+    {
+      $this->security->authentication->logOutCustomer(Auth::user());
+      return $this->response('Successfully logged out');
+    }
 }

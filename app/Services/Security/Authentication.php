@@ -67,4 +67,9 @@ class Authentication
       abort(404, 'Account not found!');
     }
   }
+
+  public function logOutCustomer($user)
+  {
+    $user->token()->revoke();
+  }
 }
