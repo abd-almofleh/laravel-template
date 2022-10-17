@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('web');
-    }
+  public function __construct()
+  {
+    $this->middleware('web');
+  }
 
-    public function index()
-    {
-        return view('frontend.index');
-    }
+  public function index(Request $request)
+  {
+    // dd($request);
+    return view('frontend.index');
+  }
 }
