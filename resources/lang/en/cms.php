@@ -34,6 +34,8 @@ return [
       'add-button' => 'Add New CMS Category',
     ],
 
+    'cms_category_information' => 'CMS Category Information',
+
     'message' => [
       'store' => [
         'success' => 'CMS Category added successfully!',

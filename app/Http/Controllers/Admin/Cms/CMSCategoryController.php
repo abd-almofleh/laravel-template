@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Cms\Categories\StoreCmsCategoryRequest;
 use App\Http\Requests\Admin\Cms\Categories\UpdateCmsCategoryStatusRequest;
 use App\Models\CmsCategory;
 use Auth;
@@ -61,35 +62,21 @@ class CMSCategoryController extends Controller
 
   public function create()
   {
-    return view('admin.cmspages.cmscategories.create');
+    return view('admin.cms.categories.create');
   }
 
-  public function store(Request $request)
+  public function store(StoreCmsCategoryRequest $request)
   {
-    $rules = [
-      'name'   => 'required|string|unique:cms_categories,name',
-      'slug'   => 'required|string|unique:cms_categories,slug',
-      'status' => 'required|boolean',
-    ];
-
-    $messages = [
-      'name.required'   => __('default.form.validation.name.required'),
-      'name.unique'     => __('default.form.validation.name.unique'),
-      'slug.required'   => __('default.form.validation.slug.required'),
-      'slug.unique'     => __('default.form.validation.slug.unique'),
-      'status.required' => __('default.form.validation.status.required'),
-    ];
-
-    $this->validate($request, $rules, $messages);
-    $input = request()->all();
+    $input = $request->validated();
 
     try {
-      $category = CmsCategory::create($input);
-      Toastr::success(__('cmscategory.message.store.success'));
-      return redirect()->route('cmscategories.index');
+      $x = CmsCategory::create($input);
+
+      Toastr::success(__('cms.category.message.store.success'));
+      return redirect()->route('cms.categories.index');
     } catch (Exception $e) {
-      Toastr::error(__('cmscategory.message.store.error'));
-      return redirect()->route('cmscategories.index');
+      Toastr::error(__('cms.category.message.store.error'));
+      return redirect()->route('cms.categories.index');
     }
   }
 
