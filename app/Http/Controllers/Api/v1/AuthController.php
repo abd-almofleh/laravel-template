@@ -30,6 +30,13 @@ class AuthController extends \App\Http\Controllers\Controller
     $this->middleware('auth:api')->only('logout');
   }
 
+/**
+ * It takes a LoginRequest object, authenticates the user, and returns a JsonResponse object
+ *
+ * @param LoginRequest request The request object
+ *
+ * @return JsonResponse The response is being returned as a JsonResponse.
+ */
     public function login(LoginRequest $request): JsonResponse
     {
       $password = $request->input('password');
@@ -39,6 +46,13 @@ class AuthController extends \App\Http\Controllers\Controller
       return $this->response('success', $data);
     }
 
+/**
+ * It takes a request, creates a customer, creates a token, and returns a response
+ *
+ * @param RegisterCustomerRequest request The request object
+ *
+ * @return JsonResponse The response is being returned as a JsonResponse.
+ */
     public function register(RegisterCustomerRequest $request): JsonResponse
     {
       $name = $request->input('name');
@@ -61,6 +75,13 @@ class AuthController extends \App\Http\Controllers\Controller
       return $this->response('success');
     }
 
+/**
+ * It checks if a customer exists in the database, and if so, returns the customer's information.
+ *
+ * @param CheckCustomerEmailRequest request The request object
+ *
+ * @return JsonResponse The response is a JSON object with a status and a data object.
+ */
     public function checkCustomerEmail(CheckCustomerEmailRequest $request): JsonResponse
     {
       $email = $request->email;
@@ -69,6 +90,12 @@ class AuthController extends \App\Http\Controllers\Controller
       return $this->response('success', compact('customer'));
     }
 
+  /**
+   * It logs out the user by calling the `logOutCustomer` function on the `authentication` object of the
+   * `security` object
+   *
+   * @return JsonResponse A JsonResponse object.
+   */
     public function logout(): JsonResponse
     {
       $this->security->authentication->logOutCustomer(Auth::user());
