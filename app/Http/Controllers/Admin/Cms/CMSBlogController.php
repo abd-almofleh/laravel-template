@@ -156,16 +156,15 @@ class CMSBlogController extends Controller
     }
   }
 
-  public function destroy()
+  public function destroy(CmsBlog $blog)
   {
-    $id = request()->input('id');
-
     try {
-      CmsPage::find($id)->delete();
-      return back()->with(Toastr::error(__('cms.message.destroy.success')));
+      $blog->delete();
+      Toastr::error(__('cms.blogs.message.destroy.success'));
+      return redirect()->route('cms.blogs.index');
     } catch (Exception $e) {
-      $error_msg = Toastr::error(__('cms.message.destroy.error'));
-      return redirect()->route('cmspages.index')->with($error_msg);
+      Toastr::error(__('cms.blogs.message.destroy.error'));
+      return redirect()->route('cms.blogs.index');
     }
   }
 

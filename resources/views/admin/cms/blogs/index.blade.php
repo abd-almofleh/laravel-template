@@ -139,9 +139,8 @@
           var id = current_object.attr('data-id');
 
           $('body').html("<form class='form-inline remove-form' method='POST' action='" + action + "'></form>");
-          $('body').find('.remove-form').append('<input name="_method" type="hidden" value="post">');
+          $('body').find('.remove-form').append('<input name="_method" type="hidden" value="delete">');
           $('body').find('.remove-form').append('<input name="_token" type="hidden" value="' + token + '">');
-          $('body').find('.remove-form').append('<input name="id" type="hidden" value="' + id + '">');
           $('body').find('.remove-form').submit();
         }
       });
