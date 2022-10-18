@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Cms\Categories\StoreCmsCategoryRequest;
+use App\Http\Requests\Admin\Cms\Categories\UpdateCmsCategoryRequest;
 use App\Http\Requests\Admin\Cms\Categories\UpdateCmsCategoryStatusRequest;
 use App\Models\CmsCategory;
 use Auth;
@@ -12,8 +13,13 @@ use DataTables;
 use Brian2694\Toastr\Facades\Toastr;
 use Exception;
 
+/* It's a controller class that has methods to create and update categories. */
 class CMSCategoryController extends Controller
 {
+  /**
+   * The above function is a constructor function that is used to define the middleware for the
+   * controller
+   */
   public function __construct()
   {
     $this->middleware('auth');
@@ -22,6 +28,13 @@ class CMSCategoryController extends Controller
     $this->middleware('permission:cms.category:edit', ['only' => ['edit', 'update', 'update_status']]);
   }
 
+  /**
+   * It returns the data in the form of a table.
+   *
+   * @param Request request The request object.
+   *
+   * @return The view is being returned.
+   */
   public function index(Request $request)
   {
     if ($request->ajax()) {
@@ -60,17 +73,29 @@ class CMSCategoryController extends Controller
     return view('admin.cms.categories.index');
   }
 
+  /**
+   * It returns a view called `admin.cms.categories.create`
+   *
+   * @return A view.
+   */
   public function create()
   {
     return view('admin.cms.categories.create');
   }
 
+  /**
+   * It creates a new category and redirects to the index page.
+   *
+   * @param StoreCmsCategoryRequest request The request object.
+   *
+   * @return The return value of the last statement in the try block.
+   */
   public function store(StoreCmsCategoryRequest $request)
   {
     $input = $request->validated();
 
     try {
-      $x = CmsCategory::create($input);
+      CmsCategory::create($input);
 
       Toastr::success(__('cms.category.message.store.success'));
       return redirect()->route('cms.categories.index');
@@ -80,42 +105,48 @@ class CMSCategoryController extends Controller
     }
   }
 
-  public function edit($id)
+  /**
+   * It returns a view called `admin.cms.categories.edit` and passes the `category` variable to the view
+   *
+   * @param CmsCategory category The model instance passed to the controller from the route
+   *
+   * @return The view is being returned.
+   */
+  public function edit(CmsCategory $category)
   {
-    $cmscategory = CmsCategory::find($id);
-    return view('admin.cmspages.cmscategories.edit', compact('cmscategory'));
+    return view('admin.cms.categories.edit', compact('category'));
   }
 
-  public function update(Request $request, $id)
+  /**
+   * It updates the category with the given input, and then redirects to the index page.
+   *
+   * @param UpdateCmsCategoryRequest request The request object.
+   * @param CmsCategory category The model instance that should be updated.
+   *
+   * @return The return value of the method is the response that will be sent back to the user's browser.
+   */
+  public function update(UpdateCmsCategoryRequest $request, CmsCategory $category)
   {
-    $rules = [
-      'name'   => 'required|string|unique:cms_categories,name,' . $id,
-      'slug'   => 'required|string|unique:cms_categories,slug,' . $id,
-      'status' => 'required|numeric',
-    ];
-
-    $messages = [
-      'name.required'   => __('default.form.validation.name.required'),
-      'name.unique'     => __('default.form.validation.name.unique'),
-      'slug.required'   => __('default.form.validation.slug.required'),
-      'slug.unique'     => __('default.form.validation.slug.unique'),
-      'status.required' => __('default.form.validation.status.required'),
-    ];
-
-    $this->validate($request, $rules, $messages);
-    $input = $request->all();
-    $cmscategory = CmsCategory::find($id);
+    $input = $request->validated();
 
     try {
-      $cmscategory->update($input);
-      Toastr::success(__('cmscategory.message.update.success'));
-      return redirect()->route('cmscategories.index');
+      $category->update($input);
+      Toastr::success(__('cms.category.message.update.success'));
+      return redirect()->route('cms.categories.index');
     } catch (Exception $e) {
-      Toastr::error(__('cmscategory.message.update.error'));
-      return redirect()->route('cmscategories.index');
+      Toastr::error(__('cms.category.message.update.error'));
+      return redirect()->route('cms.categories.index');
     }
   }
 
+  /**
+   * It updates the status of a category
+   *
+   * @param UpdateCmsCategoryStatusRequest request The request object.
+   * @param CmsCategory category The model instance that will be updated.
+   *
+   * @return The response is being returned as a JSON object.
+   */
   public function update_status(UpdateCmsCategoryStatusRequest $request, CmsCategory $category)
   {
     if (!$category) {
