@@ -12,7 +12,6 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
-
 /**
  * App\Models\User
  *
@@ -60,47 +59,50 @@ use Haruncpi\LaravelUserActivity\Traits\Loggable;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens, HasRoles, Loggable;
+  use HasFactory;
+  use Notifiable;
+  use HasApiTokens;
+  use HasRoles;
+  use Loggable;
 
-    // protected $guard = 'admin';
+  // protected $guard = 'admin';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'mobile',
-        'image',
-        'status',
-    ];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+    'name',
+    'email',
+    'password',
+    'mobile',
+    'image',
+    'status',
+  ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+  /**
+   * The attributes that should be hidden for arrays.
+   *
+   * @var array
+   */
+  protected $hidden = [
+    'password',
+    'remember_token',
+  ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-    
+  /**
+   * The attributes that should be cast to native types.
+   *
+   * @var array
+   */
+  protected $casts = [
+    'email_verified_at' => 'datetime',
+  ];
 
-    public function getRoleCodes()
-    {
-        $user = Auth::user();
-        return $roles = Role::where('name',$user->getRoleNames())->get();
-    }
+  public function getRoleCodes()
+  {
+    $user = Auth::user();
+    return $roles = Role::where('name', $user->getRoleNames())->get();
+  }
 }
