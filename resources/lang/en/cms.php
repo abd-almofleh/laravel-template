@@ -2,51 +2,101 @@
 
 return [
 
+  'category' => [
+
     'index' => [
-        'title' => 'CMS Pages',
+      'title' => 'CMS Categories',
     ],
 
     'create' => [
-        'title' => 'CMS Page Create',
+      'title' => 'CMS Category Create',
     ],
 
     'edit' => [
-        'title' => 'CMS Page Edit',
+      'title' => 'CMS Category Edit',
     ],
 
     'delete' => [
-        'title' => 'Delete',
+      'title' => 'Delete',
     ],
 
     'profile' => [
-        'title' => 'Profile',
+      'title' => 'Profile',
     ],
 
     'breadcrumb' => [
-        'index' => 'CMS Page',
-        'create' => 'Create',
-        'edit' => 'Edit',
+      'index' => 'CMS Category',
+      'create' => 'Create',
+      'edit' => 'Edit',
     ],
 
     'form' => [
-        'add-button'        => 'Add New CMS Page',
+      'add-button' => 'Add New CMS Category',
     ],
 
     'message' => [
-        'store' => [
-            'success'   => 'CMS Page added successfully!',
-            'error'     => 'There is an error! Please try later!',
-        ],
+      'store' => [
+        'success' => 'CMS Category added successfully!',
+        'error' => 'There is an error! Please try later!',
+      ],
 
-        'update' => [
-            'success'   => 'CMS Page updated successfully!',
-            'error'     => 'There is an error! Please try later!',
-        ],
+      'update' => [
+        'success' => 'CMS Category updated successfully!',
+        'error' => 'There is an error! Please try later!',
+      ],
 
-        'destroy' => [
-            'success'   => 'CMS Page deleted successfully!',
-            'error'     => 'There is an error! Please try later!',
-        ],
-    ]
+      'destroy' => [
+        'success' => 'CMS Category deleted successfully!',
+        'error' => 'There is an error! Please try later!',
+      ],
+    ],
+  ],
+
+  'index' => [
+    'title' => 'CMS Pages',
+  ],
+
+  'create' => [
+    'title' => 'CMS Page Create',
+  ],
+
+  'edit' => [
+    'title' => 'CMS Page Edit',
+  ],
+
+  'delete' => [
+    'title' => 'Delete',
+  ],
+
+  'profile' => [
+    'title' => 'Profile',
+  ],
+
+  'breadcrumb' => [
+    'index' => 'CMS Page',
+    'create' => 'Create',
+    'edit' => 'Edit',
+  ],
+
+  'form' => [
+    'add-button' => 'Add New CMS Page',
+  ],
+
+  'message' => [
+    'store' => [
+      'success' => 'CMS Page added successfully!',
+      'error' => 'There is an error! Please try later!',
+    ],
+
+    'update' => [
+      'success' => 'CMS Page updated successfully!',
+      'error' => 'There is an error! Please try later!',
+    ],
+
+    'destroy' => [
+      'success' => 'CMS Page deleted successfully!',
+      'error' => 'There is an error! Please try later!',
+    ],
+  ],
 
 ];
