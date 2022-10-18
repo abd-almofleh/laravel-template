@@ -25,9 +25,9 @@ return [
     ],
 
     'breadcrumb' => [
-      'index' => 'CMS Category',
+      'index'  => 'CMS Category',
       'create' => 'Create',
-      'edit' => 'Edit',
+      'edit'   => 'Edit',
     ],
 
     'form' => [
@@ -39,65 +39,71 @@ return [
     'message' => [
       'store' => [
         'success' => 'CMS Category added successfully!',
-        'error' => 'There is an error! Please try later!',
+        'error'   => 'There is an error! Please try later!',
       ],
 
       'update' => [
         'success' => 'CMS Category updated successfully!',
-        'error' => 'There is an error! Please try later!',
+        'error'   => 'There is an error! Please try later!',
       ],
 
       'destroy' => [
         'success' => 'CMS Category deleted successfully!',
-        'error' => 'There is an error! Please try later!',
+        'error'   => 'There is an error! Please try later!',
       ],
     ],
   ],
+  'blogs' => [
 
-  'index' => [
-    'title' => 'CMS Pages',
-  ],
-
-  'create' => [
-    'title' => 'CMS Page Create',
-  ],
-
-  'edit' => [
-    'title' => 'CMS Page Edit',
-  ],
-
-  'delete' => [
-    'title' => 'Delete',
-  ],
-
-  'profile' => [
-    'title' => 'Profile',
-  ],
-
-  'breadcrumb' => [
-    'index' => 'CMS Page',
-    'create' => 'Create',
-    'edit' => 'Edit',
-  ],
-
-  'form' => [
-    'add-button' => 'Add New CMS Page',
-  ],
-
-  'message' => [
-    'store' => [
-      'success' => 'CMS Page added successfully!',
-      'error' => 'There is an error! Please try later!',
+    'index' => [
+      'title' => 'Blogs',
     ],
 
-    'update' => [
-      'success' => 'CMS Page updated successfully!',
-      'error' => 'There is an error! Please try later!',
+    'create' => [
+      'title' => 'Blogs: Create',
     ],
 
-    'destroy' => [
-      'success' => 'CMS Page deleted successfully!',
-      'error' => 'There is an error! Please try later!',
+    'edit' => [
+      'title' => 'Blogs: Edit',
+    ],
+
+    'delete' => [
+      'title' => 'Delete',
+    ],
+
+    'profile' => [
+      'title' => 'Profile',
+    ],
+
+    'status' => [
+      'published' => 'Published',
+      'draft'     => 'Draft',
+    ],
+    'breadcrumb' => [
+      'index'  => 'Blogs',
+      'create' => 'Create',
+      'edit'   => 'Edit',
+    ],
+
+    'form' => [
+      'add-button' => 'Add New Blog',
+    ],
+
+    'message' => [
+      'store' => [
+        'success' => 'Blog added successfully!',
+        'error'   => 'There is an error! Please try later!',
+      ],
+
+      'update' => [
+        'success' => 'Blog updated successfully!',
+        'error'   => 'There is an error! Please try later!',
+      ],
+
+      'destroy' => [
+        'success' => 'Blog deleted successfully!',
+        'error'   => 'There is an error! Please try later!',
+      ],
     ],
   ],
 

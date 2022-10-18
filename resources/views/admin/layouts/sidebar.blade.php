@@ -20,7 +20,7 @@
         <!-- /Dashboard -->
 
         <!-- CMS -->
-        @if (auth()->user()->can('cmspage-list') ||
+        @if (auth()->user()->can('cms.blog:list') ||
             auth()->user()->can('cms.category:list'))
           <li class="submenu">
             <a class="" href="javascript:void(0)" aria-expanded="false">
@@ -39,11 +39,11 @@
                 </li>
               @endcan
 
-              @can('cmspage-list')
+              @can('cms.blog:list')
                 <li>
-                  <a href="{{ route('cmspages.index') }}" title="{{ __('sidebar.cms-pages') }}"
-                     class="sidebar-link {{ request()->is('admin/cmspage*') ? 'active' : '' }}">
-                    <span class="hide-menu">{{ __('sidebar.cms-pages') }}</span>
+                  <a href="{{ route('cms.blogs.index') }}" title="{{ __('sidebar.cms.blogs') }}"
+                     class="sidebar-link {{ request()->is('admin/cms/blogs*') ? 'active' : '' }}">
+                    <span class="hide-menu">{{ __('sidebar.cms.blogs') }}</span>
                   </a>
                 </li>
               @endcan

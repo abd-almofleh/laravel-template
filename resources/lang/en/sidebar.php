@@ -24,11 +24,10 @@ return [
   'settings' => 'Settings',
 
   'cms' => [
-    'title'    => 'CMS',
+    'title'      => 'CMS',
     'categories' => 'Categories',
-
+    'blogs'      => 'Blogs',
   ],
-  'cms-pages' => 'CMS Pages',
 
   'horses' => [
     'menu_title'      => 'Horses',

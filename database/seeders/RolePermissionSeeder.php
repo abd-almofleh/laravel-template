@@ -46,12 +46,12 @@ class RolePermissionSeeder extends Seeder
       'cms.category:list',
       'cms.category:create',
       'cms.category:edit',
-      'cms.category:delete',
 
-      'cmspage-list',
-      'cmspage-create',
-      'cmspage-edit',
-      'cmspage-delete',
+      'cms.blog:list',
+      'cms.blog:create',
+      'cms.blog:edit',
+      'cms.blog:delete',
+      'cms.blog:show',
 
       'horseType-list',
       'horseType-create',

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
       AdminSeeder::class,
       CurrencySeeder::class,
       CmsCategorySeeder::class,
+      CmsBlogSeeder::class,
       SettingSeeder::class,
       HorseTypeSeeder::class,
       HorsePassportSeeder::class,
