@@ -74,6 +74,9 @@ return [
     'profile' => [
       'title' => 'Profile',
     ],
+    'show' => [
+      'title' => 'Show',
+    ],
 
     'status' => [
       'published' => 'Published',
@@ -85,7 +88,7 @@ return [
       'edit'   => 'Edit',
     ],
 
-    'blog_information' => 'Blog Information',
+    'blog_information'     => 'Blog Information',
     'choose_blog_category' => 'Choose Blog Category',
 
     'form' => [

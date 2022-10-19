@@ -50,9 +50,10 @@
               <tr>
                 <th class="">{{ __('default.table.sl') }}</th>
                 <th class="">{{ __('default.table.title') }}</th>
-                <th class="">{{ __('default.table.slug') }}</th>
                 <th class="">{{ __('default.table.category') }}</th>
                 <th class="">{{ __('default.table.status') }}</th>
+                <th class="">{{ __('default.table.can_publish') }}</th>
+                <th class="">{{ __('default.table.author') }}</th>
 
                 @if (auth()->user()->can('cms.blogs:edit') ||
                     auth()->user()->can('cms.blogs:delete'))
@@ -93,16 +94,21 @@
             name: 'title'
           },
           {
-            data: 'slug',
-            name: 'slug'
-          },
-          {
             data: 'categoryName',
             name: 'category'
           },
+
           {
             data: 'status',
             name: 'status'
+          },
+          {
+            data: 'canPublish',
+            name: 'can_publish'
+          },
+          {
+            data: 'author_name',
+            name: 'author'
           },
 
           @if (auth()->user()->can('cms.blogs:edit') ||

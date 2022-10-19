@@ -26,6 +26,8 @@ return [
     'type'           => 'Type',
     'contact_number' => 'Contact Number',
     'no_category'    => 'No Category',
+    'can_publish'    => 'Can be published?',
+    'author'         => 'Author',
 
   ],
 

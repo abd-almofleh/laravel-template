@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
 use Spatie\Image\Manipulations;
@@ -13,6 +14,15 @@ class CmsBlog extends Model implements HasMedia
 {
   use  Loggable;
   use InteractsWithMedia;
+
+  protected static function boot()
+  {
+    parent::boot();
+
+    CmsBlog::creating(function ($model) {
+      $model->author_id = Auth::user()->id;
+    });
+  }
 
   /**
    * The attributes that are mass assignable.
@@ -38,6 +48,7 @@ class CmsBlog extends Model implements HasMedia
 
   protected $with = [
     'category:id,name',
+    'author',
   ];
 
   protected $dates = [
@@ -69,6 +80,11 @@ class CmsBlog extends Model implements HasMedia
   public function category()
   {
     return $this->belongsTo(CmsCategory::class, 'cms_category_id');
+  }
+
+  public function author()
+  {
+    return $this->belongsTo(User::class, 'author_id');
   }
   protected $casts = [
     'created_at' => 'datetime',

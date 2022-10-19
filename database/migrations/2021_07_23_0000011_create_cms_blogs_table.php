@@ -27,7 +27,12 @@ class CreateCmsBlogsTable extends Migration
         $table->text('meta_description_en')->nullable();
         $table->text('meta_keywords_ar')->nullable();
         $table->text('meta_keywords_en')->nullable();
+        $table->unsignedBigInteger('author_id');
+
         $table->timestamps();
+
+        $table->foreign('author_id')->references('id')->on('users');
+
       });
     }
   }

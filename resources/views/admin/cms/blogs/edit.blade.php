@@ -29,7 +29,8 @@
                 <a href="{{ route('cms.blogs.index') }}">{{ __('cms.blogs.index.title') }}</a>
               </li>
               <li class="breadcrumb-item active-breadcrumb">
-                <a href="{{ route('cms.blogs.edit', $blog) }}">{{ __('cms.blogs.edit.title') }}</a>
+                <a href="{{ route('cms.blogs.edit', $blog) }}">{{ __('cms.blogs.edit.title') }} -
+                  ({{ $blog->title_en }})</a>
               </li>
             </ul>
           </div>

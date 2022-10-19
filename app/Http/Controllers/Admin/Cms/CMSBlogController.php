@@ -62,10 +62,43 @@ class CMSBlogController extends Controller
           ->addColumn('categoryName', function ($row) {
             return $row->category !== null ? $row->category->name : '<span style="color: red;">' . __('default.table.no_category') . '</span>';
           })
+          ->addColumn('canPublish', function ($row) {
+            if ($row->status === config('constants.blogs.status.published')) {
+              return '--';
+            }
+
+            $fields = [
+              'title_ar',
+              'title_en',
+              'slug',
+              'description_ar',
+              'description_en',
+              'cms_category_id',
+              'status',
+              'meta_title_ar',
+              'meta_title_en',
+              'meta_description_ar',
+              'meta_description_en',
+              'meta_keywords_ar',
+              'meta_keywords_en',
+              'photo',
+
+            ];
+
+            foreach ($fields as $field) {
+              if ($row[$field] === null) {
+                return '<span style="color: red;">' . __('default.no') . '</span>';
+              }
+            }
+            return '<span style="color: green;">' . __('default.yes') . '</span>';
+          })
           ->addColumn('status', function ($row) {
             return $row->status == 1 ? __('cms.blogs.status.published') : __('cms.blogs.status.draft');
           })
-          ->rawColumns(['action', 'categoryName'])
+          ->addColumn('author_name', function ($row) {
+            return $row->author->name;
+          })
+          ->rawColumns(['action', 'categoryName', 'canPublish'])
           ->make(true);
     }
     return view('admin.cms.blogs.index');
@@ -104,9 +137,6 @@ class CMSBlogController extends Controller
   public function update(UpdateCmsBlogRequest $request, CmsBlog $blog)
   {
     $input = $request->validated();
-    // dump($blog->toArray());
-    // dd($input);
-
     try {
       $blog->update($input);
 
@@ -141,7 +171,8 @@ class CMSBlogController extends Controller
     }
   }
 
-  public function status_update(Request $request)
+  public function show(CmsBlog $blog)
   {
+    return view('admin.cms.blogs.show', compact('blog'));
   }
 }
