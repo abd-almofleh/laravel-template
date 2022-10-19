@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class CmsBlog extends Model implements HasMedia
 {
@@ -37,6 +39,32 @@ class CmsBlog extends Model implements HasMedia
   protected $with = [
     'category:id,name',
   ];
+
+  protected $dates = [
+    'created_at',
+    'updated_at',
+  ];
+
+  protected $appends = [
+    'photo',
+  ];
+
+  public function registerMediaConversions(Media $media = null): void
+  {
+    $this->addMediaConversion('thumb')->fit(Manipulations::FIT_CROP, 50, 50)->performOnCollections('photos');
+    $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 120, 120)->performOnCollections('photos');
+  }
+
+  public function getPhotoAttribute(): ?Media
+  {
+    $file = $this->getMedia('photos')->last();
+    if ($file) {
+      $file->url = $file->getUrl();
+      $file->thumbnail = $file->getFullUrl('thumb');
+      $file->preview = $file->getFullUrl('preview');
+    }
+    return $file;
+  }
 
   public function category()
   {

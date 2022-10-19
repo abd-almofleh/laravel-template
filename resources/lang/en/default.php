@@ -97,6 +97,7 @@ return [
     'meter'                    => 'Meter',
     'kg'                       => 'KG',
     'photos'                   => 'Photos',
+    'photo'                    => 'Photo',
     'videos'                   => 'Videos',
     'error'                    => 'Error',
     'following_error_exits'    => 'The Following Error Exits',

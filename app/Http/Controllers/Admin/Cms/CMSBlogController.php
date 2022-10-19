@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\Admin\Cms\Blogs\StoreCmsBlogRequest;
+use App\Http\Requests\Admin\Cms\Blogs\UpdateCmsBlogRequest;
 use App\Models\CmsBlog;
 use App\Models\CmsCategory;
-use App\Models\CmsPage;
 use Auth;
 use DataTables;
 use Brian2694\Toastr\Facades\Toastr;
@@ -31,7 +31,6 @@ class CMSBlogController extends Controller
   {
     if ($request->ajax()) {
       $data = CmsBlog::get();
-
       return Datatables::of($data)
           ->addIndexColumn()
           ->addColumn('action', function ($row) {
@@ -96,49 +95,37 @@ class CMSBlogController extends Controller
     }
   }
 
-  public function edit($id)
+  public function edit(CmsBlog $blog)
   {
-    $cmspage = CmsPage::find($id);
-    $cmscategories = CmsCategory::get();
-    return view('admin.cmspages.edit', compact('cmspage', 'cmscategories'));
+    $cms_categories = CmsCategory::get();
+    return view('admin.cms.blogs.edit', compact('blog', 'cms_categories'));
   }
 
-  public function update(Request $request, $id)
+  public function update(UpdateCmsBlogRequest $request, CmsBlog $blog)
   {
-    $rules = [
-      'title' 		          => 'required|string',
-      'slug' 		           => 'string|unique:cms_pages,slug,' . $id,
-      'cms_category_id' 	 => 'required|string',
-      'description' 	     => 'required|string',
-      'meta_title' 	      => 'required|string',
-      'meta_description' 	=> 'required|string',
-      'meta_keywords' 	   => 'required|string',
-      'status' 		         => 'required|numeric',
-    ];
-
-    $messages = [
-      'name.required'    		       => __('default.form.validation.name.required'),
-      'slug.required'    	        => __('default.form.validation.slug.required'),
-      'slug.unique'    		         => __('default.form.validation.slug.unique'),
-      'cms_category_id.required'  => __('default.form.validation.category.required'),
-      'description.required'      => __('default.form.validation.description.required'),
-      'meta_title.required'       => __('default.form.validation.meta_title.required'),
-      'meta_description.required' => __('default.form.validation.meta_description.required'),
-      'meta_keywords.required'    => __('default.form.validation.meta_keywords.required'),
-      'status.required'    	      => __('default.form.validation.status.required'),
-    ];
-
-    $this->validate($request, $rules, $messages);
-    $input = $request->all();
-    $cmspage = CmsPage::find($id);
+    $input = $request->validated();
+    // dump($blog->toArray());
+    // dd($input);
 
     try {
-      $cmspage->update($input);
-      Toastr::success(__('cms.message.update.success'));
-      return redirect()->route('cmspages.index');
+      $blog->update($input);
+
+      if ($request->input('photo', false)) {
+        if (!$blog->photo || $request->input('photo') !== $blog->photo->file_name) {
+          if ($blog->photo) {
+            $blog->photo->delete();
+          }
+          $blog->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photos');
+        }
+      } elseif ($blog->photo) {
+        $blog->photo->delete();
+      }
+
+      Toastr::success(__('cms.blogs.message.update.success'));
+      return redirect()->route('cms.blogs.index');
     } catch (Exception $e) {
-      Toastr::error(__('cms.message.update.error'));
-      return redirect()->route('cmspages.index');
+      Toastr::error(__('cms.blogs.message.update.error'));
+      return redirect()->route('cms.blogs.index');
     }
   }
 
@@ -156,12 +143,5 @@ class CMSBlogController extends Controller
 
   public function status_update(Request $request)
   {
-    $cmspage = CmsPage::find($request->id)->update(['status' => $request->status]);
-
-    if ($request->status == 1) {
-      return response()->json(['message' => 'Status activated successfully.']);
-    } else {
-      return response()->json(['message' => 'Status deactivated successfully.']);
-    }
   }
 }
