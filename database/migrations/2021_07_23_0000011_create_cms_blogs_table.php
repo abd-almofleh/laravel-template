@@ -14,11 +14,11 @@ class CreateCmsBlogsTable extends Migration
     if (!Schema::hasTable('cms_blogs')) {
       Schema::create('cms_blogs', function (Blueprint $table) {
         $table->id();
-        $table->string('title_ar');
-        $table->string('title_en');
-        $table->string('slug')->unique();
-        $table->text('description_ar')->nullable();
-        $table->text('description_en')->nullable();
+        $table->string('title_ar')->nullable();
+        $table->string('title_en')->nullable();
+        $table->string('slug')->unique()->nullable();
+        $table->text('description_ar')->nullable()->nullable();
+        $table->text('description_en')->nullable()->nullable();
         $table->foreignId('cms_category_id')->nullable()->constrained()->onDelete('set null');
         $table->boolean('status')->default(0);
         $table->string('meta_title_ar')->nullable();

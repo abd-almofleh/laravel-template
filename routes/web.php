@@ -98,6 +98,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::patch('/categories/update-status/{category}', [App\Http\Controllers\Admin\Cms\CMSCategoryController::class, 'update_status'])->name('categories.update_status');
         Route::resource('categories', App\Http\Controllers\Admin\Cms\CMSCategoryController::class)->except(['show', 'destroy']);
 
+        Route::post('blogs/media', [App\Http\Controllers\Admin\Cms\CMSBlogController::class, 'storeMedia'])->name('blogs.storeMedia');
         Route::resource('blogs', App\Http\Controllers\Admin\Cms\CMSBlogController::class);
       });
 

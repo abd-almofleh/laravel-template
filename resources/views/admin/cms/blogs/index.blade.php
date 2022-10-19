@@ -97,7 +97,7 @@
             name: 'slug'
           },
           {
-            data: 'category.name',
+            data: 'categoryName',
             name: 'category'
           },
           {

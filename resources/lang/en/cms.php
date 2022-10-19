@@ -85,6 +85,9 @@ return [
       'edit'   => 'Edit',
     ],
 
+    'blog_information' => 'Blog Information',
+    'choose_blog_category' => 'Choose Blog Category',
+
     'form' => [
       'add-button' => 'Add New Blog',
     ],

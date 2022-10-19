@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Cms;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
+use App\Http\Requests\Admin\Cms\Blogs\StoreCmsBlogRequest;
 use App\Models\CmsBlog;
 use App\Models\CmsCategory;
 use App\Models\CmsPage;
@@ -14,6 +16,8 @@ use Exception;
 
 class CMSBlogController extends Controller
 {
+  use MediaUploadingTrait;
+
   public function __construct()
   {
     $this->middleware('auth');
@@ -56,11 +60,13 @@ class CMSBlogController extends Controller
             $action = $view . ' ' . $edit . ' ' . $delete;
             return $action;
           })
-
+          ->addColumn('categoryName', function ($row) {
+            return $row->category !== null ? $row->category->name : '<span style="color: red;">' . __('default.table.no_category') . '</span>';
+          })
           ->addColumn('status', function ($row) {
             return $row->status == 1 ? __('cms.blogs.status.published') : __('cms.blogs.status.draft');
           })
-          ->rawColumns(['action'])
+          ->rawColumns(['action', 'categoryName'])
           ->make(true);
     }
     return view('admin.cms.blogs.index');
@@ -68,45 +74,25 @@ class CMSBlogController extends Controller
 
   public function create()
   {
-    $cmscategories = CmsCategory::where('status', 1)->get();
-    return view('admin.cmspages.create', compact('cmscategories'));
+    $cms_categories = CmsCategory::where('status', 1)->get();
+    return view('admin.cms.blogs.create', compact('cms_categories'));
   }
 
-  public function store(Request $request)
+  public function store(StoreCmsBlogRequest $request)
   {
-    $rules = [
-      'title' 		          => 'required|string',
-      'slug' 		           => 'required|string|unique:cms_pages,slug',
-      'cms_category_id' 	 => 'required|string',
-      'description' 	     => 'required|string',
-      'meta_title' 	      => 'required|string',
-      'meta_description' 	=> 'required|string',
-      'meta_keywords' 	   => 'required|string',
-      'status' 		         => 'required|numeric',
-    ];
-
-    $messages = [
-      'name.required'    		       => __('default.form.validation.name.required'),
-      'slug.required'    	        => __('default.form.validation.slug.required'),
-      'slug.unique'    		         => __('default.form.validation.slug.unique'),
-      'cms_category_id.required'  => __('default.form.validation.category.required'),
-      'description.required'      => __('default.form.validation.description.required'),
-      'meta_title.required'       => __('default.form.validation.meta_title.required'),
-      'meta_description.required' => __('default.form.validation.meta_description.required'),
-      'meta_keywords.required'    => __('default.form.validation.meta_keywords.required'),
-      'status.required'    	      => __('default.form.validation.status.required'),
-    ];
-
-    $this->validate($request, $rules, $messages);
-    $input = request()->all();
+    $input = $request->validated();
 
     try {
-      $cmspage = CmsPage::create($input);
-      Toastr::success(__('cmspages.message.store.success'));
-      return redirect()->route('cmspages.index');
+      $product = CmsBlog::create($input);
+      if ($request->input('photo', false)) {
+        $product->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photos');
+      }
+
+      Toastr::success(__('cms.blogs.message.store.success'));
+      return redirect()->route('cms.blogs.index');
     } catch (Exception $e) {
-      Toastr::error(__('cmspages.message.store.error'));
-      return redirect()->route('cmspages.index');
+      Toastr::error(__('cms.blogs.message.store.error'));
+      return redirect()->route('cms.blogs.index');
     }
   }
 
