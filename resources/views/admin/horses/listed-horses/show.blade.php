@@ -50,7 +50,7 @@
   <div class="page-header">
     <div class="card breadcrumb-card">
       <div class="row justify-content-between align-content-between" style="height: 100%;">
-        <div class="col-md-6">
+        <div class="col-md-9">
           <h3 class="page-title">{{ __('listedHorses.show.title') }}</h3>
           <ul class="breadcrumb">
             <li class="breadcrumb-item">
@@ -131,6 +131,26 @@
                               {{ $listedHorse->name }}
                             </td>
                           </tr>
+                          @if ($listedHorse->father_name)
+                            <tr>
+                              <th>
+                                {{ __('default.form.father_name') }}
+                              </th>
+                              <td>
+                                {{ $listedHorse->father_name }}
+                              </td>
+                            </tr>
+                          @endif
+                          @if ($listedHorse->mother_name)
+                            <tr>
+                              <th>
+                                {{ __('default.form.mother_name') }}
+                              </th>
+                              <td>
+                                {{ $listedHorse->mother_name }}
+                              </td>
+                            </tr>
+                          @endif
                           <tr>
                             <th>
                               {{ __('default.form.sex') }}
@@ -216,34 +236,6 @@
                               {{ $listedHorse->contact_number }}
                             </td>
                           </tr>
-                          @if ($listedHorse->father_name)
-                            <tr>
-                              <th>
-                                {{ __('default.form.father_name') }}
-                              </th>
-                              <td>
-                                {{ $listedHorse->father_name }}
-                              </td>
-                            </tr>
-                          @endif
-                          @if ($listedHorse->mother_name)
-                            <tr>
-                              <th>
-                                {{ __('default.form.mother_name') }}
-                              </th>
-                              <td>
-                                {{ $listedHorse->mother_name }}
-                              </td>
-                            </tr>
-                          @endif
-                          <tr>
-                            <th>
-                              {{ __('default.form.description') }}
-                            </th>
-                            <td>
-                              {!! $listedHorse->description !!}
-                            </td>
-                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -257,7 +249,6 @@
                     @foreach ($listedHorse->videos as $video)
                       <div class="swiper-slide">
                         <video controls>
-
                           <source src="{{ $video->url }}" type="{{ $video->mime_type }}">
                         </video>
 
@@ -270,62 +261,85 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="row">
-            <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-name">{{ __('default.form.seo_information') }}</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <table class="table-bordered table-striped table">
+                              <tbody>
+                                <tr>
+                                  <th>
+                                    {{ __('default.form.meta_title') }}
+                                  </th>
+                                  <td>
+                                    {{ $listedHorse->meta_title }}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    {{ __('default.form.meta_description') }}
+                                  </th>
+                                  <td>
+                                    {{ $listedHorse->meta_description }}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    {{ __('default.form.meta_keywords') }}
+                                  </th>
+                                  <td>
+                                    {{ $listedHorse->meta_keywords }}
+                                  </td>
+                                </tr>
 
-
-              <div class="card">
-
-                <div class="card-header">
-                  <h4 class="card-name">{{ __('default.form.seo_information') }}</h4>
-                </div>
-
-                <div class="card-body">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                          <table class="table-bordered table-striped table">
-                            <tbody>
-                              <tr>
-                                <th>
-                                  {{ __('default.form.meta_title') }}
-                                </th>
-                                <td>
-                                  {{ $listedHorse->meta_title }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <th>
-                                  {{ __('default.form.meta_description') }}
-                                </th>
-                                <td>
-                                  {{ $listedHorse->meta_description }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <th>
-                                  {{ __('default.form.meta_keywords') }}
-                                </th>
-                                <td>
-                                  {{ $listedHorse->meta_keywords }}
-                                </td>
-                              </tr>
-
-                            </tbody>
-                          </table>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!-- end card body -->
+                </div> <!-- end card -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-name">
+                      {{ __('default.form.description') }}
+                    </h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <table class="table-bordered table-striped table">
+                              <tbody>
+                                {!! $listedHorse->description !!}
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div> <!-- end card body -->
-
-              </div> <!-- end card -->
-
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
   </section>
 @endsection
 @push('scripts')
