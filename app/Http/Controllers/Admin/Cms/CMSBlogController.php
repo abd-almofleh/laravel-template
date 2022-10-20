@@ -152,7 +152,7 @@ class CMSBlogController extends Controller
       }
 
       Toastr::success(__('cms.blogs.message.update.success'));
-      return redirect()->route('cms.blogs.index');
+      return redirect()->route('cms.blogs.show', $blog);
     } catch (Exception $e) {
       Toastr::error(__('cms.blogs.message.update.error'));
       return redirect()->route('cms.blogs.index');

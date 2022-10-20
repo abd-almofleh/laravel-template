@@ -103,6 +103,7 @@ return [
     'videos'                   => 'Videos',
     'error'                    => 'Error',
     'following_error_exits'    => 'The Following Error Exits',
+    'seo_information'          => 'Seo Information',
 
     'facebook'  => 'Facebook',
     'twitter'   => 'Twitter',

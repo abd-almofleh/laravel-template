@@ -61,9 +61,21 @@
             <div class="container">
               <div class="row">
                 <div class="col-lg-12">
+                  <h1>{{ $blog->title_en }}</h1>
+                  <h6> {{ __('default.table.author') }}: {{ $blog->author->name }}</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <img class="img-fluid w-100" src="{{ $blog->photo->url }}" alt="photo">
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-lg-12">
                   {!! $blog->description_en !!}
                 </div>
-              </div> <!-- end card -->
+              </div>
+
             </div>
           </div>
 
