@@ -88,8 +88,12 @@ return [
       'edit'   => 'Edit',
     ],
 
-    'blog_information'     => 'Blog Information',
-    'choose_blog_category' => 'Choose Blog Category',
+    'blog_information'         => 'Blog Information',
+    'general_information'      => 'General Information',
+    'arabic_information'       => 'Arabic Information',
+    'english_information'      => 'English Information',
+
+    'choose_blog_category'    => 'Choose Blog Category',
 
     'form' => [
       'add-button' => 'Add New Blog',

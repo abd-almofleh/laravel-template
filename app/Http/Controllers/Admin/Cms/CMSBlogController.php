@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\Cms\Blogs\StoreCmsBlogRequest;
 use App\Http\Requests\Admin\Cms\Blogs\UpdateCmsBlogRequest;
 use App\Models\CmsBlog;
 use App\Models\CmsCategory;
+use App\Services\HelperService;
 use Auth;
 use DataTables;
 use Brian2694\Toastr\Facades\Toastr;
@@ -113,7 +114,8 @@ class CMSBlogController extends Controller
   public function store(StoreCmsBlogRequest $request)
   {
     $input = $request->validated();
-
+    $input['slug_en'] = HelperService::slugify($input['title_en']);
+    $input['slug_ar'] = HelperService::slugify($input['title_ar']);
     try {
       $product = CmsBlog::create($input);
       if ($request->input('photo', false)) {

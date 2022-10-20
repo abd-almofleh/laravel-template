@@ -32,7 +32,8 @@ class CmsBlog extends Model implements HasMedia
   protected $fillable = [
     'title_ar',
     'title_en',
-    'slug',
+    'slug_ar',
+    'slug_en',
     'description_ar',
     'description_en',
     'cms_category_id',
