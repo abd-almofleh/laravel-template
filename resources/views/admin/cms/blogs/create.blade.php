@@ -127,7 +127,7 @@
 
             <div class="card-body">
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                   <div class="form-group">
                     <label for="title_ar">{{ __('default.form.title_ar') }}:</label>
                     <input type="text" name="title_ar" id="title_ar" dir="rtl"
@@ -142,7 +142,6 @@
                     <label for="description_ar">{{ __('default.form.description_ar') }}:</label>
                     <textarea name="description_ar" id="description_ar" rows="20"
                               class="form-control @error('description_ar') form-control-error @enderror">{{ old('description_ar') }}</textarea>
-
                     @error('description_ar')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror

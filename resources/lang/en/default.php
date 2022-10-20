@@ -97,6 +97,8 @@ return [
     'comma_suppurated'         => 'Comma Suppurated',
     'meter'                    => 'Meter',
     'kg'                       => 'KG',
+    'slug_ar'                  => 'Arabic Slug',
+    'slug_en'                  => 'English Slug',
     'photos'                   => 'Photos',
     'photo'                    => 'Photo',
     'videos'                   => 'Videos',
