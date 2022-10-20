@@ -4,43 +4,44 @@ return [
 
   'dashboard' => 'Dashboard',
 
-  'user' => 'User',
+  'user'          => 'User',
   'user-activity' => 'User Activity',
-  'users' => 'Users',
+  'users'         => 'Users',
 
-  'role' => 'Role',
+  'role'  => 'Role',
   'roles' => 'Roles',
 
-  'permission' => 'Permission',
+  'permission'  => 'Permission',
   'permissions' => 'Permissions',
 
-  'read-log' => 'Read Log',
+  'read-log'  => 'Read Log',
   'read-logs' => 'Read Logs',
 
-  'file-manager' => 'File Manager',
+  'file-manager'    => 'File Manager',
   'website-setting' => 'Website Setting',
 
-  'setting' => 'Setting',
+  'setting'  => 'Setting',
   'settings' => 'Settings',
 
-  'cms' => 'CMS',
-  'cms-pages' => 'CMS Pages',
+  'cms' => [
+    'title'      => 'CMS',
+    'categories' => 'Categories',
+    'blogs'      => 'Blogs',
+  ],
 
   'horses' => [
-    'menu_title' => 'Horses',
-    'types' => 'Types',
-    'types_title' => 'Horses Types',
-    'passports' => 'Passports',
+    'menu_title'      => 'Horses',
+    'types'           => 'Types',
+    'types_title'     => 'Horses Types',
+    'passports'       => 'Passports',
     'passports_title' => 'Horses Passports',
-    'listed_horses' => 'Listed Horses'
+    'listed_horses'   => 'Listed Horses',
   ],
-  'category' => 'Category',
-  'categories' => 'Categories',
 
-  'page' => 'Page',
+  'page'  => 'Page',
   'pages' => 'Pages',
 
-  'currency' => 'Currency',
+  'currency'   => 'Currency',
   'currencies' => 'Currencies',
 
 ];

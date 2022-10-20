@@ -317,8 +317,7 @@
                     <label for="meta_keywords" class="required">{{ __('default.form.meta_keywords') }}:
                       ({{ __('default.form.comma_suppurated') }})</label>
                     <input type="text" class="form-control" name="meta_keywords"
-                           value="{{ old('meta_keywords', $listedHorse->meta_keywords) }}" id="meta_keywords"
-                           required>
+                           value="{{ old('meta_keywords', $listedHorse->meta_keywords) }}" id="meta_keywords" required>
 
                     @error('meta_keywords')
                       <span class="text-danger">{{ $message }}</span>

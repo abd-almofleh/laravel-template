@@ -19,17 +19,17 @@ Route::prefix('v1')->group(
   function () {
     Route::prefix('customer')->group(
       function () {
-        Route::prefix('auth')->group(
+        Route::prefix('auth')->controller(AuthController::class)->group(
           function () {
-            Route::post('register', [AuthController::class, 'register']);
-            Route::post('login', [AuthController::class, 'login']);
-            Route::post('reset-password', [AuthController::class, 'resetPassword']);
-            Route::post('check-email', [AuthController::class, 'checkCustomerEmail']);
-            Route::post('logout', [AuthController::class, 'logout']);
+            Route::post('register', 'register');
+            Route::post('login', 'login');
+            Route::post('reset-password', 'resetPassword');
+            Route::post('check-email', 'checkCustomerEmail');
+            Route::post('logout', 'logout');
           }
         );
         Route::middleware('auth:api')->group(function () {
-          Route::get('profile', [ProfileController::class, 'update']);
+          Route::get('profile', [ProfileController::class, 'index']);
           Route::post('profile', [ProfileController::class, 'update']);
         });
       }

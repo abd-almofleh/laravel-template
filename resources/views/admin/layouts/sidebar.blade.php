@@ -20,30 +20,30 @@
         <!-- /Dashboard -->
 
         <!-- CMS -->
-        @if (auth()->user()->can('cmspage-list') ||
-            auth()->user()->can('cmscategory-list'))
+        @if (auth()->user()->can('cms.blog:list') ||
+            auth()->user()->can('cms.category:list'))
           <li class="submenu">
             <a class="" href="javascript:void(0)" aria-expanded="false">
               <i data-feather="file-text"></i>
-              <span class="hide-menu">{{ __('sidebar.cms') }} </span>
+              <span class="hide-menu">{{ __('sidebar.cms.title') }} </span>
               <span class="menu-arrow"></span>
             </a>
 
             <ul style="display: none;">
-              @can('cmscategory-list')
+              @can('cms.category:list')
                 <li>
-                  <a href="{{ route('cmscategories.index') }}" title="{{ __('sidebar.category') }}"
-                     class="sidebar-link {{ request()->is('admin/cmscategories*') ? 'active' : '' }}">
-                    <span class="hide-menu">{{ __('sidebar.category') }}</span>
+                  <a href="{{ route('cms.categories.index') }}" title="{{ __('sidebar.cms.categories') }}"
+                     class="sidebar-link {{ request()->is('admin/cms/categories*') ? 'active' : '' }}">
+                    <span class="hide-menu">{{ __('sidebar.cms.categories') }}</span>
                   </a>
                 </li>
               @endcan
 
-              @can('cmspage-list')
+              @can('cms.blog:list')
                 <li>
-                  <a href="{{ route('cmspages.index') }}" title="{{ __('sidebar.cms-pages') }}"
-                     class="sidebar-link {{ request()->is('admin/cmspage*') ? 'active' : '' }}">
-                    <span class="hide-menu">{{ __('sidebar.cms-pages') }}</span>
+                  <a href="{{ route('cms.blogs.index') }}" title="{{ __('sidebar.cms.blogs') }}"
+                     class="sidebar-link {{ request()->is('admin/cms/blogs*') ? 'active' : '' }}">
+                    <span class="hide-menu">{{ __('sidebar.cms.blogs') }}</span>
                   </a>
                 </li>
               @endcan

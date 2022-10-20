@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,16 +14,16 @@ use Haruncpi\LaravelUserActivity\Traits\Loggable;
 /**
  * App\Models\User
  *
- * @property int $id
- * @property string|null $name
- * @property string $email
+ * @property int                             $id
+ * @property string|null                     $name
+ * @property string                          $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property string $password
- * @property string|null $mobile
- * @property string|null $user_type
- * @property string|null $image
- * @property int $status
- * @property string|null $remember_token
+ * @property string                          $password
+ * @property string|null                     $mobile
+ * @property string|null                     $user_type
+ * @property string|null                     $image
+ * @property int                             $status
+ * @property string|null                     $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
@@ -37,7 +36,7 @@ use Haruncpi\LaravelUserActivity\Traits\Loggable;
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @property-read int|null $tokens_count
- * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Database\Factories\UserFactory            factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
@@ -103,6 +102,11 @@ class User extends Authenticatable
   public function getRoleCodes()
   {
     $user = Auth::user();
-    return $roles = Role::where('name', $user->getRoleNames())->get();
+    return Role::where('name', $user->getRoleNames())->get();
+  }
+
+  public function blogs()
+  {
+    return $this->hasMany(CmsBlog::class, 'author_id');
   }
 }

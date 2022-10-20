@@ -93,38 +93,14 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/website-setting/update/{id}', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('website-setting.update');
       });
 
-      // CMS category
-      Route::prefix('cmscategories')->group(function () {
-        Route::get('/index', [App\Http\Controllers\Admin\CMSCategoryController::class, 'index'])->name('cmscategories.index');
-        Route::get('/create', [App\Http\Controllers\Admin\CMSCategoryController::class, 'create'])->name('cmscategories.create');
-        Route::post('/store', [App\Http\Controllers\Admin\CMSCategoryController::class, 'store'])->name('cmscategories.store');
-        Route::get('/edit/{id}', [App\Http\Controllers\Admin\CMSCategoryController::class, 'edit'])->name('cmscategories.edit');
-        Route::post('/update/{id}', [App\Http\Controllers\Admin\CMSCategoryController::class, 'update'])->name('cmscategories.update');
-        Route::post('/destroy', [App\Http\Controllers\Admin\CMSCategoryController::class, 'destroy'])->name('cmscategories.destroy');
-        Route::get('/status_update', [App\Http\Controllers\Admin\CMSCategoryController::class, 'status_update'])->name('cmscategories.status_update');
-      });
+      // CMS
+      Route::prefix('cms')->name('cms.')->group(function () {
+        Route::patch('/categories/update-status/{category}', [App\Http\Controllers\Admin\Cms\CMSCategoryController::class, 'update_status'])->name('categories.update_status');
+        Route::resource('categories', App\Http\Controllers\Admin\Cms\CMSCategoryController::class)->except(['show', 'destroy']);
 
-      // CMS Pages
-      Route::prefix('cmspages')->group(function () {
-        Route::get('/index', [App\Http\Controllers\Admin\CMSPageController::class, 'index'])->name('cmspages.index');
-        Route::get('/create', [App\Http\Controllers\Admin\CMSPageController::class, 'create'])->name('cmspages.create');
-        Route::post('/store', [App\Http\Controllers\Admin\CMSPageController::class, 'store'])->name('cmspages.store');
-        Route::get('/edit/{id}', [App\Http\Controllers\Admin\CMSPageController::class, 'edit'])->name('cmspages.edit');
-        Route::post('/update/{id}', [App\Http\Controllers\Admin\CMSPageController::class, 'update'])->name('cmspages.update');
-        Route::post('/destroy', [App\Http\Controllers\Admin\CMSPageController::class, 'destroy'])->name('cmspages.destroy');
-        Route::get('/status_update', [App\Http\Controllers\Admin\CMSPageController::class, 'status_update'])->name('cmspages.status_update');
+        Route::post('blogs/media', [App\Http\Controllers\Admin\Cms\CMSBlogController::class, 'storeMedia'])->name('blogs.storeMedia');
+        Route::resource('blogs', App\Http\Controllers\Admin\Cms\CMSBlogController::class);
       });
-
-      // // Testimonials
-      // Route::prefix('testimonials')->group(function () {
-      //   Route::get('/index', [App\Http\Controllers\TestimonialController::class, 'index'])->name('testimonials.index');
-      //   Route::get('/create', [App\Http\Controllers\TestimonialController::class, 'create'])->name('testimonials.create');
-      //   Route::post('/store', [App\Http\Controllers\TestimonialController::class, 'store'])->name('testimonials.store');
-      //   Route::get('/edit/{id}', [App\Http\Controllers\TestimonialController::class, 'edit'])->name('testimonials.edit');
-      //   Route::post('/update/{id}', [App\Http\Controllers\TestimonialController::class, 'update'])->name('testimonials.update');
-      //   Route::post('/destroy', [App\Http\Controllers\TestimonialController::class, 'destroy'])->name('testimonials.destroy');
-      //   Route::get('/status_update', [App\Http\Controllers\TestimonialController::class, 'status_update'])->name('testimonials.status_update');
-      // });
 
       // horses
       Route::prefix('horses')->name('horses.')->group(function () {

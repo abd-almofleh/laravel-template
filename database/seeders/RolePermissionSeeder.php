@@ -10,8 +10,6 @@ class RolePermissionSeeder extends Seeder
 {
   /**
    * Run the database seeds.
-   *
-   * @return void
    */
   public function run()
   {
@@ -45,15 +43,15 @@ class RolePermissionSeeder extends Seeder
       'permission-edit',
       'permission-delete',
 
-      'cmscategory-list',
-      'cmscategory-create',
-      'cmscategory-edit',
-      'cmscategory-delete',
+      'cms.category:list',
+      'cms.category:create',
+      'cms.category:edit',
 
-      'cmspage-list',
-      'cmspage-create',
-      'cmspage-edit',
-      'cmspage-delete',
+      'cms.blog:list',
+      'cms.blog:create',
+      'cms.blog:edit',
+      'cms.blog:delete',
+      'cms.blog:show',
 
       'horseType-list',
       'horseType-create',
