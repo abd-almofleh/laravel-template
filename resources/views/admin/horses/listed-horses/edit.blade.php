@@ -187,19 +187,6 @@
                     @enderror
                   </div>
                   <div class="form-group">
-                    <label for="weight" class="required">{{ __('default.form.weight') }}:</label>
-                    <div class="input-group">
-                      <input type="number" step="0.1" name="weight" id="weight"
-                             class="form-control @error('weight') form-control-error @enderror" required="required"
-                             value="{{ old('weight', $listedHorse->weight) }}">
-                      <span class="input-group-text">{{ __('default.form.kg') }}</span>
-                    </div>
-                    @error('weight')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                  </div>
-
-                  <div class="form-group">
                     <label for="color" class="required">{{ __('default.form.color') }}:</label>
                     <input type="text" name="color" id="color"
                            class="form-control @error('color') form-control-error @enderror" required="required"

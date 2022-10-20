@@ -205,14 +205,6 @@
                           </tr>
                           <tr>
                             <th>
-                              {{ __('default.form.weight') }}
-                            </th>
-                            <td>
-                              {{ $listedHorse->weight }} <small>{{ __('default.form.kg') }}</small>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th>
                               {{ __('default.form.color') }}
                             </th>
                             <td>

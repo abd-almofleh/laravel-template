@@ -89,7 +89,6 @@ return [
     'birth_year'               => 'Birth Year',
     'passport'                 => 'Passport',
     'height'                   => 'Height',
-    'weight'                   => 'Weight',
     'color'                    => 'Color',
     'health'                   => 'Health',
     'contact_number'           => 'Contact Number',
