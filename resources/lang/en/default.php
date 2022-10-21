@@ -209,4 +209,8 @@ return [
     'male'   => 'Male',
     'female' => 'Female',
   ],
+
+  'general' => [
+    'no_image' => 'No Image',
+  ],
 ];

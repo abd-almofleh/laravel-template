@@ -61,7 +61,11 @@
               </div>
               <div class="row">
                 <div class="col-lg-12">
-                  <img class="img-fluid w-100" src="{{ $blog->photo->url }}" alt="photo">
+                  @isset($blog->photo)
+                    <img class="img-fluid w-100" src="{{ $blog->photo->url }}" alt="photo">
+                  @else
+                    <span class="text-danger font-weight-bold">{{ __('default.general.no_image') }}</span>
+                  @endisset
                 </div>
               </div>
               <div class="row mt-4">
