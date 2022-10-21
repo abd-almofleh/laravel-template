@@ -25,16 +25,17 @@ class StoreHorseTypeRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => 'required|string|unique:horse_types,name',
-      'status' => 'required|boolean',
+      'name_en' => 'required|string|unique:horse_types,name_ar',
+      'name_ar' => 'required|string|unique:horse_types,name_en',
+      'status'  => 'required|boolean',
     ];
   }
 
   public function messages()
   {
     return [
-      'name.required' => __('default.form.validation.name.required'),
-      'name.unique' => __('default.form.validation.name.unique'),
+      'name.required'   => __('default.form.validation.name.required'),
+      'name.unique'     => __('default.form.validation.name.unique'),
       'status.required' => __('default.form.validation.status.required'),
     ];
   }

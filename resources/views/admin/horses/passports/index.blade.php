@@ -17,7 +17,7 @@
   <div class="page-header">
     <div class="card breadcrumb-card">
       <div class="row justify-content-between align-content-between" style="height: 100%;">
-        <div class="col-md-6">
+        <div class="col-md-9">
           <h3 class="page-title">{{ __('horsesPassport.index.title') }}</h3>
           <ul class="breadcrumb">
             <li class="breadcrumb-item">
@@ -49,7 +49,8 @@
             <thead>
               <tr>
                 <th class="">{{ __('default.table.sl') }}</th>
-                <th class="">{{ __('default.table.name') }}</th>
+                <th class="">{{ __('default.table.name_ar') }}</th>
+                <th class="">{{ __('default.table.name_en') }}</th>
                 <th class="">{{ __('default.table.status') }}</th>
                 @if (Auth::user()->can('horsePassport-edit'))
                   <th class="">{{ __('default.table.action') }}</th>
@@ -85,8 +86,12 @@
             name: 'DT_RowIndex'
           },
           {
-            data: 'name',
-            name: 'name'
+            data: 'name_ar',
+            name: 'name_ar'
+          },
+          {
+            data: 'name_en',
+            name: 'name_en'
           },
           {
             data: 'status',

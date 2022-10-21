@@ -11,7 +11,23 @@ class HorsePassport extends Model
 
   /* A list of attributes that can be mass assigned. */
   protected $fillable = [
-    'name',
-    'status'
+    'name_ar',
+    'name_en',
+    'status',
   ];
+
+  public function horses()
+  {
+    return $this->hasMany(ListedHorse::class, 'passport_type_id');
+  }
+
+  /**
+   * Scope a query to only include active passports.
+   *
+   * @param \Illuminate\Database\Eloquent\Builder $query
+   */
+  public function scopeActive($query)
+  {
+    $query->where('status', 1);
+  }
 }

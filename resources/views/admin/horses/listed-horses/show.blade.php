@@ -91,24 +91,26 @@
           </div>
 
           <div class="card-body">
-            <div class="row">
-              <div class="col-12">
-                <!-- Swiper -->
-                <div class="swiper photosSwiper">
-                  <div class="swiper-wrapper">
-                    @foreach ($listedHorse->photos as $photo)
-                      <div class="swiper-slide">
-                        <img src="{{ $photo->url }}" alt="horse">
-                      </div>
-                    @endforeach
+            @if (count($listedHorse->videos))
+              <div class="row">
+                <div class="col-12">
+                  <!-- Swiper -->
+                  <div class="swiper photosSwiper">
+                    <div class="swiper-wrapper">
+                      @foreach ($listedHorse->photos as $photo)
+                        <div class="swiper-slide">
+                          <img src="{{ $photo->url }}" alt="horse">
+                        </div>
+                      @endforeach
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
                   </div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-pagination"></div>
                 </div>
               </div>
-
-
+            @endif
+            <div class="row">
               <div class="container">
                 <div class="row">
                   <div class="col-lg-12">
@@ -165,7 +167,7 @@
                               {{ __('default.form.type') }}
                             </th>
                             <td>
-                              {{ $listedHorse->type->name }}
+                              {{ $listedHorse->type->name_en }} - {{ $listedHorse->type->name_ar }}
                             </td>
                           </tr>
                           <tr>
@@ -192,7 +194,7 @@
                               {{ __('default.form.passport') }}
                             </th>
                             <td>
-                              {{ $listedHorse->passport->name }}
+                              {{ $listedHorse->passport->name_en }} - {{ $listedHorse->passport->name_ar }}
                             </td>
                           </tr>
                           <tr>
@@ -234,26 +236,29 @@
                   </div>
                 </div>
               </div> <!-- end card -->
-              <div class="col-12">
-                <!-- Swiper -->
-                <div class="swiper videosSwiper">
-                  <div class="swiper-wrapper">
-                    @foreach ($listedHorse->videos as $video)
-                      <div class="swiper-slide">
-                        <video controls>
-                          <source src="{{ $video->url }}" type="{{ $video->mime_type }}">
-                        </video>
-
-                      </div>
-                    @endforeach
-                  </div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
             </div>
+            <div class="row">
+              @if (count($listedHorse->videos))
+                <div class="col-12">
+                  <!-- Swiper -->
+                  <div class="swiper videosSwiper">
+                    <div class="swiper-wrapper">
+                      @foreach ($listedHorse->videos as $video)
+                        <div class="swiper-slide">
+                          <video controls>
+                            <source src="{{ $video->url }}" type="{{ $video->mime_type }}">
+                          </video>
 
+                        </div>
+                      @endforeach
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                  </div>
+                </div>
+              @endif
+            </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="card">

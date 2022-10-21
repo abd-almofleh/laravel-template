@@ -110,7 +110,7 @@
                       <option value="">{{ __('default.form.choose_horse_type') }}</option>
                       @foreach ($horsesTypes as $horsesType)
                         <option value="{{ $horsesType->id }}" @if (old('type_id') == $horsesType->id) selected @endif>
-                          {{ $horsesType->name }}</option>
+                          {{ $horsesType->name_en }} - {{ $horsesType->name_ar }}</option>
                       @endforeach
 
                     </select>
@@ -160,7 +160,7 @@
                       <option value="">{{ __('default.form.choose_horse_passport') }}</option>
                       @foreach ($horsesPassports as $horsesPassport)
                         <option value="{{ $horsesPassport->id }}" @if (old('passport_type_id') == $horsesPassport->id) selected @endif>
-                          {{ $horsesPassport->name }}</option>
+                          {{ $horsesPassport->name_en }} - {{ $horsesPassport->name_ar }}</option>
                       @endforeach
 
                     </select>

@@ -113,7 +113,7 @@
                       <option value="">{{ __('default.form.choose_horse_type') }}</option>
                       @foreach ($horsesTypes as $horsesType)
                         <option value="{{ $horsesType->id }}" @if (old('type_id', $listedHorse->type_id) == $horsesType->id) selected @endif>
-                          {{ $horsesType->name }}</option>
+                          {{ $horsesType->name_en }} - {{ $horsesType->name_ar }}</option>
                       @endforeach
 
                     </select>
@@ -155,7 +155,6 @@
 
                   <div class="form-group">
                     <label for="passport_type_id" class="required">{{ __('default.form.passport') }}:</label>
-
                     <select type="text" name="passport_type_id" id="passport_type_id"
                             class="form-control @error('passport_type_id') form-control-error @enderror"
                             required="required">
@@ -163,7 +162,7 @@
                       <option value="">{{ __('default.form.choose_horse_passport') }}</option>
                       @foreach ($horsesPassports as $horsesPassport)
                         <option value="{{ $horsesPassport->id }}" @if (old('passport_type_id', $listedHorse->passport_type_id) == $horsesPassport->id) selected @endif>
-                          {{ $horsesPassport->name }}</option>
+                          {{ $horsesPassport->name_en }} - {{ $horsesPassport->name_ar }}</option>
                       @endforeach
 
                     </select>

@@ -41,7 +41,7 @@ class CmsCategory extends Model
   }
 
   /**
-   * Scope a query to only include active users.
+   * Scope a query to only include active categories.
    *
    * @param \Illuminate\Database\Eloquent\Builder $query
    */

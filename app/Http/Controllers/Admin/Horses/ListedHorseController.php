@@ -38,9 +38,7 @@ class ListedHorseController extends Controller
     public function index(Request $request)
     {
       if ($request->ajax()) {
-        $data = ListedHorse::withTrashed()->with(['type' => function ($query) {
-          $query->select(['id', 'name']);
-        }])->get();
+        $data = ListedHorse::withTrashed()->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
@@ -69,7 +67,7 @@ class ListedHorseController extends Controller
               return $view . ' ' . $edit . ' ' . $delete;
             })
             ->addColumn('type', function ($row) {
-              return  $row->type->name;
+              return  $row->type->name_en;
             })
             ->addColumn('is_deleted', function ($row) {
               return  $row->deleted_at === null ? __('default.no') : __('default.yes');
@@ -78,7 +76,6 @@ class ListedHorseController extends Controller
             ->addColumn('sex_text', function ($row) {
               return $row->sex == config('constants.sex.male') ? __('default.sex.male') : __('default.sex.female');
             })
-
             ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
             ->editColumn('updated_at', '{{date("jS M Y", strtotime($updated_at))}}')
             ->escapeColumns([])
@@ -94,8 +91,8 @@ class ListedHorseController extends Controller
      */
     public function create()
     {
-      $horsesTypes = HorseType::where('status', 1)->get();
-      $horsesPassports = HorsePassport::where('status', 1)->get();
+      $horsesTypes = HorseType::active()->get();
+      $horsesPassports = HorsePassport::active()->get();
 
       return view('admin.horses.listed-horses.create', compact('horsesTypes', 'horsesPassports'));
     }
@@ -131,7 +128,7 @@ class ListedHorseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ListedHorse  $listedHorse
+     * @param  \App\Models\ListedHorse   $listedHorse
      * @return \Illuminate\Http\Response
      */
     public function show(ListedHorse $listedHorse)
@@ -142,13 +139,13 @@ class ListedHorseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ListedHorse  $horse
+     * @param  \App\Models\ListedHorse   $horse
      * @return \Illuminate\Http\Response
      */
     public function edit(ListedHorse $listedHorse)
     {
-      $horsesTypes = HorseType::where('status', 1)->get();
-      $horsesPassports = HorsePassport::where('status', 1)->get();
+      $horsesTypes = HorseType::active()->orWhere('id', $listedHorse->type_id)->get();
+      $horsesPassports = HorsePassport::active()->orWhere('id', $listedHorse->passport_type_id)->get();
 
       return view('admin.horses.listed-horses.edit', compact('listedHorse', 'horsesTypes', 'horsesPassports'));
     }
@@ -157,7 +154,7 @@ class ListedHorseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ListedHorse  $listedHorse
+     * @param  \App\Models\ListedHorse   $listedHorse
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateListedHorseRequest $request, ListedHorse $listedHorse)
@@ -207,7 +204,7 @@ class ListedHorseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ListedHorse  $listedHorse
+     * @param  \App\Models\ListedHorse   $listedHorse
      * @return \Illuminate\Http\Response
      */
     public function destroy(ListedHorse $listedHorse)
