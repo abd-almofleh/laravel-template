@@ -50,6 +50,8 @@ return [
     'upload_image'             => 'Upload Image',
     'change_image'             => 'Change Image',
     'name'                     => 'Name',
+    'name_ar'                  => 'Arabic Name',
+    'name_en'                  => 'English Name',
     'email'                    => 'Email',
     'symbol'                   => 'Symbol',
     'currency'                 => 'Currency',

@@ -61,7 +61,7 @@ class CMSBlogController extends Controller
             return $action;
           })
           ->addColumn('categoryName', function ($row) {
-            return $row->category !== null ? $row->category->name : '<span style="color: red;">' . __('default.table.no_category') . '</span>';
+            return $row->category !== null ? $row->category->name_en : '<span style="color: red;">' . __('default.table.no_category') . '</span>';
           })
           ->addColumn('canPublish', function ($row) {
             if ($row->status === config('constants.blogs.status.published')) {
@@ -107,7 +107,7 @@ class CMSBlogController extends Controller
 
   public function create()
   {
-    $cms_categories = CmsCategory::where('status', 1)->get();
+    $cms_categories = CmsCategory::active()->get();
     return view('admin.cms.blogs.create', compact('cms_categories'));
   }
 
@@ -132,7 +132,7 @@ class CMSBlogController extends Controller
 
   public function edit(CmsBlog $blog)
   {
-    $cms_categories = CmsCategory::get();
+    $cms_categories = CmsCategory::active()->orWhere('id', $blog->category->id)->get();
     return view('admin.cms.blogs.edit', compact('blog', 'cms_categories'));
   }
 
@@ -153,14 +153,14 @@ class CMSBlogController extends Controller
     $existed_blogs_with_slug_en = CmsBlog::where('id', '<>', $blog->id)->where(function ($query) use ($input) {
       $query->where('slug_ar', 'LIKE', $input['slug_en'])->orWhere('slug_en', 'LIKE', $input['slug_en']);
     })->count();
-
+    if ($existed_blogs_with_slug_en !== 0) {
+      $errors['slug_en'] = 'English slug must be unique';
+    }
     $existed_blogs_with_slug_ar = CmsBlog::where('id', '<>', $blog->id)->where(function ($query) use ($input) {
       $query->where('slug_ar', 'LIKE', $input['slug_ar'])->orWhere('slug_en', 'LIKE', $input['slug_ar']);
     })->count();
     $errors = [];
-    if ($existed_blogs_with_slug_en !== 0) {
-      $errors['slug_en'] = 'English slug must be unique';
-    }
+
     if ($existed_blogs_with_slug_ar !== 0) {
       $errors['slug_ar'] = 'Arabic slug must be unique';
     }

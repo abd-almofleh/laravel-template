@@ -18,10 +18,10 @@
     <div class="page-header">
       <div class="card breadcrumb-card">
         <div class="row justify-content-between align-content-between" style="height: 100%;">
-          <div class="col-md-6">
+          <div class="col-md-9">
             <h3 class="page-title">{{ __('cms.category.index.title') }}</h3>
             <ul class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('dashboard.title') }}</a></li>
               <li class="breadcrumb-item">
                 <a href="{{ route('cms.categories.index') }}">{{ __('cms.category.index.title') }}</a>
               </li>
@@ -54,12 +54,22 @@
                 <div class="col-md-12">
 
                   <div class="form-group">
-                    <label for="name" class="required">{{ __('default.form.name') }}:</label>
-                    <input type="text" name="name" id="name"
-                           class="form-control @error('name') form-control-error @enderror" required="required"
-                           value="{{ old('name') }}">
+                    <label for="name_ar" class="required">{{ __('default.form.name_ar') }}:</label>
+                    <input type="text" name="name_ar" id="name_ar"
+                           class="form-control @error('name_ar') form-control-error @enderror" required="required"
+                           value="{{ old('name_ar') }}">
 
-                    @error('name')
+                    @error('name_ar')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
+                  <div class="form-group">
+                    <label for="name_en" class="required">{{ __('default.form.name_en') }}:</label>
+                    <input type="text" name="name_en" id="name_en"
+                           class="form-control @error('name_en') form-control-error @enderror" required="required"
+                           value="{{ old('name_en') }}">
+
+                    @error('name_en')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                   </div>

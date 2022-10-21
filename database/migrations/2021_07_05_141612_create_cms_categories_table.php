@@ -13,7 +13,8 @@ class CreateCmsCategoriesTable extends Migration
   {
     Schema::create('cms_categories', function (Blueprint $table) {
       $table->id();
-      $table->string('name')->nullable();
+      $table->string('name_en')->nullable();
+      $table->string('name_ar')->nullable();
       $table->boolean('status')->default(0);
       $table->timestamps();
     });

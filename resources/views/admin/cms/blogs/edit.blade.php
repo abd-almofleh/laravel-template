@@ -82,7 +82,7 @@
                       <option value="">{{ __('cms.blogs.choose_blog_category') }}</option>
                       @foreach ($cms_categories as $cms_category)
                         <option value="{{ $cms_category->id }}" @if (old('cms_category_id', $blog->cms_category_id) == $cms_category->id) selected @endif>
-                          {{ $cms_category->name }}</option>
+                          {{ $cms_category->name_en }} - ({{ $cms_category->name_ar }})</option>
                       @endforeach
                     </select>
 

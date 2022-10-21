@@ -17,7 +17,7 @@
   <div class="page-header">
     <div class="card breadcrumb-card">
       <div class="row justify-content-between align-content-between" style="height: 100%;">
-        <div class="col-md-6">
+        <div class="col-md-9">
           <h3 class="page-title">{{ __('listedHorses.index.title') }}</h3>
           <ul class="breadcrumb">
             <li class="breadcrumb-item">
@@ -43,7 +43,6 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-
         <div class="card-body">
           <table class="table-hover table-center w-100 mb-0 table" id="table">
             <thead>

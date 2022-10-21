@@ -80,7 +80,7 @@
                       <option value="">{{ __('cms.blogs.choose_blog_category') }}</option>
                       @foreach ($cms_categories as $cms_category)
                         <option value="{{ $cms_category->id }}" @if (old('cms_category_id') == $cms_category->id) selected @endif>
-                          {{ $cms_category->name }}</option>
+                          {{ $cms_category->name_en }} - ({{ $cms_category->name_ar }})</option>
                       @endforeach
                     </select>
 
@@ -381,13 +381,5 @@
         return _results
       }
     }
-  </script>
-  <script type="text/javascript">
-    $("#title_en").change(function() {
-      var title = this.value;
-      title = title.trim().replace(/\s\s+/g, ' ').toLowerCase();
-      title = title.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-').toLowerCase();
-      $("#slug").val(title);
-    })
   </script>
 @endpush

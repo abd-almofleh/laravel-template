@@ -55,7 +55,8 @@
               <div class="row">
                 <div class="col-lg-12">
                   <h1>{{ $blog->title_en }}</h1>
-                  <h6> {{ __('default.table.author') }}: {{ $blog->author->name }}</h6>
+                  <h5> {{ __('default.table.author') }}: {{ $blog->author->name }}</h5>
+                  <h6> {{ __('default.table.category') }}: {{ $blog->category->name_en }}</h6>
                 </div>
               </div>
               <div class="row">

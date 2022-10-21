@@ -48,7 +48,7 @@ class CmsBlog extends Model implements HasMedia
   ];
 
   protected $with = [
-    'category:id,name',
+    'category:id,name_ar,name_en',
     'author',
   ];
 

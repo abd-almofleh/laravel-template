@@ -20,18 +20,18 @@
     <div class="page-header">
       <div class="card breadcrumb-card">
         <div class="row justify-content-between align-content-between" style="height: 100%;">
-          <div class="col-md-6">
-            <h3 class="page-title">{{ __('cmscategory.index.title') }}</h3>
+          <div class="col-md-9">
+            <h3 class="page-title">{{ __('cms.category.index.title') }}</h3>
             <ul class="breadcrumb">
               <li class="breadcrumb-item">
-                <a href="{{ route('dashboard') }}">Dashboard</a>
+                <a href="{{ route('dashboard') }}">{{ __('dashboard.title') }}</a>
               </li>
               <li class="breadcrumb-item">
                 <a href="{{ route('cms.categories.index') }}">{{ __('cms.category.index.title') }}</a>
               </li>
               <li class="breadcrumb-item active-breadcrumb">
                 <a href="{{ route('cms.categories.edit', $category->id) }}">{{ __('cms.category.edit.title') }} -
-                  ({{ $category->name }})</a>
+                  ({{ $category->name_ar }} - {{ $category->name_en }})</a>
               </li>
             </ul>
           </div>
@@ -51,7 +51,8 @@
           <div class="card">
 
             <div class="card-header">
-              <h5 class="card-title"> {{ __('cms.category.cms_category_information') }} - ({{ $category->name }})</h5>
+              <h5 class="card-title"> {{ __('cms.category.cms_category_information') }} - ({{ $category->name_ar }} -
+                {{ $category->name_en }})</h5>
             </div>
 
             <div class="card-body">
@@ -59,12 +60,22 @@
                 <div class="col-md-12">
 
                   <div class="form-group">
-                    <label for="name" class="required">{{ __('default.form.name') }}:</label>
-                    <input type="text" name="name" id="name"
-                           class="form-control @error('name') form-control-error @enderror" required="required"
-                           value="{{ $category->name }}">
+                    <label for="name_ar" class="required">{{ __('default.form.name_ar') }}:</label>
+                    <input type="text" name="name_ar" id="name_ar"
+                           class="form-control @error('name_ar') form-control-error @enderror" required="required"
+                           value="{{ $category->name_ar }}">
 
-                    @error('name')
+                    @error('name_ar')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
+                  <div class="form-group">
+                    <label for="name_en" class="required">{{ __('default.form.name_en') }}:</label>
+                    <input type="text" name="name_en" id="name_en"
+                           class="form-control @error('name_en') form-control-error @enderror" required="required"
+                           value="{{ $category->name_en }}">
+
+                    @error('name_en')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                   </div>
