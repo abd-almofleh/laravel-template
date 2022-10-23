@@ -35,6 +35,7 @@ Route::prefix('v1')->group(
         });
         Route::prefix('listed-horses')->group(function () {
           Route::get('/', [ListedHorsesController::class, 'index']);
+          Route::get('/get-filter-options', [ListedHorsesController::class, 'get_filter_options']);
         });
       }
     );

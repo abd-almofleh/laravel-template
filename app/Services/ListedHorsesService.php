@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\HorsePassport;
+use App\Models\HorseType;
 use App\Models\ListedHorse;
 
 class ListedHorsesService
@@ -38,5 +40,15 @@ class ListedHorsesService
     }
     $data = $query->paginate();
     return $data;
+  }
+
+  public function get_filter_options()
+  {
+    $options = [];
+    $options['horsesCategories'] = HorseType::select(['id', 'name_en', 'name_ar'])->active()->get();
+    $options['horsesPassports'] = HorsePassport::select(['id', 'name_en', 'name_ar'])->active()->get();
+    $options['sex'] = ['male'=>1, 'female'=> 0];
+
+    return $options;
   }
 }

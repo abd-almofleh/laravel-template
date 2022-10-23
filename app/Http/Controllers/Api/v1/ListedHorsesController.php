@@ -32,4 +32,10 @@ class ListedHorsesController extends Controller
     $data = $this->listedHorsesService->get_listed_horses_list($filters);
     return $this->response('success', $data);
   }
+
+  public function get_filter_options()
+  {
+    $options = $this->listedHorsesService->get_filter_options();
+    return $this->response('success', $options);
+  }
 }
