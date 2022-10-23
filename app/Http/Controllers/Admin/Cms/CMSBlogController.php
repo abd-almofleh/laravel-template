@@ -139,31 +139,29 @@ class CMSBlogController extends Controller
   public function update(UpdateCmsBlogRequest $request, CmsBlog $blog)
   {
     $input = $request->validated();
-    if ($input['slug_ar'] === null) {
-      $input['slug_ar'] = HelperService::slugify($input['title_ar']);
-    } else {
-      $input['slug_ar'] = HelperService::slugify($input['slug_ar']);
-    }
-    $input = $request->validated();
-    if ($input['slug_en'] === null) {
-      $input['slug_en'] = HelperService::slugify($input['title_en']);
-    } else {
-      $input['slug_en'] = HelperService::slugify($input['slug_en']);
-    }
-    $existed_blogs_with_slug_en = CmsBlog::where('id', '<>', $blog->id)->where(function ($query) use ($input) {
-      $query->where('slug_ar', 'LIKE', $input['slug_en'])->orWhere('slug_en', 'LIKE', $input['slug_en']);
-    })->count();
-    if ($existed_blogs_with_slug_en !== 0) {
-      $errors['slug_en'] = 'English slug must be unique';
-    }
-    $existed_blogs_with_slug_ar = CmsBlog::where('id', '<>', $blog->id)->where(function ($query) use ($input) {
-      $query->where('slug_ar', 'LIKE', $input['slug_ar'])->orWhere('slug_en', 'LIKE', $input['slug_ar']);
-    })->count();
-    $errors = [];
 
-    if ($existed_blogs_with_slug_ar !== 0) {
-      $errors['slug_ar'] = 'Arabic slug must be unique';
+    $errors = [];
+    $input['slug_ar'] = $input['slug_ar'] === null ? HelperService::slugify($input['title_ar']) : HelperService::slugify($input['slug_ar']);
+    $input['slug_en'] = $input['slug_en'] === null ? HelperService::slugify($input['title_en']) : HelperService::slugify($input['slug_en']);
+
+    if ($input['slug_en']) {
+      $existed_blogs_with_slug_en = CmsBlog::where('id', '<>', $blog->id)->where(function ($query) use ($input) {
+        $query->where('slug_ar', 'LIKE', $input['slug_en'])->orWhere('slug_en', 'LIKE', $input['slug_en']);
+      })->count();
+      if ($existed_blogs_with_slug_en !== 0) {
+        $errors['slug_en'] = 'English slug must be unique';
+      }
     }
+    if ($input['slug_ar']) {
+      $existed_blogs_with_slug_ar = CmsBlog::where('id', '<>', $blog->id)->where(function ($query) use ($input) {
+        $query->where('slug_ar', 'LIKE', $input['slug_ar'])->orWhere('slug_en', 'LIKE', $input['slug_ar']);
+      })->count();
+
+      if ($existed_blogs_with_slug_ar !== 0) {
+        $errors['slug_ar'] = 'Arabic slug must be unique';
+      }
+    }
+
     if (count($errors)) {
       return redirect()->back()->withInput()->withErrors($errors);
     }
