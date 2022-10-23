@@ -27,7 +27,6 @@ class ListedHorsesController extends Controller
     $filters['color'] = $request->input('color', false);
     $filters['type'] = $request->input('type', false);
     $filters['passport'] = $request->input('passport', false);
-    $filters['page'] = $request->input('page');
 
     $data = $this->listedHorsesService->get_listed_horses_list($filters);
     return $this->response('success', $data);
