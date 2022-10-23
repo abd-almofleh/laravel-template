@@ -9,11 +9,9 @@ class ListedHorseSeeder extends Seeder
 {
   /**
    * Run the database seeds.
-   *
-   * @return void
    */
   public function run()
   {
-    ListedHorse::factory()->count(100)->create();
+    ListedHorse::factory()->count(1000)->create();
   }
 }

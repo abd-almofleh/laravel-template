@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\ListedHorsesController;
 use App\Http\Controllers\Api\v1\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,9 @@ Route::prefix('v1')->group(
         Route::middleware('auth:api')->group(function () {
           Route::get('profile', [ProfileController::class, 'index']);
           Route::post('profile', [ProfileController::class, 'update']);
+        });
+        Route::prefix('listed-horses')->group(function () {
+          Route::get('/', [ListedHorsesController::class, 'index']);
         });
       }
     );
