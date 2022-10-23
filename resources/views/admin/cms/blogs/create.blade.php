@@ -44,66 +44,33 @@
     <section class="crud-body">
       <div class="row">
         <div class="col-md-12">
-
+          @if ($errors->any())
+            <div class="row">
+              <div class="col-md-12">
+                <div class="custom-alert alert-danger">
+                  <h4 class="alert-heading">{{ __('default.form.error') }}</h4>
+                  <p>{{ __('default.form.following_error_exits') }}:</p>
+                  <hr>
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li class="mb-0">{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              </div>
+            </div>
+          @endif
           <div class="card">
 
             <div class="card-header">
               <h5 class="card-title">
-                {{ __('cms.blogs.blog_information') }}
+                {{ __('cms.blogs.general_information') }}
               </h5>
             </div>
 
             <div class="card-body">
-              @if ($errors->any())
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="custom-alert alert-danger">
-                      <h4 class="alert-heading">{{ __('default.form.error') }}</h4>
-                      <p>{{ __('default.form.following_error_exits') }}:</p>
-                      <hr>
-                      <ul>
-                        @foreach ($errors->all() as $error)
-                          <li class="mb-0">{{ $error }}</li>
-                        @endforeach
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              @endif
               <div class="row">
                 <div class="col-md-12">
-
-                  <div class="form-group">
-                    <label for="title_en">{{ __('default.form.title_en') }}:</label>
-                    <input type="text" name="title_en" id="title_en"
-                           class="form-control @error('title_en') form-control-error @enderror"
-                           value="{{ old('title_en') }}">
-
-                    @error('title_en')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                  </div>
-                  <div class="form-group">
-                    <label for="title_ar">{{ __('default.form.title_ar') }}:</label>
-                    <input type="text" name="title_ar" id="title_ar" dir="rtl"
-                           class="form-control @error('title_ar') form-control-error @enderror"
-                           value="{{ old('title_ar') }}">
-
-                    @error('title_ar')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                  </div>
-
-                  <div class="form-group">
-                    <label for="slug">{{ __('default.form.slug') }}:</label>
-                    <input type="text" name="slug" id="slug" readonly
-                           class="form-control @error('slug') form-control-error @enderror" value="{{ old('slug') }}">
-
-                    @error('slug')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                  </div>
-
                   <div class="form-group">
                     <label for="cms_category_id">{{ __('default.form.category') }}:</label>
 
@@ -113,7 +80,7 @@
                       <option value="">{{ __('cms.blogs.choose_blog_category') }}</option>
                       @foreach ($cms_categories as $cms_category)
                         <option value="{{ $cms_category->id }}" @if (old('cms_category_id') == $cms_category->id) selected @endif>
-                          {{ $cms_category->name }}</option>
+                          {{ $cms_category->name_en }} - ({{ $cms_category->name_ar }})</option>
                       @endforeach
                     </select>
 
@@ -146,7 +113,62 @@
                       <span class="text-danger" role="alert">{{ $message }}</span>
                     @enderror
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">
+                {{ __('cms.blogs.arabic_information') }}
+              </h5>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="title_ar">{{ __('default.form.title_ar') }}:</label>
+                    <input type="text" name="title_ar" id="title_ar" dir="rtl"
+                           class="form-control @error('title_ar') form-control-error @enderror"
+                           value="{{ old('title_ar') }}">
+
+                    @error('title_ar')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
+                  <div class="form-group">
+                    <label for="description_ar">{{ __('default.form.description_ar') }}:</label>
+                    <textarea name="description_ar" id="description_ar" rows="20"
+                              class="form-control @error('description_ar') form-control-error @enderror">{{ old('description_ar') }}</textarea>
+                    @error('description_ar')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">
+                {{ __('cms.blogs.english_information') }}
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="title_en">{{ __('default.form.title_en') }}:</label>
+                    <input type="text" name="title_en" id="title_en"
+                           class="form-control @error('title_en') form-control-error @enderror"
+                           value="{{ old('title_en') }}">
+
+                    @error('title_en')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
                   <div class="form-group">
                     <label for="description_en">{{ __('default.form.description_en') }}:</label>
                     <textarea name="description_en" id="description_en" rows="20"
@@ -156,37 +178,21 @@
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                   </div>
-
-                  <div class="form-group">
-                    <label for="description_ar">{{ __('default.form.description_ar') }}:</label>
-                    <textarea name="description_ar" id="description_ar" rows="20"
-                              class="form-control @error('description_ar') form-control-error @enderror">{{ old('description_ar') }}</textarea>
-
-                    @error('description_ar')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                  </div>
                 </div>
               </div>
             </div>
-          </div> <!-- end card -->
-
+          </div>
           <div class="card">
-
             <div class="card-header">
               <h4 class="card-name">{{ __('default.form.seo_information') }}</h4>
             </div>
-
             <div class="card-body">
               <div class="row">
-
                 <div class="col-md-12">
-
                   <div class="form-group">
                     <label for="meta_title_en">{{ __('default.form.meta_title_en') }}</label>
                     <input type="text" class="form-control" name="meta_title_en" id="meta_title_en"
                            value="{{ old('meta_title_en') }}">
-
                     @error('meta_title_en')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -375,13 +381,5 @@
         return _results
       }
     }
-  </script>
-  <script type="text/javascript">
-    $("#title_en").change(function() {
-      var title = this.value;
-      title = title.trim().replace(/\s\s+/g, ' ').toLowerCase();
-      title = title.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-').toLowerCase();
-      $("#slug").val(title);
-    })
   </script>
 @endpush

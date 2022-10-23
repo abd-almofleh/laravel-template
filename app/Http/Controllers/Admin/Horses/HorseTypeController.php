@@ -89,7 +89,7 @@ class HorseTypeController extends Controller
       Toastr::success(__('horsesType.message.store.success'));
       return redirect()->route('horses.types.index');
     } catch (Exception $e) {
-      Toastr::error(__('horsestype.message.store.error'));
+      Toastr::error(__('horsesType.message.store.error'));
       return redirect()->route('horses.types.index');
     }
   }
@@ -97,7 +97,7 @@ class HorseTypeController extends Controller
   /**
    * Show the form for editing the specified resource.
    *
-   * @param  \App\Models\HorseType  $type
+   * @param  \App\Models\HorseType     $type
    * @return \Illuminate\Http\Response
    */
   public function edit(HorseType $type)
@@ -109,7 +109,7 @@ class HorseTypeController extends Controller
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Models\HorseType  $type
+   * @param  \App\Models\HorseType     $type
    * @return \Illuminate\Http\Response
    */
   public function update(UpdateHorseTypeRequest $request, HorseType $type)

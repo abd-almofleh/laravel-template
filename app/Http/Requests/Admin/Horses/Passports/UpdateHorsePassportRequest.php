@@ -16,7 +16,6 @@ class UpdateHorsePassportRequest extends FormRequest
   public function authorize()
   {
     return Auth::user()->can('horsePassport-edit');
-    ;
   }
 
   /**
@@ -27,17 +26,20 @@ class UpdateHorsePassportRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => ['required', 'string', Rule::unique('horse_passports', 'name')->ignore($this->passport->id)],
-      'status' => 'required|boolean',
+      'name_ar' => ['required', 'string', Rule::unique('horse_passports', 'name_ar')->ignore($this->passport->id)],
+      'name_en' => ['required', 'string', Rule::unique('horse_passports', 'name_en')->ignore($this->passport->id)],
+      'status'  => 'required|boolean',
     ];
   }
 
   public function messages()
   {
     return [
-      'name.required' => __('default.form.validation.name.required'),
-      'name.unique' => __('default.form.validation.name.unique'),
-      'status.required' => __('default.form.validation.status.required'),
+      'name_ar.required'   => __('default.form.validation.name.required'),
+      'name_ar.unique'     => __('default.form.validation.name.unique'),
+      'name_en.required'   => __('default.form.validation.name.required'),
+      'name_en.unique'     => __('default.form.validation.name.unique'),
+      'status.required'    => __('default.form.validation.status.required'),
     ];
   }
 }

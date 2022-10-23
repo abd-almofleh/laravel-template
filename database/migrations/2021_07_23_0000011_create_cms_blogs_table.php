@@ -16,7 +16,8 @@ class CreateCmsBlogsTable extends Migration
         $table->id();
         $table->string('title_ar')->nullable();
         $table->string('title_en')->nullable();
-        $table->string('slug')->unique()->nullable();
+        $table->string('slug_ar')->unique()->nullable();
+        $table->string('slug_en')->unique()->nullable();
         $table->text('description_ar')->nullable()->nullable();
         $table->text('description_en')->nullable()->nullable();
         $table->foreignId('cms_category_id')->nullable()->constrained()->onDelete('set null');
@@ -32,7 +33,6 @@ class CreateCmsBlogsTable extends Migration
         $table->timestamps();
 
         $table->foreign('author_id')->references('id')->on('users');
-
       });
     }
   }

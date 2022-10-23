@@ -11,12 +11,23 @@ class HorseType extends Model
 
   /* A list of attributes that can be mass assigned. */
   protected $fillable = [
-    'name',
-    'status'
+    'name_ar',
+    'name_en',
+    'status',
   ];
 
   public function horses()
   {
     return $this->hasMany(ListedHorse::class, 'type_id');
+  }
+
+  /**
+   * Scope a query to only include active types.
+   *
+   * @param \Illuminate\Database\Eloquent\Builder $query
+   */
+  public function scopeActive($query)
+  {
+    $query->where('status', 1);
   }
 }

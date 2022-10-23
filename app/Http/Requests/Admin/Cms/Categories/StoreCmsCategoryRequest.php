@@ -25,17 +25,20 @@ class StoreCmsCategoryRequest extends FormRequest
   public function rules()
   {
     return [
-      'name'   => 'required|string|unique:cms_categories,name',
-      'status' => 'required|boolean',
+      'name_en'   => 'required|string|unique:cms_categories,name_en',
+      'name_ar'   => 'required|string|unique:cms_categories,name_ar',
+      'status'    => 'required|boolean',
     ];
   }
 
   public function messages()
   {
     return [
-      'name.required'   => __('default.form.validation.name.required'),
-      'name.unique'     => __('default.form.validation.name.unique'),
-      'status.required' => __('default.form.validation.status.required'),
+      'name_en.required'   => __('default.form.validation.name.required'),
+      'name_en.unique'     => __('default.form.validation.name.unique'),
+      'name_ar.required'   => __('default.form.validation.name.required'),
+      'name_ar.unique'     => __('default.form.validation.name.unique'),
+      'status.required'    => __('default.form.validation.status.required'),
     ];
   }
 }

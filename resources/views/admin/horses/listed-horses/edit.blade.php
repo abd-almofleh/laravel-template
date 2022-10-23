@@ -113,7 +113,7 @@
                       <option value="">{{ __('default.form.choose_horse_type') }}</option>
                       @foreach ($horsesTypes as $horsesType)
                         <option value="{{ $horsesType->id }}" @if (old('type_id', $listedHorse->type_id) == $horsesType->id) selected @endif>
-                          {{ $horsesType->name }}</option>
+                          {{ $horsesType->name_en }} - {{ $horsesType->name_ar }}</option>
                       @endforeach
 
                     </select>
@@ -155,7 +155,6 @@
 
                   <div class="form-group">
                     <label for="passport_type_id" class="required">{{ __('default.form.passport') }}:</label>
-
                     <select type="text" name="passport_type_id" id="passport_type_id"
                             class="form-control @error('passport_type_id') form-control-error @enderror"
                             required="required">
@@ -163,7 +162,7 @@
                       <option value="">{{ __('default.form.choose_horse_passport') }}</option>
                       @foreach ($horsesPassports as $horsesPassport)
                         <option value="{{ $horsesPassport->id }}" @if (old('passport_type_id', $listedHorse->passport_type_id) == $horsesPassport->id) selected @endif>
-                          {{ $horsesPassport->name }}</option>
+                          {{ $horsesPassport->name_en }} - {{ $horsesPassport->name_ar }}</option>
                       @endforeach
 
                     </select>
@@ -186,19 +185,6 @@
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                   </div>
-                  <div class="form-group">
-                    <label for="weight" class="required">{{ __('default.form.weight') }}:</label>
-                    <div class="input-group">
-                      <input type="number" step="0.1" name="weight" id="weight"
-                             class="form-control @error('weight') form-control-error @enderror" required="required"
-                             value="{{ old('weight', $listedHorse->weight) }}">
-                      <span class="input-group-text">{{ __('default.form.kg') }}</span>
-                    </div>
-                    @error('weight')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                  </div>
-
                   <div class="form-group">
                     <label for="color" class="required">{{ __('default.form.color') }}:</label>
                     <input type="text" name="color" id="color"

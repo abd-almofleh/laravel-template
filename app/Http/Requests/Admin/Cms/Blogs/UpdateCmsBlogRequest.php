@@ -27,26 +27,28 @@ class UpdateCmsBlogRequest extends FormRequest
   {
     if ($this->input('status', $this->blog->status) == 1) {
       return [
-        'title_en'            => 'required|string',
-        'title_ar'            => 'required|string',
-        'slug'                => ['required', 'string', Rule::unique('cms_blogs', 'slug')->ignore($this->blog->id)],
-        'cms_category_id'     => 'required|exists:cms_categories,id',
-        'description_en'      => 'required|string',
-        'description_ar'      => 'required|string',
-        'meta_title_en'       => 'required|string',
-        'meta_title_ar'       => 'required|string',
-        'meta_description_en' => 'required|string',
-        'meta_description_ar' => 'required|string',
-        'meta_keywords_en'    => 'required|string',
-        'meta_keywords_ar'    => 'required|string',
-        'status'              => 'required|boolean',
-        'photo'               => 'required|string',
+        'title_en'                   => 'required_without_all:title_ar|required_if:title_ar,null|nullable|string',
+        'title_ar'                   => 'required_without_all:title_en|required_with:description_ar|nullable|string',
+        'cms_category_id'            => 'required|exists:cms_categories,id',
+        'slug_ar'                    => 'nullable|string',
+        'slug_en'                    => 'nullable|string',
+        'description_en'             => 'required|string',
+        'description_ar'             => 'required|string',
+        'meta_title_en'              => 'required|string',
+        'meta_title_ar'              => 'required|string',
+        'meta_description_en'        => 'required|string',
+        'meta_description_ar'        => 'required|string',
+        'meta_keywords_en'           => 'required|string',
+        'meta_keywords_ar'           => 'required|string',
+        'status'                     => 'required|boolean',
+        'photo'                      => 'required|string',
       ];
     } else {
       return [
         'title_en'                   => 'nullable|string',
         'title_ar'                   => 'nullable|string',
-        'slug'                       => ['nullable', 'string', Rule::unique('cms_blogs', 'slug')->ignore($this->blog->id)],
+        'slug_ar'                    => 'nullable|string',
+        'slug_en'                    => 'nullable|string',
         'cms_category_id'            => 'nullable|exists:cms_categories,id',
         'description_en'             => 'nullable|string',
         'description_ar'             => 'nullable|string',
@@ -62,18 +64,19 @@ class UpdateCmsBlogRequest extends FormRequest
     }
   }
 
-  // public function messages()
-  // {
-  //   return [
-  //     'name.required'    		       => __('default.form.validation.name.required'),
-  //     'slug.required'    	        => __('default.form.validation.slug.required'),
-  //     'slug.unique'    		         => __('default.form.validation.slug.unique'),
-  //     'cms_category_id.required'  => __('default.form.validation.category.required'),
-  //     'description.required'      => __('default.form.validation.description.required'),
-  //     'meta_title.required'       => __('default.form.validation.meta_title.required'),
-  //     'meta_description.required' => __('default.form.validation.meta_description.required'),
-  //     'meta_keywords.required'    => __('default.form.validation.meta_keywords.required'),
-  //     'status.required'    	      => __('default.form.validation.status.required'),
-  //   ];
-  // }
+  public function messages()
+  {
+    return [
+      'required_without_all' => 'One of the following [Arabic Title, English Title] must be present.',
+      //     'name.required'    		       => __('default.form.validation.name.required'),
+      //     'slug.required'    	        => __('default.form.validation.slug.required'),
+      //     'slug.unique'    		         => __('default.form.validation.slug.unique'),
+      //     'cms_category_id.required'  => __('default.form.validation.category.required'),
+      //     'description.required'      => __('default.form.validation.description.required'),
+      //     'meta_title.required'       => __('default.form.validation.meta_title.required'),
+      //     'meta_description.required' => __('default.form.validation.meta_description.required'),
+      //     'meta_keywords.required'    => __('default.form.validation.meta_keywords.required'),
+      //     'status.required'    	      => __('default.form.validation.status.required'),
+    ];
+  }
 }

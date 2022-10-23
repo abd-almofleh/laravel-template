@@ -8,14 +8,13 @@ class CreateHorseTypesTable extends Migration
 {
   /**
    * Run the migrations.
-   *
-   * @return void
    */
   public function up()
   {
     Schema::create('horse_types', function (Blueprint $table) {
       $table->id();
-      $table->string('name');
+      $table->string('name_ar');
+      $table->string('name_en');
       $table->boolean('status')->default(0);
       $table->timestamps();
     });
@@ -23,8 +22,6 @@ class CreateHorseTypesTable extends Migration
 
   /**
    * Reverse the migrations.
-   *
-   * @return void
    */
   public function down()
   {

@@ -26,16 +26,19 @@ class UpdateCmsCategoryRequest extends FormRequest
   public function rules()
   {
     return [
-      'name'   => ['required', 'string', Rule::unique('horse_types', 'name')->ignore($this->category->id)],
-      'status' => 'required|boolean',
+      'name_en'   => ['required', 'string', Rule::unique('cms_categories', 'name_en')->ignore($this->category->id)],
+      'name_ar'   => ['required', 'string', Rule::unique('cms_categories', 'name_ar')->ignore($this->category->id)],
+      'status'    => 'required|boolean',
     ];
   }
 
   public function messages()
   {
     return [
-      'name.required'   => __('default.form.validation.name.required'),
-      'name.unique'     => __('default.form.validation.name.unique'),
+      'name_en.required'   => __('default.form.validation.name.required'),
+      'name_en.unique'     => __('default.form.validation.name.unique'),
+      'name_ar.required'   => __('default.form.validation.name.required'),
+      'name_ar.unique'     => __('default.form.validation.name.unique'),
       'status.required' => __('default.form.validation.status.required'),
     ];
   }

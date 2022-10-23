@@ -14,8 +14,9 @@ class HorsePassportFactory extends Factory
   public function definition()
   {
     return [
-      'name' => $this->faker->word,
-      'status' => $this->faker->boolean
+      'name_en' => $this->faker->word,
+      'name_ar' => 'عربي_' . $this->faker->word,
+      'status'  => $this->faker->boolean,
     ];
   }
 }

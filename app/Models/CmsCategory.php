@@ -30,12 +30,23 @@ class CmsCategory extends Model
   use HasFactory;
 
   protected $fillable = [
-    'name',
+    'name_en',
+    'name_ar',
     'status',
   ];
 
   public function blogs()
   {
     return $this->hasMany(CmsBlog::class, 'cms_category_id');
+  }
+
+  /**
+   * Scope a query to only include active categories.
+   *
+   * @param \Illuminate\Database\Eloquent\Builder $query
+   */
+  public function scopeActive($query)
+  {
+    $query->where('status', 1);
   }
 }

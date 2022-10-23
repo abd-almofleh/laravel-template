@@ -14,8 +14,9 @@ class CmsCategoryFactory extends Factory
   public function definition()
   {
     return [
-      'name' => $this->faker->name,
-      'status' => $this->faker->boolean,
+      'name_en' => $this->faker->name,
+      'name_ar' => $this->faker->name,
+      'status'  => $this->faker->boolean,
     ];
   }
 }

@@ -24,7 +24,6 @@ class ListedHorse extends Model implements HasMedia
     'birth_year',
     'race',
     'height',
-    'weight',
     'color',
     'health',
     'description',
@@ -49,8 +48,8 @@ class ListedHorse extends Model implements HasMedia
     'videos',
   ];
   protected $with = [
-    'type',
-    'passport'
+    'type:id,name_en,name_ar',
+    'passport',
   ];
 
   public function registerMediaConversions(Media $media = null): void
@@ -91,11 +90,11 @@ class ListedHorse extends Model implements HasMedia
     return $files;
   }
 
-  /**
+/**
  * Retrieve the model for a bound value.
  *
- * @param  mixed  $value
- * @param  string|null  $field
+ * @param  mixed                                    $value
+ * @param  string|null                              $field
  * @return \Illuminate\Database\Eloquent\Model|null
  */
 public function resolveRouteBinding($value, $field = null)

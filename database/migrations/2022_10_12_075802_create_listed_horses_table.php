@@ -8,8 +8,6 @@ class CreateListedHorsesTable extends Migration
 {
   /**
    * Run the migrations.
-   *
-   * @return void
    */
   public function up()
   {
@@ -20,7 +18,6 @@ class CreateListedHorsesTable extends Migration
       $table->string('race');
       $table->integer('birth_year');
       $table->double('height');
-      $table->double('weight');
       $table->string('color');
       $table->string('health');
       $table->text('description');
@@ -43,8 +40,6 @@ class CreateListedHorsesTable extends Migration
 
   /**
    * Reverse the migrations.
-   *
-   * @return void
    */
   public function down()
   {
