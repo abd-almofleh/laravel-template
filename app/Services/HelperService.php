@@ -4,6 +4,15 @@ namespace App\Services;
 
 class HelperService
 {
+  /**
+   * It takes a string, replaces all non-alphanumeric characters with a dash, removes duplicate dashes,
+   * trims the string, and returns the result.
+   *
+   * @param title The title to be slugified.
+   * @param string divider The character that will be used to replace spaces.
+   *
+   * @return ?string A slugified string.
+   */
   public static function slugify(?string $title = '', string $divider = '-'): ?string
   {
     if ($title === null) {
