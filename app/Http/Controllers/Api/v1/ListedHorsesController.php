@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Customer\GetListedHorsesRequest;
+use App\Models\HorsePassport;
+use App\Models\HorseType;
 use App\Models\ListedHorse;
 
 class ListedHorsesController extends Controller
@@ -46,5 +48,13 @@ class ListedHorsesController extends Controller
 
     $data = $query->paginate();
     return $this->response('success', $data);
+  }
+
+  public function get_filter_options()
+  {
+    $horsesCategories = HorseType::select(['id', 'name_en', 'name_ar'])->active()->get();
+    $horsesPassports = HorsePassport::select(['id', 'name_en', 'name_ar'])->active()->get();
+    $sex = ['male'=>1, 'female'=> 0];
+    return $this->response('success', compact('horsesCategories', 'horsesPassports','sex'));
   }
 }
