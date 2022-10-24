@@ -51,4 +51,9 @@ class ListedHorsesService
 
     return $options;
   }
+
+  public function order_horse(ListedHorse $listedHorse, $customer, string $phone_number)
+  {
+    return false;
+  }
 }

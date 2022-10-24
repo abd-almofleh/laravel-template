@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Customer\GetListedHorsesRequest;
+use App\Http\Requests\Api\Customer\OrderListedHorseRequest;
+use App\Models\ListedHorse;
 use App\Services\ListedHorsesService;
+use Auth;
 
 class ListedHorsesController extends Controller
 {
@@ -35,6 +38,14 @@ class ListedHorsesController extends Controller
   public function get_filter_options()
   {
     $options = $this->listedHorsesService->get_filter_options();
+    return $this->response('success', $options);
+  }
+
+  public function order(OrderListedHorseRequest $request, ListedHorse $listedHorse)
+  {
+    $phone_number = $request->input('phone_number');
+    $customer = Auth::user();
+    $options = $this->listedHorsesService->order_horse($listedHorse, $phone_number, $customer);
     return $this->response('success', $options);
   }
 }

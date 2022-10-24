@@ -33,9 +33,12 @@ Route::prefix('v1')->group(
           Route::get('profile', [ProfileController::class, 'index']);
           Route::post('profile', [ProfileController::class, 'update']);
         });
-        Route::prefix('listed-horses')->group(function () {
-          Route::get('/', [ListedHorsesController::class, 'index']);
-          Route::get('/get-filter-options', [ListedHorsesController::class, 'get_filter_options']);
+        Route::prefix('listed-horses')->controller(ListedHorsesController::class)->group(function () {
+          Route::get('/', 'index');
+          Route::get('/get-filter-options', 'get_filter_options');
+          Route::middleware('auth:api')->group(function () {
+            Route::get('/order/{listedHorse}', 'order');
+          });
         });
       }
     );
