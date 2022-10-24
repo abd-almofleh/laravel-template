@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\CMSBlogController;
 use App\Http\Controllers\Api\v1\ListedHorsesController;
 use App\Http\Controllers\Api\v1\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,10 @@ Route::prefix('v1')->group(
           Route::middleware('auth:api')->group(function () {
             Route::get('/order/{listedHorse}', 'order');
           });
+        });
+        Route::prefix('blogs')->controller(CMSBlogController::class)->group(function () {
+          Route::get('/', 'index');
+          Route::get('/get-filter-options', 'get_filter_options');
         });
       }
     );
