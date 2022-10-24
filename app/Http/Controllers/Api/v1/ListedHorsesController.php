@@ -44,7 +44,7 @@ class ListedHorsesController extends Controller
   public function order(OrderListedHorseRequest $request, ListedHorse $listedHorse)
   {
     $phone_number = $request->input('phone_number');
-    $customer = Auth::user();
+    $customer = Auth::guard('api')->user();
     $this->listedHorsesService->order_horse($listedHorse, $customer, $phone_number);
     return $this->response('success');
   }
