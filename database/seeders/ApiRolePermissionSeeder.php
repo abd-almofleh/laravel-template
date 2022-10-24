@@ -10,21 +10,21 @@ class ApiRolePermissionSeeder extends Seeder
 {
   /**
    * Run the database seeds.
-   *
-   * @return void
    */
   public function run()
   {
     $customerRole = Role::create([
-      'name' => 'Customer',
-      'code' => 'customer',
-      'guard_name' => 'api'
+      'name'       => 'Customer',
+      'code'       => 'customer',
+      'guard_name' => 'api',
     ]);
 
     //permission list as array
     $permissions = [
-      'profile-index',
-      'profile-update',
+      'profile:index',
+      'profile:update',
+      
+      'listedHorse:order',
     ];
 
     //create and assign permission

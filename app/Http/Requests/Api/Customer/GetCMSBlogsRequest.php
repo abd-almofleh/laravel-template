@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests\Api\Customer;
 
-use Auth;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdateCustomerProfileRequest extends FormRequest
+class GetCMSBlogsRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -15,7 +13,7 @@ class UpdateCustomerProfileRequest extends FormRequest
    */
   public function authorize()
   {
-    return Auth::user()->can('profile:update', 'api');
+    return true;
   }
 
   /**
@@ -26,11 +24,8 @@ class UpdateCustomerProfileRequest extends FormRequest
   public function rules()
   {
     return [
-      'name'         => 'string',
-      'password'     => 'min:6',
-      'email'        => ['string', 'email', Rule::unique('customers', 'email')->ignore(Auth::user()->id)],
-      'phone_number' => 'string',
-
+      'query'    => 'nullable|string',
+      'category' => 'nullable|numeric|exists:cms_categories,id',
     ];
   }
 }

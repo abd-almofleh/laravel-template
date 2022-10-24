@@ -14,7 +14,7 @@ class UpdateListedHorseRequest extends FormRequest
    */
   public function authorize()
   {
-    return Auth::user()->can('listedHorses-edit');
+    return Auth::user()->can('listedHorses:edit');
   }
 
   /**

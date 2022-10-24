@@ -14,7 +14,7 @@ class StoreListedHorseRequest extends FormRequest
    */
   public function authorize()
   {
-    return Auth::user()->can('listedHorses-create');
+    return Auth::user()->can('listedHorses:create');
   }
 
   /**

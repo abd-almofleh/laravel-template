@@ -20,7 +20,7 @@ class Customer extends Authenticatable
     'email',
     'phone_number',
     'name',
-    'password'
+    'password',
   ];
   protected $hidden = ['password'];
 
@@ -31,7 +31,7 @@ class Customer extends Authenticatable
   {
     $this->attributes['password'] = Hash::make($password);
   }
-    /**
+  /**
    * The attributes that should be cast to native types.
    *
    * @var array
@@ -39,4 +39,9 @@ class Customer extends Authenticatable
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
+
+  public function orders()
+  {
+    return $this->hasMany(ListedHorsesOrder::class, 'customer_id');
+  }
 }

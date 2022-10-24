@@ -54,6 +54,7 @@ return [
       'success' => 'Horses deleted successfully!',
       'error' => 'There is an error! Please try later!',
     ],
-  ]
+  ],
+  'not_found' => 'Listed Horse not found'
 
 ];

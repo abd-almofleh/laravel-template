@@ -16,9 +16,9 @@ class Controller extends BaseController
 
   public function response($message, $data = null, $code = 200)
   {
-    return Response::json([
+    return Response::json(array_filter([
       'message' => $message,
-      'data' => $data,
-    ], $code);
+      'data'    => $data,
+    ]), $code);
   }
 }
