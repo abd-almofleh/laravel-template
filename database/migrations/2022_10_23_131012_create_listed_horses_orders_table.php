@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListedHorseOrdersTable extends Migration
+class CreateListedHorsesOrdersTable extends Migration
 {
   /**
    * Run the migrations.
@@ -15,9 +15,11 @@ class CreateListedHorseOrdersTable extends Migration
       $table->id();
       $table->enum('status', array_values(config('constants.order_status')))
       ->default(config('constants.order_status.pending'));
+      $table->string('phone_number')->unique()->nullable();
       $table->unsignedBigInteger('listed_horse_id')->unique();
       $table->unsignedBigInteger('customer_id');
       $table->timestamps();
+
       $table->foreign('listed_horse_id')->references('id')->on('listed_horses');
       $table->foreign('customer_id')->references('id')->on('customers');
     });

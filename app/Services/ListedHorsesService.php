@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Customer;
 use App\Models\HorsePassport;
 use App\Models\HorseType;
 use App\Models\ListedHorse;
+use App\Models\ListedHorsesOrder;
 
 class ListedHorsesService
 {
@@ -52,8 +54,19 @@ class ListedHorsesService
     return $options;
   }
 
-  public function order_horse(ListedHorse $listedHorse, $customer, string $phone_number)
+  public function order_horse(ListedHorse $listedHorse, Customer $customer, string $phone_number)
   {
-    return false;
+    $listedHorse->load('order');
+
+    if ($listedHorse->order !== null) {
+      abort(404, __('listedHorses.not_found'));
+    }
+
+    ListedHorsesOrder::create([
+      'status'          => config('constants.order_status.pending'),
+      'customer_id'     => $customer->id,
+      'listed_horse_id' => $listedHorse->id,
+      'phone_number'    => $phone_number,
+    ]);
   }
 }

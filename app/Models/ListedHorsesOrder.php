@@ -13,6 +13,7 @@ class ListedHorsesOrder extends Model
     'status',
     'customer_id',
     'listed_horse_id',
+    'phone_number',
   ];
 
 

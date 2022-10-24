@@ -31,7 +31,7 @@ class RolePermissionSeeder extends Seeder
       'user-edit',
       'user-delete',
 
-      'profile-index',
+      'profile:index',
 
       'role-list',
       'role-create',
@@ -61,11 +61,12 @@ class RolePermissionSeeder extends Seeder
       'horsePassport-create',
       'horsePassport-edit',
 
-      'listedHorses-list',
-      'listedHorses-create',
-      'listedHorses-edit',
-      'listedHorses-delete',
-      'listedHorses-show',
+      'listedHorses:list',
+      'listedHorses:create',
+      'listedHorses:edit',
+      'listedHorses:delete',
+      'listedHorses:show',
+      'listedHorse:order',
 
       'currency-list',
       'currency-create',

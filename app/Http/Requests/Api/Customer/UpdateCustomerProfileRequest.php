@@ -15,7 +15,7 @@ class UpdateCustomerProfileRequest extends FormRequest
    */
   public function authorize()
   {
-    return Auth::user()->can('profile-update','api');
+    return Auth::user()->can('profile:update', 'api');
   }
 
   /**
@@ -26,9 +26,9 @@ class UpdateCustomerProfileRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => 'string',
-      'password' => 'min:6',
-      'email' => ['string', 'email', Rule::unique('customers', 'email')->ignore(Auth::user()->id)],
+      'name'         => 'string',
+      'password'     => 'min:6',
+      'email'        => ['string', 'email', Rule::unique('customers', 'email')->ignore(Auth::user()->id)],
       'phone_number' => 'string',
 
     ];

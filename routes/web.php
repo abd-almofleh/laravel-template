@@ -24,8 +24,7 @@ Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])-
 Route::group(['middleware' => 'language'], function () {
   // Admin Routes
   Route::prefix('admin')->group(function () {
-    Route::redirect('/', 'dashboard');
-
+    Route::redirect('/', 'admin/dashboard');
     Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
     Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login_go'])->name('login_go');
     Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');

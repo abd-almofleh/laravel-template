@@ -45,7 +45,7 @@ class ListedHorsesController extends Controller
   {
     $phone_number = $request->input('phone_number');
     $customer = Auth::user();
-    $options = $this->listedHorsesService->order_horse($listedHorse, $phone_number, $customer);
-    return $this->response('success', $options);
+    $this->listedHorsesService->order_horse($listedHorse, $customer, $phone_number);
+    return $this->response('success');
   }
 }
