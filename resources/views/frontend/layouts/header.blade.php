@@ -37,11 +37,44 @@
       </div>
 
       <div class="col-4 col-sm-3 col-md-3 col-lg-2 text-right">
-        <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
-        <ul class="customer-links list-inline">
-          <li><a href="login.html">{{ __('frontend/default.general.login') }}</a></li>
-          <li><a href="register.html">{{ __('frontend/default.general.register') }}</a></li>
-        </ul>
+        @guest('customer_frontend')
+          <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
+          <ul class="customer-links list-inline">
+            <li><a href="{{ route('customer.auth.login') }}">{{ __('frontend/default.general.login') }}</a></li>
+            <li><a href="register.html">{{ __('frontend/default.general.register') }}</a></li>
+          </ul>
+        @else
+          <div class="nav-item me-3 me-lg-0 dropdown profile-dropdown-container">
+            <a class="nav-link profile-dd" role="button">
+              {{ explode(' ',auth()->guard('customer_frontend')->user()->name)[0] }}
+              <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22"
+                   alt="" loading="lazy" />
+            </a>
+            <div id="header-profile" class="block-cart block">
+              <div class="name text-center">
+                {{ auth()->guard('customer_frontend')->user()->name }}
+              </div>
+
+              <ul class="mini-products-list">
+                <li class="item">
+                  <a class="pName" href="cart.html">Elastic Waist Dress</a>
+                </li>
+                <li class="item">
+                  <a class="pName" href="cart.html">Elastic Waist Dress</a>
+                </li>
+                <li class="item">
+                  <a class="pName" href="cart.html">Elastic Waist Dress</a>
+                </li>
+                <li class="item">
+                  <a class="pName" href="cart.html">Elastic Waist Dress</a>
+                </li>
+              </ul>
+              <div class="action text-center">
+                <a href="cart.html" class="btn btn-secondary btn--small">{{ __('frontend/default.general.logout') }}</a>
+              </div>
+            </div>
+          </div>
+        @endguest
       </div>
     </div>
   </div>

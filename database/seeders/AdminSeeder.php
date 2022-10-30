@@ -9,8 +9,6 @@ class AdminSeeder extends Seeder
 {
   /**
    * Run the database seeds.
-   *
-   * @return void
    */
   public function run()
   {
@@ -18,11 +16,11 @@ class AdminSeeder extends Seeder
 
     if (is_null($user)) {
       $user = User::create([
-        'name' => 'Abdullah Almofleh',
-        'email' => 'admin@admin.com',
-        'mobile' => '0505108253',
+        'name'     => 'Abdullah Almofleh',
+        'email'    => 'admin@admin.com',
+        'mobile'   => '0505108253',
         'password' => bcrypt('password'),
-        'status' => 1
+        'status'   => 1,
       ]);
 
       $user->assignRole('Super Admin');

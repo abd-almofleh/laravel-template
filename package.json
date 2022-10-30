@@ -28,6 +28,7 @@
         "wow.js": "^1.2.2"
     },
     "dependencies": {
-        "jquery-ui": "jquery/jquery-ui#1.13.2"
+        "jquery-ui": "jquery/jquery-ui#1.13.2",
+        "toastr": "^2.1.4"
     }
 }

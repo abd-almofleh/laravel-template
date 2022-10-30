@@ -184,4 +184,23 @@
 
         el.hide();
     });
+    // * 9. ---------------- Profile Photo Dropdown ----------------
+
+    function profile_dropdown() {
+        $(".profile-dd").on("click", function (i) {
+            i.preventDefault();
+            $("#header-profile").slideToggle();
+        });
+        // Hide Cart on document click
+        $("body").on("click", function (event) {
+            var $target = $(event.target);
+            if (
+                !$target.parents().is(".profile-dropdown-container") &&
+                !$target.is(".profile-dropdown-container")
+            ) {
+                $("body").find("#header-profile").slideUp();
+            }
+        });
+    }
+    profile_dropdown();
 })($);

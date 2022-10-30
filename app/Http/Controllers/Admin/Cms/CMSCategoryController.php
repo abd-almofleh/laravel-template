@@ -22,10 +22,10 @@ class CMSCategoryController extends Controller
    */
   public function __construct()
   {
-    $this->middleware('auth');
-    $this->middleware('permission:cms.category:list', ['only' => ['index']]);
-    $this->middleware('permission:cms.category:create', ['only' => ['create', 'store']]);
-    $this->middleware('permission:cms.category:edit', ['only' => ['edit', 'update', 'update_status']]);
+    $this->middleware('auth:admin');
+    $this->middleware('permission:cms.category:list,admin', ['only' => ['index']]);
+    $this->middleware('permission:cms.category:create,admin', ['only' => ['create', 'store']]);
+    $this->middleware('permission:cms.category:edit,admin', ['only' => ['edit', 'update', 'update_status']]);
   }
 
   /**

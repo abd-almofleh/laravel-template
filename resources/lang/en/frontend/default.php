@@ -9,6 +9,7 @@ return [
   'general' => [
     'title'    => 'Page Title',
     'login'    => 'Login',
+    'logout'    => 'Logout',
     'register' => 'Register with us',
   ],
 

@@ -21,11 +21,11 @@ class CMSBlogController extends Controller
 
   public function __construct()
   {
-    $this->middleware('auth');
-    $this->middleware('permission:cms.blog:list', ['only' => ['index']]);
-    $this->middleware('permission:cms.blog:create', ['only' => ['create', 'store']]);
-    $this->middleware('permission:cms.blog:edit', ['only' => ['edit', 'update']]);
-    $this->middleware('permission:cms.blog:delete', ['only' => ['destroy']]);
+    $this->middleware('auth:admin');
+    $this->middleware('permission:cms.blog:list,admin', ['only' => ['index']]);
+    $this->middleware('permission:cms.blog:create,admin', ['only' => ['create', 'store']]);
+    $this->middleware('permission:cms.blog:edit,admin', ['only' => ['edit', 'update']]);
+    $this->middleware('permission:cms.blog:delete,admin', ['only' => ['destroy']]);
   }
 
   public function index(Request $request)
