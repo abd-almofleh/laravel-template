@@ -118,13 +118,12 @@ Route::group(['middleware' => 'language'], function () {
   // Customer Routes
   Route::prefix('customer')->name('customer.')->group(function () {
     Route::name('auth.')->group(function () {
-      Route::get('/login', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'login_view'])->name('login');
+      Route::get('/login', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'loginView'])->name('login');
       Route::post('/login', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'login'])->name('login.attempt');
       Route::post('/logout', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'logout'])->name('logout');
+      Route::get('forget-password', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'forgetPasswordView'])->name('forget_password.form');
+      Route::patch('reset-password', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'resetPassword'])->name('forget_password.reset');
     });
-
-    // Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-    // Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 
     // Customer Authenticated Routes
     Route::group(['middleware' => ['auth:customer_frontend']], function () {

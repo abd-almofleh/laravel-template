@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FrontEnd\Customer\LoginRequest;
+use App\Http\Requests\Frontend\Customer\ResetPasswordRequest;
+use App\Models\Customer;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
@@ -18,7 +20,7 @@ class AuthCustomerController extends Controller
     $this->middleware('guest:customer_frontend')->except('logout');
   }
 
-  public function login_view()
+  public function loginView()
   {
     return view('frontend.customer.auth.login');
   }
@@ -38,6 +40,27 @@ class AuthCustomerController extends Controller
       Toastr::error('Credentials Miss match!');
       return redirect()->back();
     }
+  }
+
+  public function forgetPasswordView()
+  {
+    return view('frontend.Customer.auth.forget-password');
+  }
+
+  public function resetPassword(ResetPasswordRequest $request)
+  {
+    $data = $request->validated();
+    $customer = Customer::whereEmail($data['email'])->first();
+    if ($customer === null) {
+      Toastr::error(__('frontend/validation.email_not_found'));
+      return redirect()->back();
+    }
+
+    $customer->password = $data['password'];
+    $customer->save();
+    Toastr::success(__('frontend/default.form.messages.update.success'));
+
+    return redirect()->route('customer.auth.login');
   }
 
   public function logout()

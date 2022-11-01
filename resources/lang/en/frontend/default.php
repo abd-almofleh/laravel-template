@@ -3,12 +3,14 @@
 return [
 
   'form' => [
-    'email'           => 'Email Address',
-    'name'            => 'Name',
-    'phone_number'    => 'Phone Number',
-    'password'        => 'Password',
-    'update'          => 'Update',
-    'update_password' => 'Update Password',
+    'email'                     => 'Email Address',
+    'name'                      => 'Name',
+    'phone_number'              => 'Phone Number',
+    'password'                  => 'Password',
+    'new_password'              => 'New Password',
+    'update'                    => 'Update',
+    'update_password'           => 'Update Password',
+    'new_password_confirmation' => 'New Confirm Password',
 
     'messages' => [
       'update' => [
@@ -18,12 +20,14 @@ return [
   ],
 
   'general' => [
-    'title'               => 'Page Title',
-    'login'               => 'Login',
-    'logout'              => 'Logout',
-    'register'            => 'Register with us',
-    'profile_information' => 'Profile Information',
-    'profile_password'    => 'Profile Password',
+    'title'                 => 'Page Title',
+    'login'                 => 'Login',
+    'logout'                => 'Logout',
+    'register'              => 'Register with us',
+    'profile_information'   => 'Profile Information',
+    'profile_password'      => 'Profile Password',
+    'forgot_your_password'  => 'Forgot your password?',
+    'reset_password'        => 'Reset Password',
   ],
 
   'layout' => [
@@ -34,8 +38,9 @@ return [
   ],
 
   'pages_titles' => [
-    'login'   => 'Login',
-    'profile' => 'Profile',
+    'login'           => 'Login',
+    'profile'         => 'Profile',
+    'forget_password' => 'Reset Your Password',
   ],
 
 ];
