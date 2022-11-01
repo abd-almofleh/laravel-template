@@ -61,7 +61,13 @@
                 </li>
               </ul>
               <div class="action text-center">
-                <a href="cart.html" class="btn btn-secondary btn--small">{{ __('frontend/default.general.logout') }}</a>
+                <form action="{{ route('customer.auth.logout') }}" method="post">
+                  @csrf
+                  <button role="" class="btn btn-secondary btn--small">
+                    {{ __('frontend/default.general.logout') }}
+                  </button>
+                </form>
+
               </div>
             </div>
           </div>

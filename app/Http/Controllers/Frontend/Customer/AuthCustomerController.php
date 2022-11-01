@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend\Customer\Auth;
+namespace App\Http\Controllers\Frontend\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FrontEnd\Customer\LoginRequest;
@@ -8,17 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 
-/*
-|--------------------------------------------------------------------------
-| Login Controller
-|--------------------------------------------------------------------------
-|
-| This controller handles authenticating users for the application and
-| redirecting them to your home screen. The controller uses a trait
-| to conveniently provide its functionality to your applications.
-|
-*/
-class LoginCustomerController extends Controller
+class AuthCustomerController extends Controller
 {
   use AuthenticatesUsers;
   protected $guard = 'customer_frontend';
@@ -28,7 +18,7 @@ class LoginCustomerController extends Controller
     $this->middleware('guest:customer_frontend')->except('logout');
   }
 
-  public function index()
+  public function login_view()
   {
     return view('frontend.customer.auth.login');
   }

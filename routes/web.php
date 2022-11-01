@@ -117,10 +117,10 @@ Route::group(['middleware' => 'language'], function () {
 
   // Customer Routes
   Route::prefix('customer')->name('customer.')->group(function () {
-    Route::prefix('auth')->name('auth.')->group(function () {
-      Route::get('/login', [App\Http\Controllers\Frontend\Customer\Auth\LoginCustomerController::class, 'index'])->name('login');
-      Route::post('/login', [App\Http\Controllers\Frontend\Customer\Auth\LoginCustomerController::class, 'login'])->name('login.attempt');
-      // Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+    Route::name('auth.')->group(function () {
+      Route::get('/login', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'login_view'])->name('login');
+      Route::post('/login', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'login'])->name('login.attempt');
+      Route::post('/logout', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'logout'])->name('logout');
     });
 
     // Route::get('forget-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
