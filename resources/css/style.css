@@ -823,12 +823,12 @@ textarea:-ms-input-placeholder {
     margin-right: 0;
 }
 
-.mini-products-list {
+.header-profile-list {
     list-style: none;
     margin: 0;
 }
 
-.mini-products-list li {
+.header-profile-list li {
     padding-bottom: 10px;
     margin-bottom: 10px;
     line-height: normal;
@@ -838,14 +838,14 @@ textarea:-ms-input-placeholder {
     text-align: left;
 }
 
-.mini-products-list li:before,
-.mini-products-list li:after {
+.header-profile-list li:before,
+.header-profile-list li:after {
     content: "";
     clear: both;
     display: block;
 }
 
-.mini-products-list li .pName {
+.header-profile-list li .list-title {
     color: #000;
     font-size: 13px;
     white-space: normal;
@@ -855,7 +855,7 @@ textarea:-ms-input-placeholder {
     margin-right: 18px;
     margin-bottom: 0;
 }
-.mini-products-list li .pName:hover {
+.header-profile-list li .list-title:hover {
     color: #222;
 }
 
@@ -4430,9 +4430,7 @@ table {
     font-weight: 700;
     text-decoration: none;
 }
-.billing-fields {
-    margin-bottom: 30px;
-}
+
 .order-table .table thead th {
     background-color: #fff;
     font-size: 13px;
@@ -5409,3 +5407,8 @@ input.checkbox {
 .form-group {
     margin-bottom: 1rem;
 }
+
+.required-f {
+    color: red;
+}
+

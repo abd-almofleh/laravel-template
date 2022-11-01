@@ -8,24 +8,7 @@
         <div class="mb-4">
           <form method="post" action="{{ route('customer.auth.login.attempt') }}" class="contact-form">
             @csrf
-            <div class="row">
-              @if ($errors->any())
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="custom-alert alert-danger">
-                      <h4 class="alert-heading">{{ __('default.form.error') }}</h4>
-                      <p>{{ __('default.form.following_error_exits') }}:</p>
-                      <hr>
-                      <ul>
-                        @foreach ($errors->all() as $error)
-                          <li class="mb-0">{{ $error }}</li>
-                        @endforeach
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              @endif
-            </div>
+            <x-errors-alert />
             <div class="row">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="form-group">

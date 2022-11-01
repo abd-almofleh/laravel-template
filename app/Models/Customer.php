@@ -16,6 +16,8 @@ class Customer extends Authenticatable
   use Notifiable;
   use HasRoles;
 
+  protected $guard = 'customer_frontend';
+
   protected $fillable = [
     'email',
     'phone_number',
@@ -27,8 +29,12 @@ class Customer extends Authenticatable
   /**
    * @param string $password
    */
-  public function setPasswordAttribute(string $password): void
+  public function setPasswordAttribute(?string $password): void
   {
+    if ($password === null) {
+      return;
+    }
+
     $this->attributes['password'] = Hash::make($password);
   }
   /**

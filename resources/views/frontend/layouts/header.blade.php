@@ -55,18 +55,9 @@
                 {{ auth()->guard('customer_frontend')->user()->name }}
               </div>
 
-              <ul class="mini-products-list">
+              <ul class="header-profile-list">
                 <li class="item">
-                  <a class="pName" href="cart.html">Elastic Waist Dress</a>
-                </li>
-                <li class="item">
-                  <a class="pName" href="cart.html">Elastic Waist Dress</a>
-                </li>
-                <li class="item">
-                  <a class="pName" href="cart.html">Elastic Waist Dress</a>
-                </li>
-                <li class="item">
-                  <a class="pName" href="cart.html">Elastic Waist Dress</a>
+                  <a class="list-title" href="{{ route('customer.profile') }}">{{ __('setting.profile.title') }}</a>
                 </li>
               </ul>
               <div class="action text-center">
