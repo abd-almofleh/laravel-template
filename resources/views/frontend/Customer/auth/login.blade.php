@@ -38,7 +38,7 @@
                   <a href="{{ route('customer.auth.forget_password.form') }}"
                      id="RecoverPassword">{{ __('frontend/default.general.forgot_your_password') }}</a>
                   &nbsp; | &nbsp;
-                  <a href="register.html" id="customer_register_link">Create account</a>
+                  <a href="{{ route('customer.auth.signup.form') }}" id="customer_register_link">Create account</a>
                 </p>
               </div>
             </div>

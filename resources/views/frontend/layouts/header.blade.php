@@ -1,3 +1,8 @@
+@php
+  $user = auth()
+      ->guard('customer_frontend')
+      ->user();
+@endphp
 <div class="header-wrap animated d-flex">
   <div class="container-fluid">
     <div class="row align-items-center">
@@ -41,18 +46,18 @@
           <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
           <ul class="customer-links list-inline">
             <li><a href="{{ route('customer.auth.login') }}">{{ __('frontend/default.general.login') }}</a></li>
-            <li><a href="register.html">{{ __('frontend/default.general.register') }}</a></li>
+            <li><a href="{{ route('customer.auth.signup.form') }}">{{ __('frontend/default.general.register') }}</a></li>
           </ul>
         @else
           <div class="nav-item me-3 me-lg-0 dropdown profile-dropdown-container">
             <a class="nav-link profile-dd" role="button">
-              {{ explode(' ',auth()->guard('customer_frontend')->user()->name)[0] }}
+              {{ explode(' ', $user->name)[0] }}
               <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22"
                    alt="" loading="lazy" />
             </a>
             <div id="header-profile" class="block-cart block">
               <div class="name text-center">
-                {{ auth()->guard('customer_frontend')->user()->name }}
+                {{ $user->name }}
               </div>
 
               <ul class="header-profile-list">

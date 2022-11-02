@@ -21,12 +21,12 @@ class Authentication
    *
    * @return The customer object.
    */
-  public function register_customer(string $name, string $password, string $email, string $phone_number)
+  public function register_customer(string $name, string $password, string $email, string $phone_number): Customer
   {
     $customer = Customer::create([
-      'name' => $name,
-      'password' => $password,
-      'email' => $email,
+      'name'         => $name,
+      'password'     => $password,
+      'email'        => $email,
       'phone_number' => $phone_number,
     ]);
 
@@ -46,7 +46,7 @@ class Authentication
    *
    * @return The user and the access token.
    */
-  public function login_customer(string $email, string $password)
+  public function login_customer(string $email, string $password): array
   {
     $customer = Customer::where('email', 'LIKE', $email)->first();
     if (!$customer || !Hash::check($password, $customer->password)) {
