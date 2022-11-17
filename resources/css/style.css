@@ -43,6 +43,13 @@ Table of Content:
 @import url("http://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&amp;display=swap");
 
 /*======================================================================
+  variables
+========================================================================*/
+:root {
+    --app-primary: #e28c03;
+    --app-border-radius: 10px;
+}
+/*======================================================================
   2. Basic Styles
 ========================================================================*/
 * {
@@ -402,6 +409,10 @@ hr {
 /*======================================================================
   4. Utilities
 ========================================================================*/
+.app-text-primary {
+    color: var(--app-primary);
+}
+
 .hidden {
     display: none;
 }
@@ -541,7 +552,7 @@ th {
     vertical-align: middle;
     cursor: pointer;
     border: 1px solid transparent;
-    border-radius: 0;
+    border-radius: 8px;
     padding: 8px 15px 8px;
     background-color: #000;
     color: #fff;
@@ -570,6 +581,11 @@ th {
     font-size: 0.92308em;
     line-height: 1;
 }
+.btn--primary {
+    color: #fff;
+    background-color: var(--app-primary);
+    border: 1px solid var(--app-primary);
+}
 .btn--secondary {
     background-color: #ededed;
     color: #000;
@@ -597,21 +613,25 @@ th {
 input:-moz-placeholder,
 textarea:-moz-placeholder {
     opacity: 1;
+    filter: opacity(100);
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
     opacity: 1;
+    filter: opacity(100);
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 input::-moz-placeholder,
 textarea::-moz-placeholder {
     opacity: 1;
+    filter: opacity(100);
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
     opacity: 1;
+    filter: opacity(100);
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
@@ -2199,7 +2219,6 @@ a.quick-view {
 .store-info .icon {
     color: #a9a9a9;
     font-size: 40px;
-    vertical-align: middle;
     display: block;
     margin-bottom: 20px;
 }
@@ -2269,10 +2288,18 @@ a.quick-view {
     padding: 3px 0;
     font-size: 12px;
 }
+.sidebar .sidebar_widget .widget-content ul li.active {
+    font-weight: bold;
+}
+
+.sidebar .sidebar_widget .widget-content ul li.active a {
+    color: var(--app-primary);
+}
 .filterBox ul:not(.filter-color) {
     margin-left: -5px;
     list-style: none;
 }
+
 .filterBox ul:not(.filter-color) li {
     padding: 3px 0;
 }
@@ -2415,11 +2442,18 @@ a.quick-view {
 .sidebar .sidebar_widget.categories li a {
     display: block;
 }
+.widget-title h2 {
+    color: var(--app-primary);
+    border-bottom: 2px solid;
+    padding-bottom: 10px;
+}
 
 .filter-widget .widget-title {
     position: relative;
     cursor: pointer;
+    font-weight: bold;
 }
+
 .filter-widget .widget-title:after {
     content: "\eb69";
     font-family: "annimex-icons";
@@ -2429,6 +2463,7 @@ a.quick-view {
     top: -1px;
     font-size: 17px;
 }
+
 .filter-widget .widget-title.active:after {
     content: "\eb66";
     font-family: "annimex-icons";
@@ -2720,7 +2755,7 @@ a.quick-view {
     display: inline-block;
 }
 .pagination li.active a {
-    border: 2px solid #636871;
+    border: 2px solid var(--app-primary);
     color: #555;
 }
 .pagination li a {
@@ -2906,7 +2941,6 @@ a.quick-view {
     display: block;
 }
 .product-details-img .product-thumb {
-    display: inline-block;
     padding: 0;
     width: 12.5%;
     margin: 0;
@@ -2922,7 +2956,7 @@ a.quick-view {
     padding-right: 0;
 }
 .product-details-img .product-zoom-right {
-    display: inline-block;
+    display: block;
     position: relative;
     width: 87%;
     float: left;
@@ -3113,10 +3147,22 @@ h1.product-single__title,
 .orderMsg img {
     margin-right: 3px;
     vertical-align: top;
+    animation-name: blinker;
+    animation-iteration-count: infinite;
+    animation-duration: 0.8s;
+    animation-timing-function: cubic-bezier(0.6, 0, 1, 1);
     -webkit-animation-name: blinker;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: cubic-bezier(0.6, 0, 1, 1);
     -webkit-animation-duration: 0.8s;
+}
+@keyframes blinker {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 @-webkit-keyframes blinker {
     from {
@@ -3815,7 +3861,7 @@ table {
     margin-right: 0.3%;
     padding: 10px;
     line-height: 18px;
-    display: inline-block;
+    display: block;
     text-align: center;
     background: #000;
     color: #fff;
@@ -4235,10 +4281,10 @@ table {
 }
 .custom-search .search {
     opacity: 1;
-    border: 1px solid #e5e5e5;
+    border: 1px solid var(--app-primary);
     max-width: 100%;
     padding: 8px 10px;
-    border-radius: 0;
+    border-radius: var(--app-border-radius);
     box-shadow: none;
     -webkit-box-shadow: none;
     display: table;
@@ -4268,7 +4314,7 @@ table {
 .custom-search .btnSearch {
     border: 0;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 .article_featured-image {
@@ -4283,6 +4329,7 @@ table {
 }
 .article_featured-image img {
     margin-bottom: 20px;
+    border-radius: var(--app-border-radius);
 }
 .publish-detail {
     margin: 0 0 10px 0;
@@ -4320,22 +4367,6 @@ table {
 }
 .blog-nav .text-right .icon {
     padding-left: 4px;
-}
-
-.tags-clouds li {
-    display: inline-block;
-    margin-bottom: 6px;
-    margin-right: 6px;
-}
-.tags-clouds li a {
-    color: #000000;
-    display: block;
-    border: 1px solid #ddd;
-    padding: 5px 9px !important;
-    text-transform: uppercase;
-}
-.tags-clouds li a:hover {
-    background-color: #efefef;
 }
 
 .loadmore-post {
@@ -4892,7 +4923,7 @@ input.checkbox {
     display: block;
 }
 #instafeed .insta-img {
-    display: inline-block;
+    display: block;
     padding: 2px;
     float: left;
 }
@@ -5088,9 +5119,6 @@ input.checkbox {
     height: auto;
     padding: 12px 20px;
 }
-.newsletter-left #Subscribe:hover {
-    background: !important;
-}
 
 /*======================================================================
   33. Footer
@@ -5231,7 +5259,7 @@ input.checkbox {
 .newsletter-section .section-header {
     margin: 0 20px 0 0;
     float: left;
-    display: inline-block;
+    display: block;
 }
 .newsletter-section .section-header label {
     font-weight: 400;
@@ -5411,4 +5439,3 @@ input.checkbox {
 .required-f {
     color: red;
 }
-

@@ -24,9 +24,9 @@
         <nav class="grid__item" id="AccessibleNav">
           <!-- for mobile -->
           <ul id="siteNav" class="site-nav medium center hidearrow">
-            <li><a href="#">{{ __('frontend/navigation.home') }}</a></li>
+            <li><a href="{{ route('home') }}">{{ __('frontend/navigation.home') }}</a></li>
             <li><a href="#">{{ __('frontend/navigation.shop') }}</a></li>
-            <li><a href="#">{{ __('frontend/navigation.blog') }}</a></li>
+            <li><a href="{{ route('blogs.list') }}">{{ __('frontend/navigation.blog') }}</a></li>
             <li><a href="#">{{ __('frontend/navigation.about_us') }}</a></li>
             <li><a href="#">{{ __('frontend/navigation.contact_us') }}</a></li>
           </ul>
@@ -46,7 +46,8 @@
           <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
           <ul class="customer-links list-inline">
             <li><a href="{{ route('customer.auth.login') }}">{{ __('frontend/default.general.login') }}</a></li>
-            <li><a href="{{ route('customer.auth.signup.form') }}">{{ __('frontend/default.general.register') }}</a></li>
+            <li><a href="{{ route('customer.auth.signup.form') }}">{{ __('frontend/default.general.register') }}</a>
+            </li>
           </ul>
         @else
           <div class="nav-item me-3 me-lg-0 dropdown profile-dropdown-container">

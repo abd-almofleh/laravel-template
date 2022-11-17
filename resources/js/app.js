@@ -2,6 +2,9 @@ import jQuery from "jquery";
 import Cookies from "jquery.cookie";
 import WOW from "wow.js";
 import toastr from "toastr";
+import "lazysizes";
+// import a plugin
+import "lazysizes/plugins/parent-fit/ls.parent-fit";
 
 window.$ = jQuery;
 window.jQuery = jQuery;

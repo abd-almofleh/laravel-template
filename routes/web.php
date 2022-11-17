@@ -22,7 +22,7 @@ Route::get('setlocale/{locale}', function ($lang) {
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'language'], function () {
-  // Admin Routes
+  // * Admin Routes
   Route::prefix('admin')->group(function () {
     Route::redirect('/', url('admin/dashboard'));
     Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
@@ -115,25 +115,28 @@ Route::group(['middleware' => 'language'], function () {
     });
   });
 
-  // Customer Routes
+  // * Customer Routes
   Route::prefix('customer')->name('customer.')->group(function () {
-    Route::name('auth.')->group(function () {
-      Route::get('login', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'loginView'])->name('login');
-      Route::post('login', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'login'])->name('login.attempt');
-      Route::post('logout', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'logout'])->name('logout');
-      Route::get('forget-password', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'forgetPasswordView'])->name('forget_password.form');
-      Route::patch('reset-password', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'resetPassword'])->name('forget_password.reset');
-      Route::get('signup', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'signupForm'])->name('signup.form');
-      Route::post('signup', [App\Http\Controllers\Frontend\Customer\AuthCustomerController::class, 'signup'])->name('signup');
+    Route::name('auth.')->controller(App\Http\Controllers\Frontend\Customer\AuthCustomerController::class)->group(function () {
+      Route::get('login', 'loginView')->name('login');
+      Route::post('login', 'login')->name('login.attempt');
+      Route::post('logout', 'logout')->name('logout');
+      Route::get('forget-password', 'forgetPasswordView')->name('forget_password.form');
+      Route::patch('reset-password', 'resetPassword')->name('forget_password.reset');
+      Route::get('signup', 'signupForm')->name('signup.form');
+      Route::post('signup', 'signup')->name('signup');
     });
 
     // Customer Authenticated Routes
     Route::group(['middleware' => ['auth:customer_frontend']], function () {
-      Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'dashboard'])->name('dashboard');
-
       // Profile
       Route::get('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'index'])->name('profile');
       Route::put('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'update'])->name('profile.update');
     });
+  });
+
+  // * Blogs Routes
+  Route::prefix('blogs')->name('blogs.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Frontend\BlogsController::class, 'index'])->name('list');
   });
 });

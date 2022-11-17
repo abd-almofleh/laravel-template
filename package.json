@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "jquery-ui": "jquery/jquery-ui#1.13.2",
+        "lazysizes": "^5.3.2",
         "toastr": "^2.1.4"
     }
 }

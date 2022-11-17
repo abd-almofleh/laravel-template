@@ -15,6 +15,9 @@ class CmsBlog extends Model implements HasMedia
   use  Loggable;
   use InteractsWithMedia;
 
+  /**
+   * When a new blog post is created, set the author_id to the current user's id.
+   */
   protected static function boot()
   {
     parent::boot();
@@ -76,6 +79,28 @@ class CmsBlog extends Model implements HasMedia
       $file->preview = $file->getFullUrl('preview');
     }
     return $file;
+  }
+
+  public function getTitleAttribute(): string
+  {
+    return app()->getLocale() === 'en' ? $this->title_en : $this->title_ar;
+  }
+
+  public function getDescriptionAttribute(): string
+  {
+    return app()->getLocale() === 'en' ? $this->description_en : $this->description_ar;
+  }
+
+  public function getUrlAttribute(): string
+  {
+    return 'NONE';
+  }
+
+  public function getPrefAttribute(): string
+  {
+    $textOnly = strip_tags($this->description);
+    $words = explode(' ', $textOnly);
+    return  implode(' ', array_splice($words, 0, 20));
   }
 
   public function category()

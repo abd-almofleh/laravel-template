@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\Image;
 use App\Models\CmsBlog;
 use App\Models\CmsCategory;
 use App\Models\User;
@@ -19,11 +20,11 @@ class CmsBlogSeeder extends Seeder
     $faker = Faker::create();
     $faker_ar = Faker::create('ar_SA');
 
-    for ($i = 0; $i < 10; $i++) {
+    for ($i = 0; $i < 100; $i++) {
       CmsBlog::withoutEvents(function () use ($faker, $faker_ar) {
         $title_ar = $faker_ar->name();
         $title_en = $faker->sentence();
-        CmsBlog::create([
+        $blog = CmsBlog::create([
           'title_ar'            => $title_ar,
           'title_en'            => $title_en,
           'slug_ar'             => HelperService::slugify($title_ar),
@@ -39,8 +40,10 @@ class CmsBlogSeeder extends Seeder
           'meta_keywords_ar'    => $faker_ar->name(),
           'meta_keywords_en'    => $faker->words(7, true),
           'author_id'           => $faker->randomElement(User::pluck('id')),
-
         ]);
+        $path = Image::image(storage_path('tmp\blogsSeeder'), 640, 480, null, true, true);
+        error_log($blog->id);
+        $blog->addMedia($path)->toMediaCollection('photos');
       });
     }
   }

@@ -18,3 +18,6 @@ yarn-error.log
 /.idea
 /.vscode
 /temp
+/storage/tmp/uploads/*
+/storage/tmp/blogsSeeder/*
+/storage/media-library/temp/*

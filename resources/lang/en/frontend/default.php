@@ -30,6 +30,8 @@ return [
     'forgot_your_password'    => 'Forgot your password?',
     'reset_password'          => 'Reset Password',
     'your_information'        => 'Your information',
+    'read_more'               => 'Read More',
+    'all'               => 'All',
   ],
 
   'layout' => [
@@ -40,10 +42,14 @@ return [
   ],
 
   'pages_titles' => [
-    'login'           => 'Login',
-    'profile'         => 'Profile',
-    'forget_password' => 'Reset Your Password',
-    'signup'          => 'Signup',
+    'home'             => 'Home',
+    'login'            => 'Login',
+    'profile'          => 'Profile',
+    'forget_password'  => 'Reset Your Password',
+    'signup'           => 'Signup',
+    'blogs'            => [
+      'list' => 'Blog',
+    ],
   ],
 
 ];

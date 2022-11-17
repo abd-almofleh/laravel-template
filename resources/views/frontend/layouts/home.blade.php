@@ -22,14 +22,11 @@
 <body class="page-template belle">
   <div class="pageWrapper">
     @include('frontend.layouts.header')
-    <!--Mobile Menu-->
     @include('frontend.layouts.mobile-menu')
-    <!--End Mobile Menu-->
 
-    <!--Body Content-->
     <div id="page-content">
-      <!--Page Title-->
-      <div class="page section-header text-center">
+
+      <div class="page section-header mb-0 text-center">
         <div class="page-title">
           <div class="wrapper">
             <h1 class="page-width">
@@ -41,7 +38,7 @@
           </div>
         </div>
       </div>
-      <!--End Page Title-->
+
       <main class="root">
         @yield('content')
         @sectionMissing('content')
@@ -53,13 +50,10 @@
         @endif
       </main>
     </div>
-    <!--End Body Content-->
 
     <x-frontend.layouts.footer />
-    <!--Scoll Top-->
-    <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
-    <!--End Scoll Top-->
 
+    <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
   </div>
   <script src="{{ asset('js/app.js') }}"></script>
 
