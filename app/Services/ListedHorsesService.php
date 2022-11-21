@@ -7,6 +7,7 @@ use App\Models\HorsePassport;
 use App\Models\HorseType;
 use App\Models\ListedHorse;
 use App\Models\ListedHorsesOrder;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListedHorsesService
 {
@@ -14,8 +15,12 @@ class ListedHorsesService
   {
     $query = ListedHorse::query();
 
-    if ($filters['name'] !== false) {
-      $query->whereRaw('UPPER(`name`) LIKE ?', ['%' . strtoupper($filters['name']) . '%']);
+    if ($filters['query'] !== false) {
+      $query->whereRaw('UPPER(`name`) LIKE ?', ['%' . strtoupper($filters['query']) . '%'])
+      ->orWhereHas('passport', function (Builder $q) use ($filters) {
+        $q->whereRaw('UPPER(`name_ar`) LIKE ?', ['%' . strtoupper($filters['query']) . '%']);
+        $q->orWhereRaw('UPPER(`name_en`) LIKE ?', ['%' . strtoupper($filters['query']) . '%']);
+      });
     }
 
     if ($filters['sex'] !== false) {

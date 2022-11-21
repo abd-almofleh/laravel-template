@@ -21,7 +21,7 @@ class ListedHorsesController extends Controller
   public function index(GetListedHorsesRequest $request)
   {
     $filters = [];
-    $filters['name'] = $request->input('name', false) ;
+    $filters['query'] = $request->input('query', false) ;
     $filters['sex'] = $request->input('sex', false) ;
     $filters['min_birth_year'] = $request->input('min_birth_year', false);
     $filters['max_birth_year'] = $request->input('max_birth_year', false);
