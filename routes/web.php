@@ -91,14 +91,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/website-setting/edit', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('website-setting.edit');
         Route::post('/website-setting/update/{id}', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('website-setting.update');
       });
-
       // CMS
       Route::prefix('cms')->name('cms.')->group(function () {
         Route::patch('/categories/update-status/{category}', [App\Http\Controllers\Admin\Cms\CMSCategoryController::class, 'update_status'])->name('categories.update_status');
         Route::resource('categories', App\Http\Controllers\Admin\Cms\CMSCategoryController::class)->except(['show', 'destroy']);
 
         Route::post('blogs/media', [App\Http\Controllers\Admin\Cms\CMSBlogController::class, 'storeMedia'])->name('blogs.storeMedia');
-        Route::resource('blogs', App\Http\Controllers\Admin\Cms\CMSBlogController::class);
+        Route::resource('blogs', App\Http\Controllers\Admin\Cms\CMSBlogController::class)->scoped([
+          'blog' => 'id',
+        ]);
       });
 
       // horses
@@ -138,5 +139,6 @@ Route::group(['middleware' => 'language'], function () {
   // * Blogs Routes
   Route::prefix('blogs')->name('blogs.')->group(function () {
     Route::get('/', [App\Http\Controllers\Frontend\BlogsController::class, 'index'])->name('list');
+    Route::get('/{blog}', [App\Http\Controllers\Frontend\BlogsController::class, 'show'])->name('show');
   });
 });

@@ -31,7 +31,7 @@ return [
     'reset_password'          => 'Reset Password',
     'your_information'        => 'Your information',
     'read_more'               => 'Read More',
-    'all'               => 'All',
+    'all'                     => 'All',
   ],
 
   'layout' => [
@@ -49,6 +49,7 @@ return [
     'signup'           => 'Signup',
     'blogs'            => [
       'list' => 'Blog',
+      'show' => 'Blog Article',
     ],
   ],
 

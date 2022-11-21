@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\CmsBlog;
-use App\Models\CmsCategory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -21,8 +20,7 @@ class BlogsController extends Controller
       $category = $request->get('category');
       $query->when($category !== null, fn (Builder $q) => $q->category($category));
     })->paginate();
-    $categories = CmsCategory::all();
-    return view('frontend.blogs.index', compact('blogs', 'categories'));
+    return view('frontend.blogs.index', compact('blogs'));
   }
 
   /**
@@ -31,8 +29,8 @@ class BlogsController extends Controller
    * @param  int                       $id
    * @return \Illuminate\Http\Response
    */
-  public function show($blog)
+  public function show(CmsBlog $blog)
   {
-    return $blog;
+    return view('frontend.blogs.show', compact('blog'));
   }
 }
