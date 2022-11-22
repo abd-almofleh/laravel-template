@@ -97,6 +97,7 @@
   </div>
   <form id="delete-account" action="{{ route('customer.auth.account.delete') }}" method="POST">
     @csrf
+    @method('DELETE')
   </form>
 
 @endsection

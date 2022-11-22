@@ -21,13 +21,11 @@ use Illuminate\Http\JsonResponse;
 class AuthController extends \App\Http\Controllers\Controller
 {
   private $security;
+  public static $guard = 'api';
 
   public function __construct(SecurityService $security)
   {
     $this->security = $security;
-
-    $this->middleware('guest:api')->except('logout');
-    $this->middleware('auth:api')->only('logout');
   }
 
     /**
@@ -106,7 +104,25 @@ class AuthController extends \App\Http\Controllers\Controller
      */
     public function logout(): JsonResponse
     {
-      $this->security->authentication->logOutCustomer(Auth::user());
+      $customer = Auth::guard(static::$guard)->user();
+
+      $this->security->authentication->logOutCustomer($customer);
       return $this->response('Successfully logged out');
+    }
+
+    public function deleteAccount()
+    {
+      $customer = Auth::guard(static::$guard)->user();
+      $result = $this->security->authentication->deleteCustomer($customer);
+
+      if ($result) {
+        $this->security->authentication->logOutCustomer($customer);
+
+        $message = __('frontend/default.form.messages.delete.success');
+      } else {
+        $message = __('frontend/default.form.messages.delete.failed');
+      }
+
+      return $this->response($message);
     }
 }

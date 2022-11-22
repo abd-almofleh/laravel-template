@@ -127,7 +127,7 @@ Route::group(['middleware' => 'language'], function () {
       Route::post('signup', 'signup')->name('signup');
       Route::group(['middleware' => ['auth:customer_frontend']], function () {
         Route::post('logout', 'logout')->name('logout');
-        Route::post('/account', 'deleteAccount')->name('account.delete');
+        Route::delete('/account', 'deleteAccount')->name('account.delete');
       });
     });
 
