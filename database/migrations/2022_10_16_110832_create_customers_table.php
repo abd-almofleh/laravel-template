@@ -18,8 +18,9 @@ class CreateCustomersTable extends Migration
       $table->string('password');
       $table->string('phone_number');
       $table->rememberToken();
-      $table->date('birth_date');
+      $table->date('birth_date')->nullable();
       $table->timestamps();
+      $table->softDeletes();
       $table->timestamp('email_verified_at')->nullable();
     });
   }

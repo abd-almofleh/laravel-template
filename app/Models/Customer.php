@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Hash;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -15,6 +16,7 @@ class Customer extends Authenticatable
   use HasApiTokens;
   use Notifiable;
   use HasRoles;
+  use SoftDeletes;
 
   protected $guard = 'customer_frontend';
 

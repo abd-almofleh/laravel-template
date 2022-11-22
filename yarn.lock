@@ -4977,6 +4977,11 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
+sweetalert2@^11.6.11:
+  version "11.6.11"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.6.11.tgz#98079f34f18e9cc702f4964e4514309f2aba7b58"
+  integrity sha512-KFMJWyvOdWkFY5shMYJdBPUwwU/1WoYfRx0uSvvxUYm6vSENUUuoXBOo2oGT/PMnEPsHAZyOrOVUZ1WCOccM7w==
+
 tapable@^2.1.1, tapable@^2.2.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"

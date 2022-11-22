@@ -121,11 +121,14 @@ Route::group(['middleware' => 'language'], function () {
     Route::name('auth.')->controller(App\Http\Controllers\Frontend\Customer\AuthCustomerController::class)->group(function () {
       Route::get('login', 'loginView')->name('login');
       Route::post('login', 'login')->name('login.attempt');
-      Route::post('logout', 'logout')->name('logout');
       Route::get('forget-password', 'forgetPasswordView')->name('forget_password.form');
       Route::patch('reset-password', 'resetPassword')->name('forget_password.reset');
       Route::get('signup', 'signupForm')->name('signup.form');
       Route::post('signup', 'signup')->name('signup');
+      Route::group(['middleware' => ['auth:customer_frontend']], function () {
+        Route::post('logout', 'logout')->name('logout');
+        Route::post('/account', 'deleteAccount')->name('account.delete');
+      });
     });
 
     // Customer Authenticated Routes

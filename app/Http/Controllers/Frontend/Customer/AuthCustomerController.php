@@ -15,12 +15,12 @@ use Brian2694\Toastr\Facades\Toastr;
 class AuthCustomerController extends Controller
 {
   use AuthenticatesUsers;
-  protected $guard = 'customer_frontend';
+  public static $guard = 'customer_frontend';
   private $security;
 
   public function __construct(SecurityService $security)
   {
-    $this->middleware('guest:customer_frontend')->except('logout');
+    $this->middleware('guest:customer_frontend')->except(['logout', 'deleteAccount']);
     $this->security = $security;
   }
 
@@ -86,7 +86,22 @@ class AuthCustomerController extends Controller
 
   public function logout()
   {
-    Auth::guard($this->guard)->logout();
+    Auth::guard(static::$guard)->logout();
+    return redirect()->route('home');
+  }
+
+  public function deleteAccount()
+  {
+    $customer = Auth::guard(static::$guard)->user();
+    $result = $this->security->authentication->deleteCustomer($customer);
+
+    if ($result) {
+      Auth::guard(static::$guard)->logout();
+      Toastr::success(__('frontend/default.form.messages.delete.success'));
+    } else {
+      Toastr::error(__('frontend/default.form.messages.delete.failed'));
+    }
+
     return redirect()->route('home');
   }
 }

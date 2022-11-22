@@ -65,7 +65,7 @@
   <script src="{{ asset('js/app.js') }}"></script>
 
   {!! Toastr::message() !!}
-  @yield('scripts')
+  @stack('scripts')
 
 </body>
 

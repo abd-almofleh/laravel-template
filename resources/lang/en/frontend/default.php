@@ -12,10 +12,15 @@ return [
     'update_password'           => 'Update Password',
     'new_password_confirmation' => 'New Confirm Password',
     'password_confirmation'     => 'Confirm Password',
+    'delete_account'            => 'Delete Account',
 
     'messages' => [
       'update' => [
         'success' => 'Successfully Updated',
+      ],
+      'delete' => [
+        'success' => 'Successfully deleted',
+        'failed'  => 'Failed to deleted',
       ],
     ],
   ],
@@ -27,6 +32,7 @@ return [
     'register'                => 'Register with us',
     'profile_information'     => 'Profile Information',
     'profile_password'        => 'Profile Password',
+    'delete_profile'          => 'Delete Profile',
     'forgot_your_password'    => 'Forgot your password?',
     'reset_password'          => 'Reset Password',
     'your_information'        => 'Your information',

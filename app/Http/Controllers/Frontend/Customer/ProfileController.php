@@ -22,7 +22,7 @@ class ProfileController extends Controller
   public function update(UpdateCustomerProfileRequest $request)
   {
     $data = $request->validated();
-    
+
     Auth::user()->update($data);
     Toastr::success(__('frontend/default.form.messages.update.success'));
 

@@ -1,6 +1,6 @@
 @php
   $user = Auth()
-      ->guard('customer_frontend')
+      ->guard(App\Http\Controllers\Frontend\Customer\AuthCustomerController::$guard)
       ->user();
 @endphp
 @extends('frontend.layouts.home')
@@ -78,6 +78,49 @@
         </div>
       </div>
 
+
+    </div>
+    <div class="row mt-4">
+      <div class="col-12 col-lg-6 col-d-6 col-sm-12 sm-margin-30px-bottom">
+        <div class="create-ac-content bg-light-gray padding-20px-all">
+          <h2 class="mb-3">{{ __('frontend/default.general.delete_profile') }}</h2>
+          <div class="row">
+            <div class="col-12 text-center">
+              <button id="delete-account-button" class="btn bg-danger mb-3">
+                {{ __('frontend/default.form.delete_account') }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <form id="delete-account" action="{{ route('customer.auth.account.delete') }}" method="POST">
+    @csrf
+  </form>
+
 @endsection
+
+@push('scripts')
+  <script type="text/javascript">
+    $("body").on("click", "#delete-account-button", function() {
+      var current_object = $(this);
+      Swal.fire({
+        titleText: "Are you sure?",
+        text: "You will not be able to recover this data!",
+        icon: "error",
+        focusCancel: true,
+        showCancelButton: true,
+        cancelButtonColor: '#0e9519',
+        confirmButtonColor: '#dc3545',
+        confirmButtonText: 'Delete!',
+      }).then(function({
+        isConfirmed
+      }) {
+        if (isConfirmed) {
+          $('body').find('#delete-account').submit();
+        }
+      });
+    });
+  </script>
+@endpush

@@ -7,6 +7,7 @@ use Barryvdh\Debugbar\Facades\Debugbar;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Brian2694\Toastr\Facades\Toastr;
 
 class RedirectIfAuthenticated
 {
@@ -26,10 +27,11 @@ class RedirectIfAuthenticated
     foreach ($guards as $guard) {
       if (Auth::guard($guard)->check()) {
         if ($guard !== null && RouteServiceProvider::HOMES[$guard] !== null) {
+          Toastr::error(__('default.general.unauthorized_redirected'));
           return redirect()->route(RouteServiceProvider::HOMES[$guard]);
         }
 
-        redirect(RouteServiceProvider::HOME);
+        redirect()->route(RouteServiceProvider::HOME);
       }
     }
 
