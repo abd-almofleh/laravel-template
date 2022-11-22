@@ -49,4 +49,3 @@ class CmsBlogSeeder extends Seeder
     }
   }
 }
-{}
