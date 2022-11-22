@@ -27,18 +27,21 @@ Route::prefix('v1')->group(
             Route::post('login', 'login');
             Route::post('reset-password', 'resetPassword');
             Route::post('check-email', 'checkCustomerEmail');
-            Route::post('logout', 'logout');
+            Route::middleware('auth:api')->group(function () {
+              Route::post('logout', 'logout');
+              Route::delete('account', 'deleteAccount');
+            });
           }
         );
         Route::middleware('auth:api')->group(function () {
           Route::get('profile', [ProfileController::class, 'index']);
-          Route::post('profile', [ProfileController::class, 'update']);
+          Route::put('profile', [ProfileController::class, 'update']);
         });
         Route::prefix('listed-horses')->controller(ListedHorsesController::class)->group(function () {
           Route::get('/', 'index');
           Route::get('/get-filter-options', 'get_filter_options');
           Route::middleware('auth:api')->group(function () {
-            Route::get('/order/{listedHorse}', 'order');
+            Route::post('/order/{listedHorse}', 'order');
           });
         });
         Route::prefix('blogs')->controller(CMSBlogController::class)->group(function () {

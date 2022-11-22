@@ -17,9 +17,9 @@ class ListedHorsesOrderFactory extends Factory
   {
     return [
       'status'          => $this->faker->randomElement(array_values(config('constants.order_status'))),
-      'customer_id'     => $this->faker->unique()->randomElement(Customer::all(['id'])->pluck('id')),
-      'listed_horse_id' => $this->faker->randomElement(ListedHorse::all(['id'])->pluck('id')),
-      'phone_number' => $this->faker->phoneNumber,
+      'customer_id'     => $this->faker->randomElement(Customer::all(['id'])->pluck('id')),
+      'listed_horse_id' => $this->faker->unique()->randomElement(ListedHorse::all(['id'])->pluck('id')),
+      'phone_number'    => $this->faker->phoneNumber,
     ];
   }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Hash;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -15,20 +16,28 @@ class Customer extends Authenticatable
   use HasApiTokens;
   use Notifiable;
   use HasRoles;
+  use SoftDeletes;
+
+  protected $guard = 'customer_frontend';
 
   protected $fillable = [
     'email',
     'phone_number',
     'name',
     'password',
+    'birth_date',
   ];
   protected $hidden = ['password'];
 
   /**
    * @param string $password
    */
-  public function setPasswordAttribute(string $password): void
+  public function setPasswordAttribute(?string $password): void
   {
+    if ($password === null) {
+      return;
+    }
+
     $this->attributes['password'] = Hash::make($password);
   }
   /**
@@ -38,6 +47,7 @@ class Customer extends Authenticatable
    */
   protected $casts = [
     'email_verified_at' => 'datetime',
+    'birth_date'        => 'date',
   ];
 
   public function orders()

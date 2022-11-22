@@ -79,6 +79,7 @@ class User extends Authenticatable
     'image',
     'status',
   ];
+  protected $guard_name = 'admin';
 
   /**
    * The attributes that should be hidden for arrays.

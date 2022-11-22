@@ -35,6 +35,27 @@ class CmsCategory extends Model
     'status',
   ];
 
+  public function getNameAttribute(): string
+  {
+    $name = null;
+    switch(app()->getLocale()) {
+      case 'en':
+        $name = $this->name_en;
+        break;
+      case 'ar':
+        $name = $this->name_ar;
+        break;
+      default:
+        $name = $this->name_en;
+    }
+    return $name;
+  }
+
+  public function getUrlAttribute(): string
+  {
+    return route('blogs.list', ['category'=> $this->name]);
+  }
+
   public function blogs()
   {
     return $this->hasMany(CmsBlog::class, 'cms_category_id');
@@ -48,5 +69,26 @@ class CmsCategory extends Model
   public function scopeActive($query)
   {
     $query->where('status', 1);
+  }
+
+  /**
+   * Scope a query to only include active categories.
+   *
+   * @param \Illuminate\Database\Eloquent\Builder $query
+   */
+  public function scopeCategory($query, $category)
+  {
+    $field_name = '';
+    switch(app()->getLocale()) {
+      case 'en':
+        $field_name = 'name_en';
+        break;
+      case 'ar':
+        $field_name = 'name_ar';
+        break;
+      default:
+        $field_name = 'name_en';
+    }
+    $query->where($field_name, 'LIKE', $category);
   }
 }

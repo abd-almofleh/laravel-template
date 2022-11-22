@@ -213,13 +213,13 @@ return [
   ],
 
   'general' => [
-    'no_image'                => 'No Image',
-    'author_ar'               => 'الناشر',
-    'category_ar'             => 'النوع',
-    'no_english_translation'  => 'No English Translation',
-    'no_arabic_translation'   => 'No Arabic Translation',
-    'no_english_description'  => 'No English Description',
-    'no_arabic_description'   => 'No Arabic Description',
-
+    'no_image'                   => 'No Image',
+    'author_ar'                  => 'الناشر',
+    'category_ar'                => 'النوع',
+    'no_english_translation'     => 'No English Translation',
+    'no_arabic_translation'      => 'No Arabic Translation',
+    'no_english_description'     => 'No English Description',
+    'no_arabic_description'      => 'No Arabic Description',
+    'unauthorized_redirecting'   => 'Unauthorized, redirected to home',
   ],
 ];

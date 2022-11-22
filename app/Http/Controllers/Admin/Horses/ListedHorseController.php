@@ -22,12 +22,12 @@ class ListedHorseController extends Controller
 
   public function __construct()
   {
-    $this->middleware('auth');
-    $this->middleware('permission:listedHorses:list', ['only' => ['index']]);
-    $this->middleware('permission:listedHorses:create', ['only' => ['create', 'store']]);
-    $this->middleware('permission:listedHorses:edit', ['only' => ['edit', 'update', 'updateStatus']]);
-    $this->middleware('permission:listedHorses:show', ['only' => ['show']]);
-    $this->middleware('permission:listedHorses:delete', ['only' => ['destroy']]);
+    $this->middleware('auth:admin');
+    $this->middleware('permission:listedHorses:list,admin', ['only' => ['index']]);
+    $this->middleware('permission:listedHorses:create,admin', ['only' => ['create', 'store']]);
+    $this->middleware('permission:listedHorses:edit,admin', ['only' => ['edit', 'update', 'updateStatus']]);
+    $this->middleware('permission:listedHorses:show,admin', ['only' => ['show']]);
+    $this->middleware('permission:listedHorses:delete,admin', ['only' => ['destroy']]);
   }
 
     /**

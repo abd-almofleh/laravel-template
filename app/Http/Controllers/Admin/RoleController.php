@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Gate;
 use Brian2694\Toastr\Facades\Toastr;
 use Exception;
 
@@ -14,11 +13,11 @@ class RoleController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('auth');
-    $this->middleware('permission:role-list', ['only' => ['index', 'store']]);
-    $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
-    $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
-    $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    $this->middleware('auth:admin');
+    $this->middleware('permission:role-list,admin', ['only' => ['index', 'store']]);
+    $this->middleware('permission:role-create,admin', ['only' => ['create', 'store']]);
+    $this->middleware('permission:role-edit,admin', ['only' => ['edit', 'update']]);
+    $this->middleware('permission:role-delete,admin', ['only' => ['destroy']]);
 
     $role_list = Permission::get()->filter(function ($item) {
       return $item->name == 'role-list';
@@ -62,16 +61,16 @@ class RoleController extends Controller
   public function store(Request $request)
   {
     $rules = [
-      'name' => 'required|unique:roles,name',
-      'code' => 'required|unique:roles,code',
+      'name'       => 'required|unique:roles,name',
+      'code'       => 'required|unique:roles,code',
       'permission' => 'required',
     ];
 
     $messages = [
-      'name.required' => __('default.form.validation.name.required'),
-      'name.unique' => __('default.form.validation.name.unique'),
-      'code.required' => __('default.form.validation.code.required'),
-      'code.unique' => __('default.form.validation.code.unique'),
+      'name.required'       => __('default.form.validation.name.required'),
+      'name.unique'         => __('default.form.validation.name.unique'),
+      'code.required'       => __('default.form.validation.code.required'),
+      'code.unique'         => __('default.form.validation.code.unique'),
       'permission.required' => __('default.form.validation.permission.required'),
     ];
 
@@ -80,7 +79,7 @@ class RoleController extends Controller
     try {
       $role = Role::create([
         'name' => $request->input('name'),
-        'code' => $request->input('code')
+        'code' => $request->input('code'),
       ]);
       $role->syncPermissions($request->input('permission'));
 
@@ -108,16 +107,16 @@ class RoleController extends Controller
   public function update(Request $request, $id)
   {
     $rules = [
-      'name' => 'required|unique:roles,name,' . $id,
-      'code' => 'required|unique:roles,code,' . $id,
+      'name'       => 'required|unique:roles,name,' . $id,
+      'code'       => 'required|unique:roles,code,' . $id,
       'permission' => 'required',
     ];
 
     $messages = [
-      'name.required' => __('default.form.validation.name.required'),
-      'name.unique' => __('default.form.validation.name.unique'),
-      'code.required' => __('default.form.validation.code.required'),
-      'code.unique' => __('default.form.validation.code.unique'),
+      'name.required'       => __('default.form.validation.name.required'),
+      'name.unique'         => __('default.form.validation.name.unique'),
+      'code.required'       => __('default.form.validation.code.required'),
+      'code.unique'         => __('default.form.validation.code.unique'),
       'permission.required' => __('default.form.validation.permission.required'),
     ];
 

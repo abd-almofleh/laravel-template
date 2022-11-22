@@ -24,7 +24,7 @@ class GetListedHorsesRequest extends FormRequest
   public function rules()
   {
     return [
-      'name'          => 'nullable|string',
+      'query'          => 'nullable|string',
       'sex'           => 'nullable|boolean',
       'min_birth_year'=> 'nullable|numeric',
       'max_birth_year'=> 'nullable|numeric',

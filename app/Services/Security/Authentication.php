@@ -19,16 +19,17 @@ class Authentication
    * @param string email The email address of the customer.
    * @param string phone_number +923331234567
    *
-   * @return The customer object.
+   * @return Customer The customer object.
    */
-  public function register_customer(string $name, string $password, string $email, string $phone_number)
+  public function register_customer(string $name, string $password, string $email, string $phone_number): Customer
   {
     $customer = Customer::create([
-      'name' => $name,
-      'password' => $password,
-      'email' => $email,
+      'name'         => $name,
+      'password'     => $password,
+      'email'        => $email,
       'phone_number' => $phone_number,
     ]);
+    $customer->assignRole('customer');
 
     if (!$customer) {
       throw new Exception('Error while creating a user');
@@ -46,7 +47,7 @@ class Authentication
    *
    * @return The user and the access token.
    */
-  public function login_customer(string $email, string $password)
+  public function login_customer(string $email, string $password): array
   {
     $customer = Customer::where('email', 'LIKE', $email)->first();
     if (!$customer || !Hash::check($password, $customer->password)) {
@@ -114,8 +115,20 @@ class Authentication
    *
    * @param user The user object that you want to log out.
    */
-  public function logOutCustomer($user)
+  public function logOutCustomer(Customer $customer): void
   {
-    $user->token()->revoke();
+    $customer->token()->revoke();
+  }
+
+  /**
+   *  Delete a customer from the database
+   *
+   * @param Customer customer
+   *
+   * @return bool the result of the operation.
+   */
+  public function deleteCustomer(Customer $customer): bool
+  {
+    return $customer->delete();
   }
 }
