@@ -15,11 +15,12 @@ class CustomerFactory extends Factory
   public function definition()
   {
     return [
-      'name' => $this->faker->name,
-      'email' => $this->faker->unique()->safeEmail,
+      'name'              => $this->faker->name,
+      'email'             => $this->faker->unique()->safeEmail,
       'email_verified_at' => now(),
-      'password' => Hash::make('password'),
-      'phone_number' => $this->faker->phoneNumber,
+      'password'          => Hash::make('password'),
+      'phone_number'      => $this->faker->phoneNumber,
+      'birth_date'        => $this->faker->date,
     ];
   }
 }

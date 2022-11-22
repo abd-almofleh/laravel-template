@@ -21,6 +21,7 @@ class Customer extends Authenticatable
     'phone_number',
     'name',
     'password',
+    'birth_date',
   ];
   protected $hidden = ['password'];
 
@@ -38,6 +39,7 @@ class Customer extends Authenticatable
    */
   protected $casts = [
     'email_verified_at' => 'datetime',
+    'birth_date'        => 'date',
   ];
 
   public function orders()

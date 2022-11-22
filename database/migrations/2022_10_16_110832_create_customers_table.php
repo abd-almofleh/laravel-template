@@ -8,8 +8,6 @@ class CreateCustomersTable extends Migration
 {
   /**
    * Run the migrations.
-   *
-   * @return void
    */
   public function up()
   {
@@ -19,6 +17,7 @@ class CreateCustomersTable extends Migration
       $table->string('email', 250)->unique();
       $table->string('password');
       $table->string('phone_number');
+      $table->date('birth_date');
       $table->timestamps();
       $table->timestamp('email_verified_at')->nullable();
     });
@@ -26,8 +25,6 @@ class CreateCustomersTable extends Migration
 
   /**
    * Reverse the migrations.
-   *
-   * @return void
    */
   public function down()
   {
