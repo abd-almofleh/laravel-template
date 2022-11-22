@@ -11,23 +11,22 @@ use Illuminate\Auth\AuthenticationException;
 email exists, and logs out a customer */
 class Authentication
 {
-  /**
-   * It creates a new customer in the database
-   *
-   * @param string name The name of the customer
-   * @param string password The password for the user.
-   * @param string email The email address of the customer.
-   * @param string phone_number +923331234567
-   *
-   * @return Customer The customer object.
-   */
-  public function register_customer(string $name, string $password, string $email, string $phone_number): Customer
+
+/**
+ * It creates a new customer and assigns the customer role to it
+ * 
+ * @param array customerData
+ * 
+ * @return Customer The customer object
+ */
+  public function register_customer(array $customerData): Customer
   {
     $customer = Customer::create([
-      'name'         => $name,
-      'password'     => $password,
-      'email'        => $email,
-      'phone_number' => $phone_number,
+      'name'         => $customerData['name'],
+      'password'     => $customerData['password'],
+      'email'        => $customerData['email'],
+      'phone_number' => $customerData['phone_number'],
+      'birth_date'   => $customerData['birth_date'],
     ]);
     $customer->assignRole('customer');
 

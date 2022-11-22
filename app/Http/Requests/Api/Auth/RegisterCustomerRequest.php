@@ -24,11 +24,11 @@ class RegisterCustomerRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => 'required|string',
-      'password' => 'required|min:6',
-      'email' => 'required|string|email|unique:customers',
+      'name'         => 'required|string',
+      'password'     => 'required|min:6',
+      'email'        => 'required|string|email|unique:customers',
       'phone_number' => 'required|string',
-
+      'birth_date'   => 'required|date_format:d-m-Y|date',
     ];
   }
 }

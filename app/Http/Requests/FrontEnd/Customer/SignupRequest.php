@@ -28,6 +28,7 @@ class SignupRequest extends FormRequest
       'password'     => 'required|min:6|confirmed',
       'email'        => ['required', 'string', 'email', 'unique:customers,email'],
       'phone_number' => 'required|string',
+      'birth_date' => 'required|date',
 
     ];
   }

@@ -53,12 +53,14 @@ class AuthController extends \App\Http\Controllers\Controller
      */
     public function register(RegisterCustomerRequest $request): JsonResponse
     {
-      $name = $request->input('name');
-      $password = $request->input('password');
-      $email = $request->input('email');
-      $phone_number = $request->input('phone_number');
-
-      $customer = $this->security->authentication->register_customer($name, $password, $email, $phone_number);
+      $data = [
+        'name'         => $request->input('name'),
+        'password'     => $request->input('password'),
+        'email'        => $request->input('email'),
+        'phone_number' => $request->input('phone_number'),
+        'birth_date'   => $request->input('birth_date'),
+      ];
+      $customer = $this->security->authentication->register_customer($data);
       $token = $this->security->authentication->createApiToken($customer, 'customer');
 
       return $this->response('success', ['user' => $customer, 'access_token' => $token]);
