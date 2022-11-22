@@ -17,10 +17,10 @@ class HorseTypeController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('auth');
-    $this->middleware('permission:horseType-list', ['only' => ['index']]);
-    $this->middleware('permission:horseType-create', ['only' => ['create', 'store']]);
-    $this->middleware('permission:horseType-edit', ['only' => ['edit', 'update', 'updateStatus']]);
+    $this->middleware('auth:admin');
+    $this->middleware('permission:horseType-list,admin', ['only' => ['index']]);
+    $this->middleware('permission:horseType-create,admin', ['only' => ['create', 'store']]);
+    $this->middleware('permission:horseType-edit,admin', ['only' => ['edit', 'update', 'updateStatus']]);
   }
 
   /**

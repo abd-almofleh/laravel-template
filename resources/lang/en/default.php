@@ -220,6 +220,5 @@ return [
     'no_arabic_translation'   => 'No Arabic Translation',
     'no_english_description'  => 'No English Description',
     'no_arabic_description'   => 'No Arabic Description',
-
   ],
 ];

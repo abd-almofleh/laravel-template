@@ -11,18 +11,19 @@ use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
+use Exception;
 use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('auth');
-    $this->middleware('permission:user-list', ['only' => ['index', 'store']]);
-    $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
-    $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
-    $this->middleware('permission:user-delete', ['only' => ['destroy']]);
-    $this->middleware('permission:profile:index', ['only' => ['profile', 'profile_update']]);
+    $this->middleware('auth:admin');
+    $this->middleware('permission:user-list,admin', ['only' => ['index', 'store']]);
+    $this->middleware('permission:user-create,admin', ['only' => ['create', 'store']]);
+    $this->middleware('permission:user-edit,admin', ['only' => ['edit', 'update']]);
+    $this->middleware('permission:user-delete,admin', ['only' => ['destroy']]);
+    $this->middleware('permission:profile:index,admin', ['only' => ['profile', 'profile_update']]);
 
     $user_list = Permission::get()->filter(function ($item) {
       return $item->name == 'user-list';

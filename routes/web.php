@@ -22,9 +22,9 @@ Route::get('setlocale/{locale}', function ($lang) {
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'language'], function () {
-  // Admin Routes
+  // * Admin Routes
   Route::prefix('admin')->group(function () {
-    Route::redirect('/', 'admin/dashboard');
+    Route::redirect('/', url('admin/dashboard'));
     Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
     Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login_go'])->name('login_go');
     Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
@@ -36,7 +36,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::post('reset-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
     // Admin Authenticated Routes
-    Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth:admin']], function () {
       Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'dashboard'])->name('dashboard');
 
       // Profile
@@ -91,14 +91,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/website-setting/edit', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('website-setting.edit');
         Route::post('/website-setting/update/{id}', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('website-setting.update');
       });
-
       // CMS
       Route::prefix('cms')->name('cms.')->group(function () {
         Route::patch('/categories/update-status/{category}', [App\Http\Controllers\Admin\Cms\CMSCategoryController::class, 'update_status'])->name('categories.update_status');
         Route::resource('categories', App\Http\Controllers\Admin\Cms\CMSCategoryController::class)->except(['show', 'destroy']);
 
         Route::post('blogs/media', [App\Http\Controllers\Admin\Cms\CMSBlogController::class, 'storeMedia'])->name('blogs.storeMedia');
-        Route::resource('blogs', App\Http\Controllers\Admin\Cms\CMSBlogController::class);
+        Route::resource('blogs', App\Http\Controllers\Admin\Cms\CMSBlogController::class)->scoped([
+          'blog' => 'id',
+        ]);
       });
 
       // horses
@@ -113,5 +114,31 @@ Route::group(['middleware' => 'language'], function () {
         Route::resource('passports', App\Http\Controllers\Admin\Horses\HorsePassportController::class)->except(['show', 'destroy']);
       });
     });
+  });
+
+  // * Customer Routes
+  Route::prefix('customer')->name('customer.')->group(function () {
+    Route::name('auth.')->controller(App\Http\Controllers\Frontend\Customer\AuthCustomerController::class)->group(function () {
+      Route::get('login', 'loginView')->name('login');
+      Route::post('login', 'login')->name('login.attempt');
+      Route::post('logout', 'logout')->name('logout');
+      Route::get('forget-password', 'forgetPasswordView')->name('forget_password.form');
+      Route::patch('reset-password', 'resetPassword')->name('forget_password.reset');
+      Route::get('signup', 'signupForm')->name('signup.form');
+      Route::post('signup', 'signup')->name('signup');
+    });
+
+    // Customer Authenticated Routes
+    Route::group(['middleware' => ['auth:customer_frontend']], function () {
+      // Profile
+      Route::get('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'index'])->name('profile');
+      Route::put('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'update'])->name('profile.update');
+    });
+  });
+
+  // * Blogs Routes
+  Route::prefix('blogs')->name('blogs.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Frontend\BlogsController::class, 'index'])->name('list');
+    Route::get('/{blog}', [App\Http\Controllers\Frontend\BlogsController::class, 'show'])->name('show');
   });
 });
