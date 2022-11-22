@@ -19,9 +19,9 @@ class CmsBlogSeeder extends Seeder
   {
     $faker = Faker::create();
     $faker_ar = Faker::create('ar_SA');
-
+    $folder_path = storage_path('tmp\blogsSeeder');
     for ($i = 0; $i < 100; $i++) {
-      CmsBlog::withoutEvents(function () use ($faker, $faker_ar) {
+      CmsBlog::withoutEvents(function () use ($faker, $faker_ar, $folder_path) {
         $title_ar = $faker_ar->name();
         $title_en = $faker->sentence();
         $blog = CmsBlog::create([
@@ -41,7 +41,8 @@ class CmsBlogSeeder extends Seeder
           'meta_keywords_en'    => $faker->words(7, true),
           'author_id'           => $faker->randomElement(User::pluck('id')),
         ]);
-        $path = Image::image(storage_path('tmp\blogsSeeder'), 640, 480, null, true, true);
+        mkdir($folder_path);
+        $path = Image::image($folder_path, 640, 480, null, true, true);
         error_log($blog->id);
         $blog->addMedia($path)->toMediaCollection('photos');
       });
