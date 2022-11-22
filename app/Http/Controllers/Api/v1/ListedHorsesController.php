@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Customer\GetListedHorsesRequest;
+use App\Http\Requests\Api\Customer\GetRecentListedHorsesRequest;
 use App\Http\Requests\Api\Customer\OrderListedHorseRequest;
 use App\Models\ListedHorse;
 use App\Services\ListedHorsesService;
@@ -32,6 +33,13 @@ class ListedHorsesController extends Controller
     $filters['passport'] = $request->input('passport', false);
 
     $data = $this->listedHorsesService->get_listed_horses_list($filters);
+    return $this->response('success', $data);
+  }
+
+  public function recentHorses(GetRecentListedHorsesRequest $request)
+  {
+    $count = $request->input('count', 5);
+    $data = $this->listedHorsesService->get_recent_listed_horses_list($count);
     return $this->response('success', $data);
   }
 

@@ -39,6 +39,7 @@ Route::prefix('v1')->group(
         });
         Route::prefix('listed-horses')->controller(ListedHorsesController::class)->group(function () {
           Route::get('/', 'index');
+          Route::get('/recent', 'recentHorses');
           Route::get('/get-filter-options', 'get_filter_options');
           Route::middleware('auth:api')->group(function () {
             Route::post('/order/{listedHorse}', 'order');

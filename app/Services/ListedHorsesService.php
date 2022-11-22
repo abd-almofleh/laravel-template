@@ -40,12 +40,22 @@ class ListedHorsesService
     }
 
     if ($filters['type'] !== false) {
-      $query->where('type_id', ['type']);
+      $query->where('type_id', $filters['type']);
     }
     if ($filters['passport'] !== false) {
-      $query->where('passport_type_id', ['passport']);
+      $query->where('passport_type_id', $filters['passport']);
     }
     $data = $query->paginate();
+    return $data;
+  }
+
+  public function get_recent_listed_horses_list(int $count)
+  {
+    $query = ListedHorse::query();
+    $query->orderBy('created_at', 'desc')
+    ->limit($count);
+    $data = $query->get();
+
     return $data;
   }
 
