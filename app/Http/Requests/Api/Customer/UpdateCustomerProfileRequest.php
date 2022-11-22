@@ -30,7 +30,7 @@ class UpdateCustomerProfileRequest extends FormRequest
       'password'     => 'min:6',
       'email'        => ['string', 'email', Rule::unique('customers', 'email')->ignore(Auth::user()->id)],
       'phone_number' => 'string',
-      'birth_date'   => 'required|date_format:d-m-Y|date',
+      'birth_date'   => 'required|date_format:Y-m-d|date',
     ];
   }
 }

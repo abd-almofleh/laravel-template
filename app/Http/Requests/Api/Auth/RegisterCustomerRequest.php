@@ -28,7 +28,7 @@ class RegisterCustomerRequest extends FormRequest
       'password'     => 'required|min:6',
       'email'        => 'required|string|email|unique:customers',
       'phone_number' => 'required|string',
-      'birth_date'   => 'required|date_format:d-m-Y|date',
+      'birth_date'   => 'required|date_format:Y-m-d|date',
     ];
   }
 }
