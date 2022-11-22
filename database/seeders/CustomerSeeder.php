@@ -20,6 +20,8 @@ class CustomerSeeder extends Seeder
     ]);
     $customer->assignRole('customer');
 
-    Customer::factory()->count(10)->create();
+    Customer::factory()->count(10)->create()->each(function ($c) {
+      $c->assignRole('customer');
+    });
   }
 }

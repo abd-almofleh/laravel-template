@@ -29,6 +29,7 @@ class Authentication
       'email'        => $email,
       'phone_number' => $phone_number,
     ]);
+    $customer->assignRole('customer');
 
     if (!$customer) {
       throw new Exception('Error while creating a user');
