@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\Image;
 use App\Models\ListedHorse;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,14 @@ class ListedHorseSeeder extends Seeder
    */
   public function run()
   {
-    ListedHorse::factory()->count(1000)->create();
+    $folder_path = storage_path('tmp\horsesSeeder');
+    if (!is_dir($folder_path)) {
+      mkdir($folder_path);
+    }
+    ListedHorse::factory()->count(10)->create()->each(function ($horse) use ($folder_path) {
+      $path = Image::image($folder_path, 640, 480, null, true, true);
+      error_log($horse->id);
+      $horse->addMedia($path)->toMediaCollection('photos');
+    });
   }
 }

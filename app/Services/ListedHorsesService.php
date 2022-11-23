@@ -7,11 +7,20 @@ use App\Models\HorsePassport;
 use App\Models\HorseType;
 use App\Models\ListedHorse;
 use App\Models\ListedHorsesOrder;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class ListedHorsesService
 {
-  public function get_listed_horses_list($filters)
+  /**
+   * I want to filter the results of the query based on the filters that are passed to the function
+   *
+   * @param filters array
+   *
+   * @return LengthAwarePaginator A LengthAwarePaginator object.
+   */
+  public function get_listed_horses_list(array $filters): LengthAwarePaginator
   {
     $query = ListedHorse::query();
 
@@ -49,16 +58,23 @@ class ListedHorsesService
     return $data;
   }
 
-  public function get_recent_listed_horses_list(int $count)
+  /**
+   * Get the most recent listed horses from the database.
+   *
+   * @param int count The number of horses to return
+   *
+   * @return Collection A collection of ListedHorse models.
+   */
+  public function get_recent_listed_horses_list(int $count): Collection
   {
-    $query = ListedHorse::query();
-    $query->orderBy('created_at', 'desc')
-    ->limit($count);
-    $data = $query->get();
+    $data = ListedHorse::recent($count)->get();
 
     return $data;
   }
 
+  /**
+   * It returns an array of arrays of objects
+   */
   public function get_filter_options()
   {
     $options = [];
@@ -69,6 +85,13 @@ class ListedHorsesService
     return $options;
   }
 
+  /**
+   * It creates a new order for a listed horse
+   *
+   * @param ListedHorse listedHorse This is the horse that the customer is trying to order.
+   * @param Customer customer The customer who is ordering the horse
+   * @param string phone_number
+   */
   public function order_horse(ListedHorse $listedHorse, Customer $customer, string $phone_number)
   {
     $listedHorse->load('order');

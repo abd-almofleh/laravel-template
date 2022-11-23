@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use stdClass;
 
 class ListedHorse extends Model implements HasMedia
 {
@@ -17,6 +20,7 @@ class ListedHorse extends Model implements HasMedia
   use SoftDeletes;
   use InteractsWithMedia;
 
+  /* It's telling Laravel which attributes can be mass assigned. */
   protected $fillable = [
     'name',
     'sex',
@@ -37,118 +41,160 @@ class ListedHorse extends Model implements HasMedia
     'meta_keywords',
   ];
 
+  /* It's telling Laravel to cast the `created_at`, `updated_at`, and `deleted_at` attributes to
+  Carbon instances. */
   protected $dates = [
     'created_at',
     'updated_at',
     'deleted_at',
   ];
 
+  /* It's adding the `photos` and `videos` attributes to the model. */
   protected $appends = [
     'photos',
     'videos',
   ];
+  /* Eager loading the `type` and `passport` relationships. */
   protected $with = [
     'type:id,name_en,name_ar',
     'passport:id,name_en,name_ar',
   ];
 
+  /**
+   * * -----------------------------------------------------------------
+   * *
+   * * -----------------------------------------------------------------
+   */
+
+  /**
+   * Retrieve the model for a bound value.
+   *
+   * @param  mixed                                    $value
+   * @param  string|null                              $field
+   * @return \Illuminate\Database\Eloquent\Model|null
+   */
+  public function resolveRouteBinding($value, $field = null)
+  {
+    return $this->withTrashed()->where('id', $value)->firstOrFail();
+  }
+
+  /**
+   * > This function will create two new image conversions for the `photos` collection. The first
+   * conversion will be called `thumb` and will be a 50x50px crop. The second conversion will be called
+   * `preview` and will be a 120x120px crop
+   *
+   * @param Media media The media instance to register the conversion for.
+   */
   public function registerMediaConversions(Media $media = null): void
   {
     $this->addMediaConversion('thumb')->fit(Manipulations::FIT_CROP, 50, 50)->performOnCollections('photos');
     $this->addMediaConversion('preview')->fit(Manipulations::FIT_CROP, 120, 120)->performOnCollections('photos');
   }
 
-  /** ------------------------------------------
-   *
-   * ? Relations.
-   *
-   * ------------------------------------------ */
+  /**
+   * * -----------------------------------------------------------------
+   * * Scopes
+   * * -----------------------------------------------------------------
+   */
 
   /**
-   * It says that the Horse model has a relationship with the HorseType model, and that the foreign key
-   * is type_id, and the local key is id.
+   * "Get the latest 5 posts."
    *
-   * @return The relationship between the Horse and HorseType models.
+   * The `scope` method is a method that is available on all Eloquent models. It allows you to define a
+   * scope that can be used in your Eloquent queries
+   *
+   * @param Builder query The query builder instance.
+   * @param int count The number of records to return.
    */
-  public function type()
+  public function scopeRecent(Builder $query, int $count = 5)
+  {
+    $query->latest('updated_at')->limit($count)->get();
+  }
+
+  /**
+   * * -----------------------------------------------------------------
+   * * Relations
+   * * -----------------------------------------------------------------
+   */
+
+  /**
+   * The `type()` function returns a `BelongsTo` relationship between the `Horse` model and the
+   * `HorseType` model
+   *
+   * @return BelongsTo A relationship between the Horse model and the HorseType model.
+   */
+  public function type(): BelongsTo
   {
     return $this->belongsTo(HorseType::class, 'type_id', 'id');
   }
 
-  public function passport()
+  /**
+   * The `passport()` function returns a `BelongsTo` relationship between the `Horse` model and the
+   * `HorsePassport` model
+   *
+   * @return BelongsTo A collection of HorsePassport models.
+   */
+  public function passport(): BelongsTo
   {
     return $this->belongsTo(HorsePassport::class, 'passport_type_id', 'id');
   }
 
-  public function order()
+  /**
+   * This function returns a HasOne relationship between the ListedHorses model and the ListedHorsesOrder
+   * model, where the foreign key is listed_horse_id.
+   *
+   * @return HasOne A HasOne relationship.
+   */
+  public function order(): HasOne
   {
     return $this->hasOne(ListedHorsesOrder::class, 'listed_horse_id');
   }
 
-  /** ------------------------------------------
-   *
-   * ? Attributes.
-   *
-   * ------------------------------------------ */
+  /**
+   * * -----------------------------------------------------------------
+   * * Attributes
+   * * -----------------------------------------------------------------
+   */
 
   /**
-   * It returns a collection of media files, and for each file, it adds a `url`, `thumbnail`, and
-   * `preview` property.
+   * It takes the files from the media library, and creates a new object for each file, with the url,
+   * fullUrl, thumbnail, and preview properties.
    *
-   * The `getMedia()` method is provided by the `HasMedia` trait. It returns a collection of media files
-   * that are associated with the model.
-   *
-   * The `getUrl()` method is provided by the `HasMedia` trait. It returns the URL of the media file.
-   *
-   * The `getFullUrl()` method is provided by the `HasMedia` trait. It returns the URL of the media file,
-   * including the domain name.
-   *
-   * The `thumb` and `preview` are the names of the conversion profiles that were defined in the
-   * `registerMediaConversions()` method.
-   *
-   * The `thumb` and `preview` properties are used in the Vue component to display the thumbnail and
-   * preview images
-   *
-   * @return MediaCollection A collection of media objects.
+   * @return array An array of objects.
    */
-  public function getPhotosAttribute(): MediaCollection
+  public function getPhotosAttribute(): array
   {
+    $newFiles = [];
     $files = $this->getMedia('photos');
     foreach ($files as $file) {
-      $file->url = $file->getUrl();
-      $file->thumbnail = $file->getFullUrl('thumb');
-      $file->preview = $file->getFullUrl('preview');
+      $newFile = new stdClass();
+      $newFile->url = $file->getUrl();
+      $newFile->fullUrl = $file->getFullUrl();
+      $newFile->thumbnail = $file->getFullUrl('thumb');
+      $newFile->preview = $file->getFullUrl('preview');
+      array_push($newFiles, $newFile);
     }
-    return $files;
+    return $newFiles;
   }
 
   /**
-   * It returns a collection of media files that are associated with the model, and adds a few extra
-   * properties to each file.
-   * </code>
+   * It takes the files from the `videos` collection, creates a new object for each file, and adds the
+   * file's url, full url, thumbnail url, and preview url to the object
    *
-   * @return MediaCollection A collection of media files.
+   * @return array An array of objects.
    */
-  public function getVideosAttribute(): MediaCollection
+  public function getVideosAttribute(): array
   {
+    $newFiles = [];
     $files = $this->getMedia('videos');
     foreach ($files as $file) {
-      $file->url = $file->getUrl();
-      $file->thumbnail = $file->getFullUrl('thumb');
-      $file->preview = $file->getFullUrl('preview');
+      $newFile = new stdClass();
+      $newFile->url = $file->getUrl();
+      $newFile->fullUrl = $file->getFullUrl();
+      $newFile->thumbnail = $file->getFullUrl('thumb');
+      $newFile->preview = $file->getFullUrl('preview');
+      array_push($newFiles, $newFile);
     }
-    return $files;
+    return $newFiles;
   }
-
-/**
- * Retrieve the model for a bound value.
- *
- * @param  mixed                                    $value
- * @param  string|null                              $field
- * @return \Illuminate\Database\Eloquent\Model|null
- */
-public function resolveRouteBinding($value, $field = null)
-{
-  return $this->withTrashed()->where('id', $value)->firstOrFail();
-}
 }
