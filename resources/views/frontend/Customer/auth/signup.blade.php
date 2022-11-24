@@ -38,6 +38,16 @@
                 @enderror
               </div>
             </div>
+            <div class="row">
+              <div class="form-group col-12 required">
+                <label for="birth_date">{{ __('frontend/default.form.birth_date') }} <span
+                        class="required-f">*</span></label>
+                <input name="birth_date" id="birth_date" type="date" value="{{ old('birth_date') }}">
+                @error('birth_date')
+                  <span class="text-danger">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
             <div class="form-group col-12 required">
               <label for="password">{{ __('frontend/default.form.password') }} <span class="required-f">*</span></label>
               <input name="password" id="password" type="password">

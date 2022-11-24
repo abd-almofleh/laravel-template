@@ -16,7 +16,6 @@ class UpdateHorseTypeRequest extends FormRequest
   public function authorize()
   {
     return Auth::user()->can('horseType-edit');
-    ;
   }
 
   /**
@@ -27,17 +26,21 @@ class UpdateHorseTypeRequest extends FormRequest
   public function rules()
   {
     return [
-      'name' => ['required', 'string', Rule::unique('horse_types', 'name')->ignore($this->type->id)],
-      'status' => 'required|boolean',
+      'name_ar' => ['required', 'string', Rule::unique('horse_types', 'name_ar')->ignore($this->type->id)],
+      'name_en' => ['required', 'string', Rule::unique('horse_types', 'name_en')->ignore($this->type->id)],
+      'status'  => 'required|boolean',
+      'photo'   => 'required|string',
     ];
   }
 
   public function messages()
   {
     return [
-      'name.required' => __('default.form.validation.name.required'),
-      'name.unique' => __('default.form.validation.name.unique'),
-      'status.required' => __('default.form.validation.status.required'),
+      'name_ar.required'   => __('default.form.validation.name.required'),
+      'name_ar.unique'     => __('default.form.validation.name.unique'),
+      'name_en.required'   => __('default.form.validation.name.required'),
+      'name_en.unique'     => __('default.form.validation.name.unique'),
+      'status.required'    => __('default.form.validation.status.required'),
     ];
   }
 }

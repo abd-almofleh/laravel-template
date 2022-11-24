@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Customer\GetBlogsHorsesRequest;
 use App\Http\Requests\Api\Customer\GetCMSBlogsRequest;
 use App\Models\CmsBlog;
 use App\Models\CmsCategory;
@@ -34,5 +35,13 @@ class CMSBlogController extends Controller
     $options = [];
     $options['blogs_categories'] = CmsCategory::select(['id', 'name_en', 'name_ar'])->active()->get();
     return $this->response('success', $options);
+  }
+
+  public function recentBlogs(GetBlogsHorsesRequest $request)
+  {
+    $count = $request->input('count', 5);
+    $data = CmsBlog::recent($count)->get();
+
+    return $this->response('success', $data);
   }
 }

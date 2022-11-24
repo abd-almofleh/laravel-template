@@ -53,12 +53,14 @@ class AuthCustomerController extends Controller
 
   public function signup(SignupRequest $request)
   {
-    $name = $request->input('name');
-    $password = $request->input('password');
-    $email = $request->input('email');
-    $phone_number = $request->input('phone_number');
-
-    $customer = $this->security->authentication->register_customer($name, $password, $email, $phone_number);
+    $data = [
+      'name'         => $request->input('name'),
+      'password'     => $request->input('password'),
+      'email'        => $request->input('email'),
+      'phone_number' => $request->input('phone_number'),
+      'birth_date'   => $request->input('birth_date'),
+    ];
+    $customer = $this->security->authentication->register_customer($data);
     Auth::guard('customer_frontend')->login($customer, true);
     return redirect()->route('home');
   }

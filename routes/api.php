@@ -39,7 +39,9 @@ Route::prefix('v1')->group(
         });
         Route::prefix('listed-horses')->controller(ListedHorsesController::class)->group(function () {
           Route::get('/', 'index');
+          Route::get('/recent', 'recentHorses');
           Route::get('/get-filter-options', 'get_filter_options');
+          Route::get('/types', 'getHorsesTypes');
           Route::middleware('auth:api')->group(function () {
             Route::post('/order/{listedHorse}', 'order');
           });
@@ -47,6 +49,7 @@ Route::prefix('v1')->group(
         Route::prefix('blogs')->controller(CMSBlogController::class)->group(function () {
           Route::get('/', 'index');
           Route::get('/get-filter-options', 'get_filter_options');
+          Route::get('/recent', 'recentBlogs');
         });
       }
     );

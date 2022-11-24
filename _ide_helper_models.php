@@ -34,12 +34,18 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $author
  * @property-read \App\Models\CmsCategory|null $category
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Media|null $photo
+ * @property-read string $description
+ * @property-read string $page_url
+ * @property-read array $photo
+ * @property-read string $pref
+ * @property-read string $slug
+ * @property-read string $title
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog recent(int $count = 5)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog whereAuthorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog whereCmsCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog whereCreatedAt($value)
@@ -86,7 +92,9 @@ namespace App\Models{
  * @property string|null $name_ar
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CmsBlog[] $blogs
  * @property-read int|null $blogs_count
+ * @property-read string $url
  * @method static \Illuminate\Database\Eloquent\Builder|CmsCategory active()
+ * @method static \Illuminate\Database\Eloquent\Builder|CmsCategory category($category)
  * @method static \Database\Factories\CmsCategoryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsCategory whereNameAr($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsCategory whereNameEn($value)
@@ -143,8 +151,11 @@ namespace App\Models{
  * @property string $email
  * @property string $password
  * @property string $phone_number
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $birth_date
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
  * @property-read int|null $clients_count
@@ -161,17 +172,23 @@ namespace App\Models{
  * @method static \Database\Factories\CustomerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Customer newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Customer onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Customer permission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer query()
  * @method static \Illuminate\Database\Eloquent\Builder|Customer role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereBirthDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePhoneNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Customer withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Customer withoutTrashed()
  */
 	class Customer extends \Eloquent {}
 }
@@ -213,8 +230,11 @@ namespace App\Models{
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read object $photo
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListedHorse[] $horses
  * @property-read int|null $horses_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  * @method static \Illuminate\Database\Eloquent\Builder|HorseType active()
  * @method static \Database\Factories\HorseTypeFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|HorseType newModelQuery()
@@ -227,7 +247,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|HorseType whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HorseType whereUpdatedAt($value)
  */
-	class HorseType extends \Eloquent {}
+	class HorseType extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
 }
 
 namespace App\Models{
@@ -266,6 +286,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse newQuery()
  * @method static \Illuminate\Database\Query\Builder|ListedHorse onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse recent(int $count = 5)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereBirthYear($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereColor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereContactNumber($value)

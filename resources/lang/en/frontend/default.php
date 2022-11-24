@@ -13,6 +13,7 @@ return [
     'new_password_confirmation' => 'New Confirm Password',
     'password_confirmation'     => 'Confirm Password',
     'delete_account'            => 'Delete Account',
+    'birth_date'                => 'Birth Date',
 
     'messages' => [
       'update' => [

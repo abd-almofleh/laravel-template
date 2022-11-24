@@ -25,14 +25,14 @@ class GetListedHorsesRequest extends FormRequest
   {
     return [
       'query'          => 'nullable|string',
-      'sex'           => 'nullable|boolean',
-      'min_birth_year'=> 'nullable|numeric',
-      'max_birth_year'=> 'nullable|numeric',
-      'min_height'    => 'nullable|numeric|min:0',
-      'max_height'    => 'nullable|numeric',
-      'color'         => 'nullable|string',
-      'type'          => 'nullable|numeric|min:0',
-      'passport'      => 'nullable|numeric|min:0',
+      'sex'            => 'nullable|boolean',
+      'min_birth_year' => 'nullable|numeric',
+      'max_birth_year' => 'nullable|numeric',
+      'min_height'     => 'nullable|numeric|min:0',
+      'max_height'     => 'nullable|numeric',
+      'color'          => 'nullable|string',
+      'type'           => 'nullable|numeric|min:0',
+      'passport'       => 'nullable|numeric|min:0',
     ];
   }
 }

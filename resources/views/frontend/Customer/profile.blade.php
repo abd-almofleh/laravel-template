@@ -45,6 +45,16 @@
               </div>
             </div>
             <div class="row">
+              <div class="form-group col-12 required">
+                <label for="birth_date">{{ __('frontend/default.form.birth_date') }} <span
+                        class="required-f">*</span></label>
+                <input name="birth_date" value="{{ $user->birth_date->format('Y-m-d') }}" id="birth_date" type="date">
+                @error('birth_date')
+                  <span class="text-danger">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+            <div class="row">
               <div class="col-12 text-center">
                 <input type="submit" class="btn mb-3" value="{{ __('frontend/default.form.update') }}">
               </div>

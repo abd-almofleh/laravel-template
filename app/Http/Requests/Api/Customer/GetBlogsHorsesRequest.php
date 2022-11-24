@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\Auth;
+namespace App\Http\Requests\Api\Customer;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterCustomerRequest extends FormRequest
+class GetBlogsHorsesRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class RegisterCustomerRequest extends FormRequest
   public function rules()
   {
     return [
-      'name'         => 'required|string',
-      'password'     => 'required|min:6',
-      'email'        => 'required|string|email|unique:customers',
-      'phone_number' => 'required|string',
-      'birth_date'   => 'required|date_format:Y-m-d|date',
+      'count' => 'nullable|int',
     ];
   }
 }
