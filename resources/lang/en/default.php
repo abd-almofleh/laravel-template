@@ -137,9 +137,13 @@ return [
         'same'     => 'The password and confirm-password must match.',
         'min'      => 'Password length must be greater than 5.',
       ],
-      'name' => [
-        'required' => 'The name field is required!',
-        'unique'   => 'Name already exists!',
+      'name_ar' => [
+        'required' => 'The arabic name field is required!',
+        'unique'   => 'Arabic Name already exists!',
+      ],
+      'name_en' => [
+        'required' => 'The english name field is required!',
+        'unique'   => 'English Name already exists!',
       ],
       'nid' => [
         'required' => 'The NID field is required!',

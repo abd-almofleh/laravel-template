@@ -28,6 +28,7 @@ class StoreHorseTypeRequest extends FormRequest
       'name_en' => 'required|string|unique:horse_types,name_ar',
       'name_ar' => 'required|string|unique:horse_types,name_en',
       'status'  => 'required|boolean',
+      'photo'   => 'required|string',
     ];
   }
 

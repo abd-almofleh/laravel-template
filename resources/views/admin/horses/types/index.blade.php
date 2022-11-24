@@ -49,6 +49,7 @@
             <thead>
               <tr>
                 <th class="">{{ __('default.table.sl') }}</th>
+                <th class="">{{ __('default.table.preview') }}</th>
                 <th class="">{{ __('default.table.name_ar') }}</th>
                 <th class="">{{ __('default.table.name_en') }}</th>
                 <th class="">{{ __('default.table.status') }}</th>
@@ -84,6 +85,10 @@
         columns: [{
             data: 'DT_RowIndex',
             name: 'DT_RowIndex'
+          },
+          {
+            data: 'image_preview',
+            name: 'image_preview'
           },
           {
             data: 'name_ar',

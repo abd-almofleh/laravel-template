@@ -48,6 +48,11 @@ class ListedHorsesController extends Controller
     $options = $this->listedHorsesService->get_filter_options();
     return $this->response('success', $options);
   }
+  public function getHorsesTypes()
+  {
+    $options = $this->listedHorsesService->get_types();
+    return $this->response('success', $options);
+  }
 
   public function order(OrderListedHorseRequest $request, ListedHorse $listedHorse)
   {

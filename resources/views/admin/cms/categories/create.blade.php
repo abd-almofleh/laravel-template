@@ -36,8 +36,8 @@
             </div>
           </div>
         </div>
-      </div><!-- /card finish -->
-    </div><!-- /Page Header -->
+      </div>
+    </div>
 
     <section class="crud-body">
       <div class="row">
@@ -86,16 +86,12 @@
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                   </div>
-
-                </div> <!-- col-md-12-finish  -->
-              </div> <!-- row-finish  -->
-            </div> <!-- card-body-finish  -->
-
-          </div> <!-- card-finish  -->
-
-        </div> <!-- col-md-12-finish  -->
-      </div> <!-- row-finish  -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-
   </form>
 @endsection

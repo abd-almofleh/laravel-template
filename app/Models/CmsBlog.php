@@ -118,19 +118,17 @@ class CmsBlog extends Model implements HasMedia
    *
    * @return array An array of objects.
    */
-  public function getPhotoAttribute(): array
+  public function getPhotoAttribute(): ?object
   {
-    $newFiles = [];
-    $files = $this->getMedia('photos');
-    foreach ($files as $file) {
-      $newFile = new stdClass();
-      $newFile->url = $file->getUrl();
-      $newFile->fullUrl = $file->getFullUrl();
-      $newFile->thumbnail = $file->getFullUrl('thumb');
-      $newFile->preview = $file->getFullUrl('preview');
-      array_push($newFiles, $newFile);
+    $file = $this->getMedia('photos')->first();
+    if ($file) {
+      $file->url = $file->getUrl();
+      $file->fullUrl = $file->getFullUrl();
+      $file->thumbnail = $file->getFullUrl('thumb');
+      $file->preview = $file->getFullUrl('preview');
     }
-    return $newFiles;
+
+    return $file;
   }
 
   /**

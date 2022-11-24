@@ -41,6 +41,7 @@ Route::prefix('v1')->group(
           Route::get('/', 'index');
           Route::get('/recent', 'recentHorses');
           Route::get('/get-filter-options', 'get_filter_options');
+          Route::get('/types', 'getHorsesTypes');
           Route::middleware('auth:api')->group(function () {
             Route::post('/order/{listedHorse}', 'order');
           });
@@ -49,7 +50,6 @@ Route::prefix('v1')->group(
           Route::get('/', 'index');
           Route::get('/get-filter-options', 'get_filter_options');
           Route::get('/recent', 'recentBlogs');
-
         });
       }
     );

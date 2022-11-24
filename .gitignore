@@ -21,3 +21,4 @@ yarn-error.log
 /storage/tmp/uploads/*
 /storage/tmp/blogsSeeder/*
 /storage/media-library/temp/*
+*.log

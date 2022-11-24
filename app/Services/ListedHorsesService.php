@@ -85,6 +85,13 @@ class ListedHorsesService
     return $options;
   }
 
+  public function get_types()
+  {
+    $types = HorseType::active()->get();
+
+    return $types;
+  }
+
   /**
    * It creates a new order for a listed horse
    *

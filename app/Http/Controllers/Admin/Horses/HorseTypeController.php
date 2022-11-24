@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Horses;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\Admin\Horses\Types\StoreHorseTypeRequest;
 use App\Models\HorseType;
 use Auth;
@@ -15,6 +16,8 @@ use App\http\Requests\Admin\Horses\Types\UpdateHorseTypeRequest;
 
 class HorseTypeController extends Controller
 {
+  use MediaUploadingTrait;
+
   public function __construct()
   {
     $this->middleware('auth:admin');
@@ -56,6 +59,14 @@ class HorseTypeController extends Controller
                         <label for='status_$row->id' class='checktoggle'>checkbox</label>";
             return $status;
           })
+          ->addColumn('image_preview', function ($row) {
+            if ($row->photo) {
+              $image = '<img class="w-100" style="max-width: 100px" src="' . $row->photo->fullUrl . '" />';
+            } else {
+              $image = 'Image not found';
+            }
+            return $image;
+          })
 
           ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
           ->editColumn('updated_at', '{{date("jS M Y", strtotime($updated_at))}}')
@@ -85,7 +96,11 @@ class HorseTypeController extends Controller
   {
     $input = $request->validated();
     try {
-      HorseType::create($input);
+      $type = HorseType::create($input);
+      if ($request->input('photo', false)) {
+        $type->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photos');
+      }
+
       Toastr::success(__('horsesType.message.store.success'));
       return redirect()->route('horses.types.index');
     } catch (Exception $e) {
@@ -118,6 +133,17 @@ class HorseTypeController extends Controller
 
     try {
       $type->update($input);
+      if ($request->input('photo', false)) {
+        if (!$type->photo || $request->input('photo') !== $type->photo->file_name) {
+          if ($type->photo) {
+            $type->photo->delete();
+          }
+          $type->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photos');
+        }
+      } elseif ($type->photo) {
+        $type->photo->delete();
+      }
+
       Toastr::success(__('horsesType.message.update.success'));
       return redirect()->route('horses.types.index');
     } catch (Exception $e) {

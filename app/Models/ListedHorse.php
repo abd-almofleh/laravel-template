@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use stdClass;
 
 class ListedHorse extends Model implements HasMedia
 {
@@ -39,6 +39,12 @@ class ListedHorse extends Model implements HasMedia
     'meta_title',
     'meta_description',
     'meta_keywords',
+  ];
+
+  /* Telling Laravel to not include the `media` attribute when the model is converted to an array or
+  JSON. */
+  protected $hidden = [
+    'media',
   ];
 
   /* It's telling Laravel to cast the `created_at`, `updated_at`, and `deleted_at` attributes to
@@ -157,44 +163,38 @@ class ListedHorse extends Model implements HasMedia
    */
 
   /**
-   * It takes the files from the media library, and creates a new object for each file, with the url,
-   * fullUrl, thumbnail, and preview properties.
+   * It returns a collection of media files that are associated with the model, and adds a few extra
+   * properties to each file
    *
-   * @return array An array of objects.
+   * @return MediaCollection A collection of media files.
    */
-  public function getPhotosAttribute(): array
+  public function getPhotosAttribute(): MediaCollection
   {
-    $newFiles = [];
     $files = $this->getMedia('photos');
     foreach ($files as $file) {
-      $newFile = new stdClass();
-      $newFile->url = $file->getUrl();
-      $newFile->fullUrl = $file->getFullUrl();
-      $newFile->thumbnail = $file->getFullUrl('thumb');
-      $newFile->preview = $file->getFullUrl('preview');
-      array_push($newFiles, $newFile);
+      $file->url = $file->getUrl();
+      $file->fullUrl = $file->getFullUrl();
+      $file->thumbnail = $file->getFullUrl('thumb');
+      $file->preview = $file->getFullUrl('preview');
     }
-    return $newFiles;
+    return $files;
   }
 
   /**
-   * It takes the files from the `videos` collection, creates a new object for each file, and adds the
-   * file's url, full url, thumbnail url, and preview url to the object
+   * It returns a collection of media files that are associated with the model, and adds a few extra
+   * properties to each file
    *
-   * @return array An array of objects.
+   * @return MediaCollection A collection of media files.
    */
-  public function getVideosAttribute(): array
+  public function getVideosAttribute(): MediaCollection
   {
-    $newFiles = [];
     $files = $this->getMedia('videos');
     foreach ($files as $file) {
-      $newFile = new stdClass();
-      $newFile->url = $file->getUrl();
-      $newFile->fullUrl = $file->getFullUrl();
-      $newFile->thumbnail = $file->getFullUrl('thumb');
-      $newFile->preview = $file->getFullUrl('preview');
-      array_push($newFiles, $newFile);
+      $file->url = $file->getUrl();
+      $file->fullUrl = $file->getFullUrl();
+      $file->thumbnail = $file->getFullUrl('thumb');
+      $file->preview = $file->getFullUrl('preview');
     }
-    return $newFiles;
+    return $files;
   }
 }
