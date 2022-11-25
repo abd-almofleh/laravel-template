@@ -155,6 +155,15 @@
                           @endif
                           <tr>
                             <th>
+                              {{ __('default.form.location') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->location }}
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <th>
                               {{ __('default.form.sex') }}
                             </th>
                             <td>

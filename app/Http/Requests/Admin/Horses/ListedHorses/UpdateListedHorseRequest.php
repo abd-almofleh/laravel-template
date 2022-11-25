@@ -35,6 +35,7 @@ class UpdateListedHorseRequest extends FormRequest
       'color'            => 'string',
       'health'           => 'string',
       'contact_number'   => 'string',
+      'location'         => 'string',
       'father_name'      => 'string',
       'mother_name'      => 'string',
       'description'      => 'string',

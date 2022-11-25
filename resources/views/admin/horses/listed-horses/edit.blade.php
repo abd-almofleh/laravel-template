@@ -40,8 +40,8 @@
             </div>
           </div>
         </div>
-      </div><!-- /card finish -->
-    </div><!-- /Page Header -->
+      </div>
+    </div>
 
     <section class="crud-body">
       <div class="row">
@@ -72,10 +72,8 @@
                   </div>
                 </div>
               @endif
-
               <div class="row">
                 <div class="col-md-12">
-
                   <div class="form-group">
                     <label for="name" class="required">{{ __('default.form.name') }}:</label>
                     <input type="text" name="name" id="name"
@@ -218,6 +216,16 @@
                     @enderror
                   </div>
 
+                  <div class="form-group">
+                    <label for="location">{{ __('default.form.location') }}:</label>
+                    <input type="text" name="location" id="location"
+                           class="form-control @error('location') form-control-error @enderror"
+                           value="{{ old('location', $listedHorse->location) }}">
+
+                    @error('location')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
                   <div class="form-group">
                     <label for="father_name">{{ __('default.form.father_name') }}:</label>
                     <input type="text" name="father_name" id="father_name"
