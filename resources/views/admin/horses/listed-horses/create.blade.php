@@ -38,8 +38,8 @@
             </div>
           </div>
         </div>
-      </div><!-- /card finish -->
-    </div><!-- /Page Header -->
+      </div>
+    </div>
     <section class="crud-body">
       <div class="row">
         <div class="col-md-12">
@@ -152,7 +152,6 @@
 
                   <div class="form-group">
                     <label for="passport_type_id" class="required">{{ __('default.form.passport') }}:</label>
-
                     <select type="text" name="passport_type_id" id="passport_type_id"
                             class="form-control @error('passport_type_id') form-control-error @enderror"
                             required="required">
@@ -216,6 +215,16 @@
                     @enderror
                   </div>
 
+                  <div class="form-group">
+                    <label for="location">{{ __('default.form.location') }}:</label>
+                    <input type="text" name="location" id="location"
+                           class="form-control @error('location') form-control-error @enderror"
+                           value="{{ old('location') }}">
+
+                    @error('location')
+                      <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                  </div>
                   <div class="form-group">
                     <label for="father_name">{{ __('default.form.father_name') }}:</label>
                     <input type="text" name="father_name" id="father_name"
@@ -308,18 +317,13 @@
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                   </div>
-
-
-                </div><!-- end col-md-12 -->
-              </div><!-- end row -->
-            </div> <!-- end card body -->
-
-          </div> <!-- end card -->
-
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-
   </form>
 @endsection
 

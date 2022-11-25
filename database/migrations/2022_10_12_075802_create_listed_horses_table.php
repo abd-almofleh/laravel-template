@@ -22,6 +22,7 @@ class CreateListedHorsesTable extends Migration
       $table->string('health');
       $table->text('description');
       $table->string('contact_number');
+      $table->string('location');
       $table->string('father_name')->nullable();
       $table->string('mother_name')->nullable();
       $table->unsignedBigInteger('type_id');

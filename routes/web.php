@@ -108,7 +108,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::resource('listed-horses', App\Http\Controllers\Admin\Horses\ListedHorseController::class);
 
         Route::patch('/types/updateStatus/{type}', [App\Http\Controllers\Admin\Horses\HorseTypeController::class, 'updateStatus'])->name('types.updateStatus');
-        Route::post('listed-horses/media', [App\Http\Controllers\Admin\Horses\ListedHorseController::class, 'storeMedia'])->name('types.storeMedia');
+        Route::post('types/media', [App\Http\Controllers\Admin\Horses\HorseTypeController::class, 'storeMedia'])->name('types.storeMedia');
         Route::resource('types', App\Http\Controllers\Admin\Horses\HorseTypeController::class)->except(['show', 'destroy']);
 
         Route::patch('/passports/updateStatus/{passport}', [App\Http\Controllers\Admin\Horses\HorsePassportController::class, 'updateStatus'])->name('passports.updateStatus');

@@ -46,6 +46,7 @@ class CmsBlogSeeder extends Seeder
           'author_id'           => $faker->randomElement(User::pluck('id')),
         ]);
         $path = Image::image($folder_path, 640, 480, null, true, true);
+        sleep(1);
         error_log($blog->id);
         $blog->addMedia($path)->toMediaCollection('photos');
       });
