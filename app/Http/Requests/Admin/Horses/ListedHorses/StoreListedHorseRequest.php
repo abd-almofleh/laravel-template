@@ -34,6 +34,7 @@ class StoreListedHorseRequest extends FormRequest
       'height'           => 'required|numeric',
       'color'            => 'required|string',
       'health'           => 'required|string',
+      'location'         => 'required|string',
       'contact_number'   => 'required|string',
       'father_name'      => 'string',
       'mother_name'      => 'string',

@@ -30,6 +30,7 @@ class ListedHorse extends Model implements HasMedia
     'height',
     'color',
     'health',
+    'location',
     'description',
     'contact_number',
     'father_name',
