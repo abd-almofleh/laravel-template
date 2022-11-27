@@ -206,7 +206,8 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="contact_number" class="required">{{ __('default.form.contact_number') }}:</label>
+                    <label for="contact_number" class="required">{{ __('default.form.contact_number') }}:
+                      (9715XXXXXXXX)</label>
                     <input type="tel" name="contact_number" id="contact_number"
                            class="form-control @error('contact_number') form-control-error @enderror"
                            required="required" value="{{ old('contact_number', $listedHorse->contact_number) }}">

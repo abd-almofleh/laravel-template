@@ -35,7 +35,7 @@ class StoreListedHorseRequest extends FormRequest
       'color'            => 'required|string',
       'health'           => 'required|string',
       'location'         => 'required|string',
-      'contact_number'   => 'required|string',
+      'contact_number'   => 'required|string|regex:/^(9715)\d{8}$/i',
       'father_name'      => 'string',
       'mother_name'      => 'string',
       'description'      => 'required|string',
