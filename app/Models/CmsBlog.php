@@ -62,6 +62,23 @@ class CmsBlog extends Model implements HasMedia
     'updated_at' => 'datetime',
   ];
 
+/* It's telling Laravel to hide these attributes when the model is converted to JSON or array. */
+  protected $hidden = [
+    'meta_title_ar',
+    'meta_title_en',
+    'meta_description_ar',
+    'meta_description_en',
+    'meta_keywords_ar',
+    'meta_keywords_en',
+    'author_id',
+    'created_at',
+    'updated_at',
+    'status',
+    'cms_category_id',
+    'media',
+    'id',
+  ];
+
   /**
    * When a new blog post is created, set the author_id to the current user's id.
    */

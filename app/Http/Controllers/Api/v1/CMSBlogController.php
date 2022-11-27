@@ -27,6 +27,11 @@ class CMSBlogController extends Controller
     }
 
     $data = $query->paginate();
+
+    foreach ($data as $blog) {
+      $blog->description_ar = "<div style=\"color: #000000\">$blog->description_ar</div>";
+      $blog->description_en = "<div style=\"color: #000000\">$blog->description_en</div>";
+    }
     return $this->response('success', $data);
   }
 

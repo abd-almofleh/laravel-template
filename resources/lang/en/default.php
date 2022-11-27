@@ -96,6 +96,7 @@ return [
     'color'                    => 'Color',
     'health'                   => 'Health',
     'contact_number'           => 'Contact Number',
+    'location'                 => 'Location',
     'father_name'              => 'Father Name',
     'mother_name'              => 'Mother Name',
     'comma_suppurated'         => 'Comma Suppurated',

@@ -46,6 +46,15 @@ class ListedHorse extends Model implements HasMedia
   JSON. */
   protected $hidden = [
     'media',
+    'created_at',
+    'updated_at',
+    'deleted_at',
+    'type_id',
+    'passport_type_id',
+    'meta_title',
+    'meta_keywords',
+    'meta_description',
+    'model_type.model_type',
   ];
 
   /* It's telling Laravel to cast the `created_at`, `updated_at`, and `deleted_at` attributes to

@@ -64,8 +64,6 @@ class User extends Authenticatable
   use HasRoles;
   use Loggable;
 
-  // protected $guard = 'admin';
-
   /**
    * The attributes that are mass assignable.
    *
@@ -79,6 +77,7 @@ class User extends Authenticatable
     'image',
     'status',
   ];
+
   protected $guard_name = 'admin';
 
   /**
@@ -89,6 +88,11 @@ class User extends Authenticatable
   protected $hidden = [
     'password',
     'remember_token',
+    'email_verified_at',
+    'user_type',
+    'status',
+    'created_at',
+    'updated_at',
   ];
 
   /**

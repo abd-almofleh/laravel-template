@@ -155,6 +155,15 @@
                           @endif
                           <tr>
                             <th>
+                              {{ __('default.form.location') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->location }}
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <th>
                               {{ __('default.form.sex') }}
                             </th>
                             <td>
@@ -322,7 +331,7 @@
                           <div class="form-group">
                             <table class="table-bordered table-striped table">
                               <tbody>
-                                {!! $listedHorse->description !!}
+                                {{ $listedHorse->description }}
                               </tbody>
                             </table>
                           </div>
