@@ -331,7 +331,7 @@
                           <div class="form-group">
                             <table class="table-bordered table-striped table">
                               <tbody>
-                                {!! $listedHorse->description !!}
+                                {{ $listedHorse->description }}
                               </tbody>
                             </table>
                           </div>

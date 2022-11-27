@@ -248,7 +248,7 @@
                   </div>
                   <div class="form-group">
                     <label for="description" class="required">{{ __('default.form.description') }}:</label>
-                    <textarea name="description" id="description" rows="20"
+                    <textarea name="description" id="description" rows="10"
                               class="form-control @error('description') form-control-error @enderror">{{ old('description', $listedHorse->description) }}</textarea>
 
                     @error('description')
@@ -335,43 +335,6 @@
 
 @push('scripts')
   <script>
-    tinymce.init({
-      selector: '#description',
-      browser_spellcheck: true,
-      paste_data_images: false,
-      responsive: true,
-      plugins: [
-        "advlist autolink lists link image charmap print preview anchor",
-        "searchreplace visualblocks code fullscreen",
-        "insertdatetime media table contextmenu paste imagetools",
-        "autosave codesample directionality wordcount"
-      ],
-
-      toolbar: "restoredraft insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools media| fullscreen preview code | codesample charmap ltr rtl",
-
-      content_style: 'body { font-family:Poppins",sans-serif;}',
-      imagetools_toolbar: "imageoptions",
-
-      file_picker_callback(callback, value, meta) {
-        let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]
-          .clientWidth
-        let y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[
-          0].clientHeight
-
-        tinymce.activeEditor.windowManager.openUrl({
-          url: '/file-manager/tinymce5',
-          title: 'File manager',
-          width: x * 0.8,
-          height: y * 0.8,
-          onMessage: (api, message) => {
-            callback(message.content, {
-              text: message.text
-            })
-          }
-        })
-      }
-    });
-
     Dropzone.options.photosDropzone = {
       url: '{{ route('horses.listed-horses.storeMedia') }}',
       maxFilesize: 2, // MB
@@ -390,7 +353,6 @@
         $('form').append('<input type="hidden" name="photos[]" value="' + response.name + '">')
       },
       removedfile: function(file) {
-        console.log(`🚀 - file: edit.blade.php - line 451 - file`, file);
         file.previewElement.remove()
         if (file.status !== 'error') {
           if (file.xhr)

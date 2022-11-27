@@ -38,7 +38,7 @@ class ListedHorseController extends Controller
     public function index(Request $request)
     {
       if ($request->ajax()) {
-        $data = ListedHorse::withTrashed()->get();
+        $data = ListedHorse::withTrashed()->get()->makeVisible('created_at');
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
@@ -76,8 +76,8 @@ class ListedHorseController extends Controller
             ->addColumn('sex_text', function ($row) {
               return $row->sex == config('constants.sex.male') ? __('default.sex.male') : __('default.sex.female');
             })
-            ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
-            ->editColumn('updated_at', '{{date("jS M Y", strtotime($updated_at))}}')
+            ->editColumn('created_at', fn ($row) => "{{date('jS M Y', strtotime($row->created_at))}}")
+            ->editColumn('updated_at', fn ($row) => "{{date('jS M Y', strtotime($row->updated_at))}}")
             ->escapeColumns([])
             ->make(true);
       }
