@@ -22,7 +22,7 @@ class ListedHorsesService
    */
   public function get_listed_horses_list(array $filters): LengthAwarePaginator
   {
-    $query = ListedHorse::query();
+    $query = ListedHorse::query()->available();
 
     if ($filters['query'] !== false) {
       $query->whereRaw('UPPER(`name`) LIKE ?', ['%' . strtoupper($filters['query']) . '%'])
@@ -67,7 +67,7 @@ class ListedHorsesService
    */
   public function get_recent_listed_horses_list(int $count): Collection
   {
-    $data = ListedHorse::recent($count)->get();
+    $data = ListedHorse::available()->recent($count)->get();
 
     return $data;
   }

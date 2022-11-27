@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterCustomerRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class RegisterCustomerRequest extends FormRequest
     return [
       'name'         => 'required|string',
       'password'     => 'required|min:6',
-      'email'        => 'required|string|email|unique:customers',
+      'email'        => ['required', 'string', 'email', Rule::unique('customers', 'email')->where('deleted_at', null)],
       'phone_number' => 'required|string',
       'birth_date'   => 'required|date_format:Y-m-d|date',
     ];

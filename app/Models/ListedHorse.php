@@ -74,6 +74,7 @@ class ListedHorse extends Model implements HasMedia
   protected $with = [
     'type:id,name_en,name_ar',
     'passport:id,name_en,name_ar',
+    'order',
   ];
 
   /**
@@ -124,7 +125,12 @@ class ListedHorse extends Model implements HasMedia
    */
   public function scopeRecent(Builder $query, int $count = 5)
   {
-    $query->latest('updated_at')->limit($count)->get();
+    $query->latest('updated_at')->limit($count);
+  }
+
+  public function scopeAvailable(Builder $query)
+  {
+    $query->doesntHave('order');
   }
 
   /**

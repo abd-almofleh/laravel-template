@@ -11,27 +11,36 @@ use Illuminate\Auth\AuthenticationException;
 email exists, and logs out a customer */
 class Authentication
 {
-
-/**
- * It creates a new customer and assigns the customer role to it
- * 
- * @param array customerData
- * 
- * @return Customer The customer object
- */
+  /**
+   * It creates a new customer and assigns the customer role to it
+   *
+   * @param array customerData
+   *
+   * @return Customer The customer object
+   */
   public function register_customer(array $customerData): Customer
   {
-    $customer = Customer::create([
-      'name'         => $customerData['name'],
-      'password'     => $customerData['password'],
-      'email'        => $customerData['email'],
-      'phone_number' => $customerData['phone_number'],
-      'birth_date'   => $customerData['birth_date'],
-    ]);
-    $customer->assignRole('customer');
-
-    if (!$customer) {
-      throw new Exception('Error while creating a user');
+    $customer = Customer::withTrashed()->where('email', 'LIKE', $customerData['email'])->first();
+    if ($customer) {
+      $customer->restore();
+      $customer->update([
+        'name'         => $customerData['name'],
+        'password'     => $customerData['password'],
+        'phone_number' => $customerData['phone_number'],
+        'birth_date'   => $customerData['birth_date'],
+      ]);
+    } else {
+      $customer = Customer::create([
+        'name'         => $customerData['name'],
+        'password'     => $customerData['password'],
+        'email'        => $customerData['email'],
+        'phone_number' => $customerData['phone_number'],
+        'birth_date'   => $customerData['birth_date'],
+      ]);
+      $customer->assignRole('customer');
+      if (!$customer) {
+        throw new Exception('Error while creating a user');
+      }
     }
 
     return $customer;
