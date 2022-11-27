@@ -282,6 +282,7 @@ namespace App\Models{
  * @property-read \App\Models\ListedHorsesOrder|null $order
  * @property-read \App\Models\HorsePassport $passport
  * @property-read \App\Models\HorseType $type
+ * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse available()
  * @method static \Database\Factories\ListedHorseFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse newQuery()

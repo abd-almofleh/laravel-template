@@ -34,7 +34,7 @@ class UpdateListedHorseRequest extends FormRequest
       'height'           => 'numeric',
       'color'            => 'string',
       'health'           => 'string',
-      'contact_number'   => 'string',
+      'contact_number'   => 'string|regex:/^(9715)\d{8}$/i',
       'location'         => 'string',
       'father_name'      => 'string',
       'mother_name'      => 'string',

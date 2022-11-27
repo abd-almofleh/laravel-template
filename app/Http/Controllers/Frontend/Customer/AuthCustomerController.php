@@ -60,8 +60,10 @@ class AuthCustomerController extends Controller
       'phone_number' => $request->input('phone_number'),
       'birth_date'   => $request->input('birth_date'),
     ];
+
     $customer = $this->security->authentication->register_customer($data);
     Auth::guard('customer_frontend')->login($customer, true);
+
     return redirect()->route('home');
   }
 
