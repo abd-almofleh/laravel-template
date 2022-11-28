@@ -127,4 +127,13 @@ class AuthController extends \App\Http\Controllers\Controller
 
       return $this->response($message);
     }
+
+    public function validateOtp(Request $request)
+    {
+      $customer = Auth::guard(static::$guard)->user();
+      $otp = $request->otp;
+      $result = $this->security->authentication->validateOtp($customer,$otp );
+
+      return $this->response($result);
+    }
 }

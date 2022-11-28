@@ -30,6 +30,7 @@ Route::prefix('v1')->group(
             Route::middleware('auth:api')->group(function () {
               Route::post('logout', 'logout');
               Route::delete('account', 'deleteAccount');
+              Route::post('validate-otp', 'validatedOtp');
             });
           }
         );

@@ -157,6 +157,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property string|null $phone_verified_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
  * @property-read int|null $clients_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
@@ -185,6 +186,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePhoneNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePhoneVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Customer withTrashed()
@@ -342,6 +344,29 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorsesOrder whereUpdatedAt($value)
  */
 	class ListedHorsesOrder extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\OtpVerificationCode
+ *
+ * @property int $id
+ * @property int $customer_id
+ * @property string $otp
+ * @property string|null $expire_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|OtpVerificationCode newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OtpVerificationCode newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OtpVerificationCode query()
+ * @method static \Illuminate\Database\Eloquent\Builder|OtpVerificationCode whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OtpVerificationCode whereCustomerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OtpVerificationCode whereExpireAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OtpVerificationCode whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OtpVerificationCode whereOtp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OtpVerificationCode whereUpdatedAt($value)
+ */
+	class OtpVerificationCode extends \Eloquent {}
 }
 
 namespace App\Models{

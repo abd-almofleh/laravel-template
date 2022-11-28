@@ -3,6 +3,10 @@
 namespace App\Services\Security;
 
 use App\Models\Customer;
+use App\Helpers\Random;
+use App\Jobs\SendOTPJob;
+use App\Models\OtpVerificationCode;
+use Carbon\Carbon;
 use Exception;
 use Hash;
 use Illuminate\Auth\AuthenticationException;
@@ -12,23 +16,19 @@ email exists, and logs out a customer */
 class Authentication
 {
   /**
-   * It creates a new customer and assigns the customer role to it
+   * It creates a new user or restore a deleted user and send him an OTP
    *
-   * @param array customerData
+   * @param array customerData An array of the customer data.
    *
-   * @return Customer The customer object
+   * @return Customer The customer object.
    */
   public function register_customer(array $customerData): Customer
   {
     $customer = Customer::withTrashed()->where('email', 'LIKE', $customerData['email'])->first();
+    // If the user exists in the database it mean that it's deleted then we need to restore it.
+    // It it doesn't exist it mean the user is new and we need to create a new account for him.
     if ($customer) {
       $customer->restore();
-      $customer->update([
-        'name'         => $customerData['name'],
-        'password'     => $customerData['password'],
-        'phone_number' => $customerData['phone_number'],
-        'birth_date'   => $customerData['birth_date'],
-      ]);
     } else {
       $customer = Customer::create([
         'name'         => $customerData['name'],
@@ -43,7 +43,52 @@ class Authentication
       }
     }
 
+    $this->sendOTP($customer);
+
     return $customer;
+  }
+
+  /**
+   * It checks if the customer has an OTP code that is not expired, if yes, it returns the code, if not,
+   * it generates a new one and returns it
+   *
+   * @param Customer The customer object
+   */
+  public function sendOTP(Customer $customer): void
+  {
+    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->latest()->first();
+
+    $now = Carbon::now();
+    $otpCode = '';
+    if ($verificationCode && $now->isBefore($verificationCode->expire_at)) {
+      $otpCode = $verificationCode->otp;
+    } else {
+      $otpCode = Random::Numbers();
+    //   dd($customer->id);
+      OtpVerificationCode::create([
+        'customer_id'   => $customer->id,
+        'otp'           => $otpCode,
+        'expire_at'     => Carbon::now()->addMinutes(5),
+      ]);
+    }
+    SendOTPJob::dispatch($customer->phone_number, $otpCode);
+  }
+
+  public function ValidateOTP(Customer $customer, string $userOtp): void
+  {
+    $verificationCode = OtpVerificationCode::where('customer_id', $customer->ud)->where('otp', 'LIKE', $userOtp)->first();
+
+    $now = Carbon::now();
+    if (!$verificationCode) {
+      throw new Exception('Your OTP is not correct', 401);
+        //  send an exception:  ''
+    } elseif ($verificationCode && $now->isAfter($verificationCode->expire_at)) {
+      // send an exception: Your OTP has been expired.
+    }
+
+    $verificationCode->update([
+      'expire_at' => Carbon::now(),
+    ]);
   }
 
   /**
