@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\CMSBlogController;
 use App\Http\Controllers\Api\v1\ListedHorsesController;
 use App\Http\Controllers\Api\v1\ProfileController;
+use App\Http\Controllers\Global\RequestHorseCare;
 use App\Http\Controllers\Global\StoreSuggestion;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,7 @@ Route::prefix('v1')->group(
         });
 
         Route::post('suggestion', StoreSuggestion::class);
+        Route::post('horse-care', RequestHorseCare::class);
       }
     );
   }
