@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Global;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Global\StoreSuggestionRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class StoreSuggestion extends Controller
@@ -22,11 +24,11 @@ class StoreSuggestion extends Controller
     return $this->GetResponse($request->expectsJson());
   }
 
-  private function handel(string $suggestion, ?string $email = '')
+  private function handel(string $suggestion, ?string $email = ''): void
   {
   }
 
-  private function GetResponse(bool $isJson = false)
+  private function GetResponse(bool $isJson = false): JsonResponse | RedirectResponse
   {
     return $isJson ? $this->response('Your suggestion has been received successfully.', null, 201) : redirect()->route('home');
   }
