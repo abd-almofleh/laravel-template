@@ -27,10 +27,13 @@ Route::prefix('v1')->group(
             Route::post('login', 'login');
             Route::post('reset-password', 'resetPassword');
             Route::post('check-email', 'checkCustomerEmail');
+            Route::prefix('otp')->group(function () {
+              Route::post('request', 'requestOtp');
+              Route::post('validate', 'validateOtp');
+            });
             Route::middleware('auth:api')->group(function () {
               Route::post('logout', 'logout');
               Route::delete('account', 'deleteAccount');
-              Route::post('validate-otp', 'validatedOtp');
             });
           }
         );

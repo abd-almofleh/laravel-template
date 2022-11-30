@@ -52,7 +52,7 @@ class Authentication
    * It checks if the customer has an OTP code that is not expired, if yes, it returns the code, if not,
    * it generates a new one and returns it
    *
-   * @param Customer The customer object
+   * @param Customer customer The customer object
    */
   public function sendOTP(Customer $customer): void
   {
@@ -64,7 +64,6 @@ class Authentication
       $otpCode = $verificationCode->otp;
     } else {
       $otpCode = Random::Numbers();
-    //   dd($customer->id);
       OtpVerificationCode::create([
         'customer_id'   => $customer->id,
         'otp'           => $otpCode,
@@ -74,20 +73,33 @@ class Authentication
     SendOTPJob::dispatch($customer->phone_number, $otpCode);
   }
 
+  /**
+   * It checks if the OTP is correct and not expired
+   *
+   * @param Customer customer The customer object
+   * @param string userOtp The OTP that the user has entered.
+   */
   public function ValidateOTP(Customer $customer, string $userOtp): void
   {
-    $verificationCode = OtpVerificationCode::where('customer_id', $customer->ud)->where('otp', 'LIKE', $userOtp)->first();
+    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('otp', 'LIKE', $userOtp)->first();
 
     $now = Carbon::now();
     if (!$verificationCode) {
-      throw new Exception('Your OTP is not correct', 401);
-        //  send an exception:  ''
+      abort(401, 'Your OTP is not correct');
     } elseif ($verificationCode && $now->isAfter($verificationCode->expire_at)) {
-      // send an exception: Your OTP has been expired.
+      abort(403, 'Your OTP has been expired');
     }
-
     $verificationCode->update([
       'expire_at' => Carbon::now(),
+    ]);
+  }
+
+  public function ValidatePhoneNumberThoughOTP(Customer $customer, string $userOtp): bool
+  {
+    $this->ValidateOTP($customer, $userOtp);
+
+    return $customer->update([
+      'phone_verified_at' => Carbon::now(),
     ]);
   }
 
@@ -137,12 +149,11 @@ class Authentication
   public function resetPassword(string $email, string $new_password): void
   {
     $customer = Customer::where('email', $email)->first();
-    if ($customer) {
-      $customer->password = $new_password;
-      $customer->save();
-    } else {
+    if (!$customer) {
       abort(404, 'Account not found!');
     }
+    $customer->password = $new_password;
+    $customer->save();
   }
 
   /**
@@ -153,14 +164,13 @@ class Authentication
    *
    * @return ?Customer The customer object.
    */
-  public function checkCustomerEmail(string $email): ?Customer
+  public function checkCustomerEmail(string $email): Customer
   {
     $customer = Customer::where('email', $email)->first();
-    if ($customer) {
-      return $customer;
-    } else {
+    if (!$customer) {
       abort(404, 'Account not found!');
     }
+    return $customer;
   }
 
   /**
