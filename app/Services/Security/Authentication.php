@@ -2,6 +2,7 @@
 
 namespace App\Services\Security;
 
+use App\Enums\OtpTypesEnum;
 use App\Models\Customer;
 use App\Helpers\Random;
 use App\Jobs\SendOTPJob;
@@ -43,7 +44,7 @@ class Authentication
       }
     }
 
-    $this->sendOTP($customer);
+    $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
 
     return $customer;
   }
@@ -54,20 +55,25 @@ class Authentication
    *
    * @param Customer customer The customer object
    */
-  public function sendOTP(Customer $customer): void
+  public function sendOTP(Customer $customer, OtpTypesEnum $type = null): void
   {
-    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->latest()->first();
-
+    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->when($type !== null, function ($query) use ($type) {
+      $query->where('type', $type);
+    })->latest()->first();
     $now = Carbon::now();
     $otpCode = '';
     if ($verificationCode && $now->isBefore($verificationCode->expire_at)) {
       $otpCode = $verificationCode->otp;
     } else {
+      if (!$type) {
+        abort(401, 'No Otp Request Found');
+      }
       $otpCode = Random::Numbers();
       OtpVerificationCode::create([
-        'customer_id'   => $customer->id,
-        'otp'           => $otpCode,
-        'expire_at'     => Carbon::now()->addMinutes(5),
+        'customer_id' => $customer->id,
+        'otp'         => $otpCode,
+        'expire_at'   => Carbon::now()->addMinutes(5),
+        'type'        => $type
       ]);
     }
     SendOTPJob::dispatch($customer->phone_number, $otpCode);
@@ -79,9 +85,14 @@ class Authentication
    * @param Customer customer The customer object
    * @param string userOtp The OTP that the user has entered.
    */
-  public function ValidateOTP(Customer $customer, string $userOtp): void
+  public function ValidateOTP(Customer $customer, string $userOtp, OtpTypesEnum $type): void
   {
-    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('otp', 'LIKE', $userOtp)->first();
+    $verificationCode = OtpVerificationCode::query()
+      ->where('customer_id', $customer->id)
+      ->where('otp', 'LIKE', $userOtp)
+      ->where('type', 'LIKE', $type)
+      ->latest('expire_at')
+      ->first();
 
     $now = Carbon::now();
     if (!$verificationCode) {
@@ -96,7 +107,7 @@ class Authentication
 
   public function ValidatePhoneNumberThoughOTP(Customer $customer, string $userOtp): bool
   {
-    $this->ValidateOTP($customer, $userOtp);
+    $this->ValidateOTP($customer, $userOtp, OtpTypesEnum::PhoneNumber);
 
     return $customer->update([
       'phone_verified_at' => Carbon::now(),

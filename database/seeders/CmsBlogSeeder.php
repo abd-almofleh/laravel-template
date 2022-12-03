@@ -24,7 +24,7 @@ class CmsBlogSeeder extends Seeder
       mkdir($folder_path);
     }
 
-    for ($i = 0; $i < 100; $i++) {
+    for ($i = 0; $i < 10; $i++) {
       CmsBlog::withoutEvents(function () use ($faker, $faker_ar, $folder_path) {
         $title_ar = $faker_ar->name();
         $title_en = $faker->sentence();

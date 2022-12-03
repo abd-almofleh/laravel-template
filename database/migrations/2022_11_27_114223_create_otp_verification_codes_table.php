@@ -13,7 +13,7 @@ class CreateOtpVerificationCodesTable extends Migration
   {
     Schema::create('otp_verification_codes', function (Blueprint $table) {
       $table->id();
-      $table->bigInteger('customer_id');
+      $table->unsignedBigInteger('customer_id');
       $table->string('otp');
       $table->timestamp('expire_at')->nullable();
       $table->timestamps();
