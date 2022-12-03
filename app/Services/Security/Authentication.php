@@ -55,19 +55,18 @@ class Authentication
    *
    * @param Customer customer The customer object
    */
-  public function sendOTP(Customer $customer, OtpTypesEnum $type = null): void
+  private function sendOTP(Customer $customer, OtpTypesEnum $type): void
   {
-    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->when($type !== null, function ($query) use ($type) {
-      $query->where('type', $type);
-    })->latest()->first();
+    if (!$type) {
+      throw new Exception('Otp Type is Required');
+    }
+
+    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('type', $type)->latest()->first();
     $now = Carbon::now();
     $otpCode = '';
     if ($verificationCode && $now->isBefore($verificationCode->expire_at)) {
       $otpCode = $verificationCode->otp;
     } else {
-      if (!$type) {
-        abort(401, 'No Otp Request Found');
-      }
       $otpCode = Random::Numbers();
       OtpVerificationCode::create([
         'customer_id' => $customer->id,
@@ -85,8 +84,12 @@ class Authentication
    * @param Customer customer The customer object
    * @param string userOtp The OTP that the user has entered.
    */
-  public function ValidateOTP(Customer $customer, string $userOtp, OtpTypesEnum $type): void
+  private function ValidateOTP(Customer $customer, string $userOtp, OtpTypesEnum $type): void
   {
+    if (!$type) {
+      throw new Exception('Otp Type is Required');
+    }
+
     $verificationCode = OtpVerificationCode::query()
       ->where('customer_id', $customer->id)
       ->where('otp', 'LIKE', $userOtp)
@@ -105,13 +108,25 @@ class Authentication
     ]);
   }
 
-  public function ValidatePhoneNumberThoughOTP(Customer $customer, string $userOtp): bool
+  public function validatePhoneNumberThoughOTP(Customer $customer, string $userOtp): bool
   {
+    if ($customer->phone_verified_at != null) {
+      abort(401, 'Phone Number is already verified');
+    }
+
     $this->ValidateOTP($customer, $userOtp, OtpTypesEnum::PhoneNumber);
 
     return $customer->update([
       'phone_verified_at' => Carbon::now(),
     ]);
+  }
+
+  public function requestPhoneNumberVerificationOtp(Customer $customer): void
+  {
+    if ($customer->phone_verified_at != null) {
+      abort(401, 'Phone Number is already verified');
+    }
+    $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
   }
 
   /**

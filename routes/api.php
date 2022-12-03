@@ -28,8 +28,10 @@ Route::prefix('v1')->group(
             Route::post('reset-password', 'resetPassword');
             Route::post('check-email', 'checkCustomerEmail');
             Route::prefix('otp')->group(function () {
-              Route::post('request', 'requestOtp');
-              Route::post('validate', 'validateOtp');
+              Route::prefix('phone-number')->group(function () {
+                Route::post('request', 'requestPhoneNumberVerificationOtp');
+                Route::post('validate', 'validatePhoneNumberThroughOTP');
+              });
             });
             Route::middleware('auth:api')->group(function () {
               Route::post('logout', 'logout');

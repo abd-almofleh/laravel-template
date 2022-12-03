@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Enums\OtpTypesEnum;
 use App\Http\Requests\Api\Auth\CheckCustomerEmailRequest;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterCustomerRequest;
@@ -141,15 +142,13 @@ class AuthController extends \App\Http\Controllers\Controller
    *
    * @return JsonResponse A json response with the message 'Otp sent to your phone'
    */
-  public function requestOtp(RequestOtpRequest $request): JsonResponse
+  public function requestPhoneNumberVerificationOtp(RequestOtpRequest $request): JsonResponse
   {
     $customer_email = $request->email;
 
-    $customer = Customer::where('email', 'LIKE', $customer_email)->first();
-    if (!$customer) {
-      abort(404, 'Email not found');
-    }
-    $this->security->authentication->sendOTP($customer);
+    $customer = Customer::findByEmailOrFail($customer_email);
+
+    $this->security->authentication->requestPhoneNumberVerificationOtp($customer);
 
     return $this->response('Otp sent to your phone');
   }
@@ -167,11 +166,9 @@ class AuthController extends \App\Http\Controllers\Controller
     $customer_email = $request->email;
     $otp = $request->otp;
 
-    $customer = Customer::where('email', 'LIKE', $customer_email)->first();
-    if (!$customer) {
-      abort(404, 'Email not found');
-    }
-    $this->security->authentication->validateOtp($customer, $otp);
+    $customer = Customer::findByEmailOrFail($customer_email);
+
+    $this->security->authentication->validatePhoneNumberThoughOTP($customer, $otp);
     $token = $this->security->authentication->createApiToken($customer, 'customer');
 
     return $this->response('success', ['user' => $customer, 'access_token' => $token]);
