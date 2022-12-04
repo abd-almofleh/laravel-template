@@ -72,7 +72,7 @@ class Authentication
         'customer_id' => $customer->id,
         'otp'         => $otpCode,
         'expire_at'   => Carbon::now()->addMinutes(5),
-        'type'        => $type
+        'type'        => $type,
       ]);
     }
     SendOTPJob::dispatch($customer->phone_number, $otpCode);
@@ -129,6 +129,11 @@ class Authentication
     $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
   }
 
+  public function isCustomerPhoneNumberIfValidated(Customer $customer): bool
+  {
+    return $customer->phone_verified_at !== null;
+  }
+
   /**
    * It checks if the email and password are correct, and if they are, it creates an access token and
    * returns the user and the access token.
@@ -143,6 +148,16 @@ class Authentication
     $customer = Customer::where('email', 'LIKE', $email)->first();
     if (!$customer || !Hash::check($password, $customer->password)) {
       throw new AuthenticationException('Invalid username or password');
+    }
+    if (!$this->isCustomerPhoneNumberIfValidated($customer)) {
+      $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
+      throw abort(response()->json([
+        'status' => 'Unauthorized',
+        'error'  => [
+          'type'    => 'PhoneNotVerified',
+          'message' => 'Otp has been sent to you phone',
+        ],
+      ], 401));
     }
 
     $accessToken = $this->createApiToken($customer);
