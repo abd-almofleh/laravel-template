@@ -113,9 +113,6 @@ class UserController extends Controller
             $role = str_replace(['[', ']'], '', $user->getRoleNames());
             return $role = str_replace(['"'], ' ', $role);
           })
-
-          ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
-          ->editColumn('updated_at', '{{date("jS M Y", strtotime($updated_at))}}')
           ->escapeColumns([])
           ->make(true);
     }
