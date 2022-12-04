@@ -10,7 +10,6 @@ use App\Models\OtpVerificationCode;
 use Carbon\Carbon;
 use Exception;
 use Hash;
-use Illuminate\Auth\AuthenticationException;
 
 class Authentication
 {
@@ -167,14 +166,21 @@ class Authentication
   {
     $customer = Customer::where('email', 'LIKE', $email)->first();
     if (!$customer || !Hash::check($password, $customer->password)) {
-      throw new AuthenticationException('Invalid username or password');
+      abort(response()->json([
+        'status' => 'Not Found',
+        'error'  => [
+          'type'    => 'CREDENTIALS_ERROR',
+          'message' => 'Invalid email or password',
+        ],
+      ], 404));
     }
+
     if (!$this->isCustomerPhoneNumberIfValidated($customer)) {
       $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
-      throw abort(response()->json([
+      abort(response()->json([
         'status' => 'Unauthorized',
         'error'  => [
-          'type'    => 'PhoneNotVerified',
+          'type'    => 'PHONE_NOT_VERIFIED',
           'message' => 'Otp has been sent to you phone',
         ],
       ], 401));
