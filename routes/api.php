@@ -29,6 +29,12 @@ Route::prefix('v1')->group(
             Route::post('login', 'login');
             Route::post('reset-password', 'resetPassword');
             Route::post('check-email', 'checkCustomerEmail');
+            Route::prefix('otp')->group(function () {
+              Route::prefix('phone-number')->group(function () {
+                Route::post('request', 'requestPhoneNumberVerificationOtp');
+                Route::post('validate', 'validatePhoneNumberThroughOTP');
+              });
+            });
             Route::middleware('auth:api')->group(function () {
               Route::post('logout', 'logout');
               Route::delete('account', 'deleteAccount');

@@ -2,7 +2,12 @@
 
 namespace App\Services\Security;
 
+use App\Enums\OtpTypesEnum;
 use App\Models\Customer;
+use App\Helpers\Random;
+use App\Jobs\SendOTPJob;
+use App\Models\OtpVerificationCode;
+use Carbon\Carbon;
 use Exception;
 use Hash;
 use Illuminate\Auth\AuthenticationException;
@@ -12,23 +17,19 @@ email exists, and logs out a customer */
 class Authentication
 {
   /**
-   * It creates a new customer and assigns the customer role to it
+   * It creates a new user or restore a deleted user and send him an OTP
    *
-   * @param array customerData
+   * @param array customerData An array of the customer data.
    *
-   * @return Customer The customer object
+   * @return Customer The customer object.
    */
   public function register_customer(array $customerData): Customer
   {
     $customer = Customer::withTrashed()->where('email', 'LIKE', $customerData['email'])->first();
+    // If the user exists in the database it mean that it's deleted then we need to restore it.
+    // It it doesn't exist it mean the user is new and we need to create a new account for him.
     if ($customer) {
       $customer->restore();
-      $customer->update([
-        'name'         => $customerData['name'],
-        'password'     => $customerData['password'],
-        'phone_number' => $customerData['phone_number'],
-        'birth_date'   => $customerData['birth_date'],
-      ]);
     } else {
       $customer = Customer::create([
         'name'         => $customerData['name'],
@@ -43,7 +44,94 @@ class Authentication
       }
     }
 
+    $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
+
     return $customer;
+  }
+
+  /**
+   * It checks if the customer has an OTP code that is not expired, if yes, it returns the code, if not,
+   * it generates a new one and returns it
+   *
+   * @param Customer customer The customer object
+   */
+  private function sendOTP(Customer $customer, OtpTypesEnum $type): void
+  {
+    if (!$type) {
+      throw new Exception('Otp Type is Required');
+    }
+
+    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('type', $type)->latest()->first();
+    $now = Carbon::now();
+    $otpCode = '';
+    if ($verificationCode && $now->isBefore($verificationCode->expire_at)) {
+      $otpCode = $verificationCode->otp;
+    } else {
+      $otpCode = Random::Numbers();
+      OtpVerificationCode::create([
+        'customer_id' => $customer->id,
+        'otp'         => $otpCode,
+        'expire_at'   => Carbon::now()->addMinutes(5),
+        'type'        => $type,
+      ]);
+    }
+    SendOTPJob::dispatch($customer->phone_number, $otpCode);
+  }
+
+  /**
+   * It checks if the OTP is correct and not expired
+   *
+   * @param Customer customer The customer object
+   * @param string userOtp The OTP that the user has entered.
+   */
+  private function ValidateOTP(Customer $customer, string $userOtp, OtpTypesEnum $type): void
+  {
+    if (!$type) {
+      throw new Exception('Otp Type is Required');
+    }
+
+    $verificationCode = OtpVerificationCode::query()
+      ->where('customer_id', $customer->id)
+      ->where('otp', 'LIKE', $userOtp)
+      ->where('type', 'LIKE', $type)
+      ->latest('expire_at')
+      ->first();
+
+    $now = Carbon::now();
+    if (!$verificationCode) {
+      abort(401, 'Your OTP is not correct');
+    } elseif ($verificationCode && $now->isAfter($verificationCode->expire_at)) {
+      abort(403, 'Your OTP has been expired');
+    }
+    $verificationCode->update([
+      'expire_at' => Carbon::now(),
+    ]);
+  }
+
+  public function validatePhoneNumberThoughOTP(Customer $customer, string $userOtp): bool
+  {
+    if ($customer->phone_verified_at != null) {
+      abort(401, 'Phone Number is already verified');
+    }
+
+    $this->ValidateOTP($customer, $userOtp, OtpTypesEnum::PhoneNumber);
+
+    return $customer->update([
+      'phone_verified_at' => Carbon::now(),
+    ]);
+  }
+
+  public function requestPhoneNumberVerificationOtp(Customer $customer): void
+  {
+    if ($customer->phone_verified_at != null) {
+      abort(401, 'Phone Number is already verified');
+    }
+    $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
+  }
+
+  public function isCustomerPhoneNumberIfValidated(Customer $customer): bool
+  {
+    return $customer->phone_verified_at !== null;
   }
 
   /**
@@ -60,6 +148,16 @@ class Authentication
     $customer = Customer::where('email', 'LIKE', $email)->first();
     if (!$customer || !Hash::check($password, $customer->password)) {
       throw new AuthenticationException('Invalid username or password');
+    }
+    if (!$this->isCustomerPhoneNumberIfValidated($customer)) {
+      $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
+      throw abort(response()->json([
+        'status' => 'Unauthorized',
+        'error'  => [
+          'type'    => 'PhoneNotVerified',
+          'message' => 'Otp has been sent to you phone',
+        ],
+      ], 401));
     }
 
     $accessToken = $this->createApiToken($customer);
@@ -92,12 +190,11 @@ class Authentication
   public function resetPassword(string $email, string $new_password): void
   {
     $customer = Customer::where('email', $email)->first();
-    if ($customer) {
-      $customer->password = $new_password;
-      $customer->save();
-    } else {
+    if (!$customer) {
       abort(404, 'Account not found!');
     }
+    $customer->password = $new_password;
+    $customer->save();
   }
 
   /**
@@ -108,14 +205,13 @@ class Authentication
    *
    * @return ?Customer The customer object.
    */
-  public function checkCustomerEmail(string $email): ?Customer
+  public function checkCustomerEmail(string $email): Customer
   {
     $customer = Customer::where('email', $email)->first();
-    if ($customer) {
-      return $customer;
-    } else {
+    if (!$customer) {
       abort(404, 'Account not found!');
     }
+    return $customer;
   }
 
   /**

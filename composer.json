@@ -8,8 +8,9 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.1",
         "alexusmai/laravel-file-manager": "^2.5",
+        "archtechx/enums": "^0.3.1",
         "brian2694/laravel-toastr": "^5.56",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "fakerphp/faker": "^1.20",
@@ -43,7 +44,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.1.13"
+        }
     },
     "extra": {
         "laravel": {

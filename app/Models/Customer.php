@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Customer as ModelsCustomer;
 use Hash;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -53,5 +54,14 @@ class Customer extends Authenticatable
   public function orders()
   {
     return $this->hasMany(ListedHorsesOrder::class, 'customer_id');
+  }
+
+  public static function findByEmailOrFail(string $email): ModelsCustomer
+  {
+    $customer = Customer::where('email', 'LIKE', $email)->first();
+    if (!$customer) {
+      abort(404, 'Email not found');
+    }
+    return $customer;
   }
 }
