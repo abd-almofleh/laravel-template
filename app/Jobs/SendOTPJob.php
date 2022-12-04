@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Helpers\SMS;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -32,6 +33,7 @@ class SendOTPJob implements ShouldQueue
    */
   public function handle()
   {
-    error_log('Your one time password is: ' . $this->code);
+    $message = 'Your one time password is: ' . $this->code;
+    SMS::sendMessage($this->phone_number, $message);
   }
 }
