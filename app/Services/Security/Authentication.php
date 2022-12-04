@@ -12,8 +12,6 @@ use Exception;
 use Hash;
 use Illuminate\Auth\AuthenticationException;
 
-/* It creates a new customer, logs in a customer, resets a customer's password, checks if a customer's
-email exists, and logs out a customer */
 class Authentication
 {
   /**
@@ -108,6 +106,15 @@ class Authentication
     ]);
   }
 
+  /**
+   * It validates the OTP sent to the user's phone number and updates the `phone_verified_at` column in
+   * the database
+   *
+   * @param Customer customer The customer object
+   * @param string userOtp The OTP that the user has entered.
+   *
+   * @return bool A boolean represent the success of the operation.
+   */
   public function validatePhoneNumberThoughOTP(Customer $customer, string $userOtp): bool
   {
     if ($customer->phone_verified_at != null) {
@@ -121,6 +128,11 @@ class Authentication
     ]);
   }
 
+  /**
+   * It sends an OTP to the customer's phone number
+   *
+   * @param Customer customer The customer object
+   */
   public function requestPhoneNumberVerificationOtp(Customer $customer): void
   {
     if ($customer->phone_verified_at != null) {
@@ -129,19 +141,27 @@ class Authentication
     $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
   }
 
+  /**
+   * Return true if the customer's phone number is validated.
+   *
+   * @param Customer customer The customer object
+   *
+   * @return bool A boolean value.
+   */
   public function isCustomerPhoneNumberIfValidated(Customer $customer): bool
   {
     return $customer->phone_verified_at !== null;
   }
 
   /**
-   * It checks if the email and password are correct, and if they are, it creates an access token and
+   * It checks if the email and password are correct, and if they are, it check for the phone number if validated if it's validated it creates an access token and
    * returns the user and the access token.
+   * If the phone number is not validated it return an error and send otp to the phone number to verify it.
    *
    * @param string email The email address of the user.
    * @param string password The password of the user
    *
-   * @return The user and the access token.
+   * @return array The user and the access token.
    */
   public function login_customer(string $email, string $password): array
   {

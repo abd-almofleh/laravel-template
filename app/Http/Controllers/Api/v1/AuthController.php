@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Enums\OtpTypesEnum;
 use App\Http\Requests\Api\Auth\CheckCustomerEmailRequest;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterCustomerRequest;
@@ -10,10 +9,8 @@ use App\Http\Requests\Api\Auth\RequestOtpRequest;
 use App\Http\Requests\Api\Auth\ResetPasswordRequest;
 use App\Http\Requests\Api\Auth\ValidateOtpRequest;
 use App\Models\Customer;
-use Illuminate\Http\Request;
 use App\Services\Security\SecurityService;
 use Auth;
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -154,7 +151,7 @@ class AuthController extends \App\Http\Controllers\Controller
   }
 
   /**
-   * It validates the OTP sent to the customer's email address and returns a JsonResponse with the
+   * It validates the OTP sent to the customer's phone number and returns a JsonResponse with the
    * customer's details and an access token
    *
    * @param ValidateOtpRequest request The request object.
