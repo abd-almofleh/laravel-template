@@ -27,6 +27,7 @@ class Customer extends Authenticatable
     'name',
     'password',
     'birth_date',
+    'is_otp_enabled',
   ];
   protected $hidden = ['password'];
 
@@ -47,8 +48,9 @@ class Customer extends Authenticatable
    * @var array
    */
   protected $casts = [
-    'email_verified_at' => 'datetime',
-    'birth_date'        => 'date',
+    'email_verified_at'     => 'datetime',
+    'birth_date'            => 'date',
+    'is_otp_enabled'        => 'boolean',
   ];
 
   public function orders()

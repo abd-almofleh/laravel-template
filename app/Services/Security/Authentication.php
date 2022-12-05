@@ -174,8 +174,7 @@ class Authentication
         ],
       ], 404));
     }
-
-    if (!$this->isCustomerPhoneNumberIfValidated($customer)) {
+    if ($customer->is_otp_enabled && !$this->isCustomerPhoneNumberIfValidated($customer)) {
       $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
       abort(response()->json([
         'status' => 'Unauthorized',

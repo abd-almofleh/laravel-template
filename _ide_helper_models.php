@@ -158,6 +158,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string|null $phone_verified_at
+ * @property bool|null $is_otp_enabled
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
  * @property-read int|null $clients_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
@@ -183,6 +184,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereIsOtpEnabled($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePhoneNumber($value)
