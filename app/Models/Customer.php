@@ -28,6 +28,7 @@ class Customer extends Authenticatable
     'password',
     'birth_date',
     'is_otp_enabled',
+    'phone_verified_at',
   ];
   protected $hidden = ['password'];
 
