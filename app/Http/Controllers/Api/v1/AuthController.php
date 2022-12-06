@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\Api\Auth\CheckCustomerEmailRequest;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterCustomerRequest;
 use App\Http\Requests\Api\Auth\RequestOtpRequest;
-use App\Http\Requests\Api\Auth\ResetPasswordRequest;
+use App\Http\Requests\Api\Auth\RequestResetPasswordRequest;
 use App\Http\Requests\Api\Auth\ValidateOtpRequest;
 use App\Models\Customer;
 use App\Services\Security\SecurityService;
@@ -72,7 +71,7 @@ class AuthController extends \App\Http\Controllers\Controller
  *
  * @return JsonResponse A JsonResponse object.
  */
-  public function requestResetPasswordThroughPhoneNumber(ResetPasswordRequest $request): JsonResponse
+  public function requestResetPasswordThroughPhoneNumber(RequestResetPasswordRequest $request): JsonResponse
   {
     $customer_email = $request->email;
     $customer = Customer::findByEmailOrFail($customer_email);
