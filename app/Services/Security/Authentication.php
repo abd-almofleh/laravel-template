@@ -205,21 +205,14 @@ class Authentication
     return $token->accessToken;
   }
 
-  /**
-   * It takes an email and a new password, finds the customer with that email, and sets the password to
-   * the new password.
-   *
-   * @param string email The email address of the customer.
-   * @param string new_password The new password for the account.
-   */
-  public function resetPassword(string $email, string $new_password): void
+/**
+ * This function sends an OTP to the customer's phone number for resetting the password
+ *
+ * @param Customer customer The customer object that the OTP will be sent to.
+ */
+  public function requestResetPasswordThroughPhoneNumber(Customer $customer): void
   {
-    $customer = Customer::where('email', $email)->first();
-    if (!$customer) {
-      abort(404, 'Account not found!');
-    }
-    $customer->password = $new_password;
-    $customer->save();
+    $this->sendOTP($customer, OtpTypesEnum::ResetPassword);
   }
 
   /**
