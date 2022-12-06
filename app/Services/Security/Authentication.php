@@ -13,6 +13,12 @@ use Hash;
 
 class Authentication
 {
+  /** -----------------------------------------------------------------------------------------
+   *
+   *  * Private Methods
+   *
+   * ----------------------------------------------------------------------------------------- */
+
   /**
    * It creates a new user or restore a deleted user and send him an OTP
    *
@@ -87,12 +93,7 @@ class Authentication
       throw new Exception('Otp Type is Required');
     }
 
-    $verificationCode = OtpVerificationCode::query()
-      ->where('customer_id', $customer->id)
-      ->where('otp', 'LIKE', $userOtp)
-      ->where('type', 'LIKE', $type)
-      ->latest('expire_at')
-      ->first();
+    $verificationCode = OtpVerificationCode::get($customer->id, $userOtp, $type);
 
     $now = Carbon::now();
     if (!$verificationCode) {
@@ -206,20 +207,54 @@ class Authentication
   }
 
   /**
-   * It takes an email and a new password, finds the customer with that email, and sets the password to
-   * the new password.
+   * This function sends an OTP to the customer's phone number for resetting the password
    *
-   * @param string email The email address of the customer.
-   * @param string new_password The new password for the account.
+   * @param Customer customer The customer object that the OTP will be sent to.
    */
-  public function resetPassword(string $email, string $new_password): void
+  public function requestResetPasswordThroughPhoneNumber(Customer $customer): void
   {
-    $customer = Customer::where('email', $email)->first();
-    if (!$customer) {
-      abort(404, 'Account not found!');
+    $this->sendOTP($customer, OtpTypesEnum::ResetPassword);
+  }
+
+  /**
+   * It checks if the OTP is correct and not expired
+   *
+   * @param Customer customer The customer object
+   * @param string otp The OTP that the user has entered.
+   *
+   * @return bool A boolean value.
+   */
+  public function checkResetPasswordOTP(Customer $customer, string $otp): bool
+  {
+    $verificationCode = OtpVerificationCode::get($customer->id, $otp, OtpTypesEnum::ResetPassword);
+    $now = Carbon::now();
+    if (!$verificationCode) {
+      abort(401, 'Your OTP is not correct');
+    } elseif ($verificationCode && $now->isAfter($verificationCode->expire_at)) {
+      abort(403, 'Your OTP has been expired');
     }
-    $customer->password = $new_password;
+    return true;
+  }
+
+  /**
+   * It validates the OTP, sets the password and marks the phone as verified
+   *
+   * @param Customer customer The customer object
+   * @param string otp The OTP that the user has entered.
+   * @param string password The new password
+   *
+   * @return bool A boolean value.
+   */
+  public function resetPasswordOTP(Customer $customer, string $otp, string $password): bool
+  {
+    $this->ValidateOTP($customer, $otp, OtpTypesEnum::ResetPassword);
+
+    $customer->password = $password;
+    if ($customer->phone_verified_at === null) {
+      $customer->phone_verified_at = Carbon::now();
+    }
     $customer->save();
+    return true;
   }
 
   /**

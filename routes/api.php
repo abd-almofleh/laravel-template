@@ -27,12 +27,15 @@ Route::prefix('v1')->group(
           function () {
             Route::post('register', 'register');
             Route::post('login', 'login');
-            Route::post('reset-password', 'resetPassword');
-            Route::post('check-email', 'checkCustomerEmail');
             Route::prefix('otp')->group(function () {
               Route::prefix('phone-number')->group(function () {
                 Route::post('request', 'requestPhoneNumberVerificationOtp');
                 Route::post('validate', 'validatePhoneNumberThroughOTP');
+              });
+              Route::prefix('reset-password')->group(function () {
+                Route::post('request', 'requestResetPasswordThroughPhoneNumber');
+                Route::post('check', 'checkResetPasswordOTP');
+                Route::post('reset', 'resetPasswordOTP');
               });
             });
             Route::middleware('auth:api')->group(function () {

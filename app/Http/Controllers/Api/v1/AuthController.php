@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\Api\Auth\CheckCustomerEmailRequest;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterCustomerRequest;
 use App\Http\Requests\Api\Auth\RequestOtpRequest;
-use App\Http\Requests\Api\Auth\ResetPasswordRequest;
+use App\Http\Requests\Api\Auth\RequestResetPasswordRequest;
 use App\Http\Requests\Api\Auth\ValidateOtpRequest;
+use App\Http\Requests\Api\Auth\CheckResetPasswordOTPRequest;
+use App\Http\Requests\Api\Auth\ResetPasswordOTPRequest;
 use App\Models\Customer;
 use App\Services\Security\SecurityService;
 use Auth;
@@ -23,6 +24,11 @@ class AuthController extends \App\Http\Controllers\Controller
   private $security;
   public static $guard = 'api';
 
+  /**
+   * > The constructor function is called when the class is instantiated
+   *
+   * @param SecurityService security This is the service that was created by laravel and bond to this controller.
+   */
   public function __construct(SecurityService $security)
   {
     $this->security = $security;
@@ -66,35 +72,59 @@ class AuthController extends \App\Http\Controllers\Controller
   }
 
   /**
-   * It takes an email and a new password, and then it calls the resetPassword function in the
-   * Authentication class
+   * It sends an OTP to the customer's phone number to validate the reset password process
    *
-   * @param ResetPasswordRequest request The request object
+   * @param ResetPasswordRequest request The request object.
    *
    * @return JsonResponse A JsonResponse object.
    */
-  public function resetPassword(ResetPasswordRequest $request): JsonResponse
+  public function requestResetPasswordThroughPhoneNumber(RequestResetPasswordRequest $request): JsonResponse
   {
-    $email = $request->email;
-    $new_password = $request->new_password;
-    $this->security->authentication->resetPassword($email, $new_password);
+    $customer_email = $request->email;
+    $customer = Customer::findByEmailOrFail($customer_email);
+
+    $this->security->authentication->requestResetPasswordThroughPhoneNumber($customer);
+
+    return $this->response('Otp sent to your phone');
+  }
+
+  /**
+   * checks the OTP sent to the customer's phone number
+   *
+   * @param CheckResetPasswordOTPRequest request The request object.
+   *
+   * @return JsonResponse A JsonResponse object.
+   */
+  public function checkResetPasswordOTP(CheckResetPasswordOTPRequest $request): JsonResponse
+  {
+    $customer_email = $request->email;
+    $otp = $request->otp;
+
+    $customer = Customer::findByEmailOrFail($customer_email);
+
+    $this->security->authentication->checkResetPasswordOTP($customer, $otp);
 
     return $this->response('success');
   }
 
   /**
-   * It checks if a customer exists in the database, and if so, returns the customer's information.
+   * resets the password of a customer using the OTP sent to the customer's phone number
    *
-   * @param CheckCustomerEmailRequest request The request object
+   * @param ResetPasswordOTPRequest request The request object.
    *
-   * @return JsonResponse The response is a JSON object with a status and a data object.
+   * @return JsonResponse A JsonResponse object with the message "Password reseted successfully"
    */
-  public function checkCustomerEmail(CheckCustomerEmailRequest $request): JsonResponse
+  public function resetPasswordOTP(ResetPasswordOTPRequest $request): JsonResponse
   {
-    $email = $request->email;
-    $customer = $this->security->authentication->checkCustomerEmail($email);
+    $customer_email = $request->email;
+    $otp = $request->otp;
+    $password = $request->password;
 
-    return $this->response('success', compact('customer'));
+    $customer = Customer::findByEmailOrFail($customer_email);
+
+    $this->security->authentication->resetPasswordOTP($customer, $otp, $password);
+
+    return $this->response('Password reseted successfully');
   }
 
   /**

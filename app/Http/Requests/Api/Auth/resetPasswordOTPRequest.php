@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckCustomerEmailRequest extends FormRequest
+class ResetPasswordOTPRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class CheckCustomerEmailRequest extends FormRequest
   public function rules()
   {
     return [
-      'email' => 'required|string|email',
+      'email'    => 'required|string|email',
+      'otp'      => 'required|string|numeric',
+      'password' => 'required|string|min:6',
     ];
   }
 }
