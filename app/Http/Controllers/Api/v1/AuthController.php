@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Auth\RegisterCustomerRequest;
 use App\Http\Requests\Api\Auth\RequestOtpRequest;
 use App\Http\Requests\Api\Auth\RequestResetPasswordRequest;
 use App\Http\Requests\Api\Auth\ValidateOtpRequest;
+use App\Http\Requests\Api\Auth\CheckResetPasswordOTPRequest;
 use App\Models\Customer;
 use App\Services\Security\SecurityService;
 use Auth;
@@ -64,13 +65,13 @@ class AuthController extends \App\Http\Controllers\Controller
     return $this->response('Otp sent to your phone');
   }
 
-/**
- * It sends an OTP to the customer's phone number to validate the reset password process
- *
- * @param ResetPasswordRequest request The request object.
- *
- * @return JsonResponse A JsonResponse object.
- */
+  /**
+   * It sends an OTP to the customer's phone number to validate the reset password process
+   *
+   * @param ResetPasswordRequest request The request object.
+   *
+   * @return JsonResponse A JsonResponse object.
+   */
   public function requestResetPasswordThroughPhoneNumber(RequestResetPasswordRequest $request): JsonResponse
   {
     $customer_email = $request->email;
@@ -79,6 +80,25 @@ class AuthController extends \App\Http\Controllers\Controller
     $this->security->authentication->requestResetPasswordThroughPhoneNumber($customer);
 
     return $this->response('Otp sent to your phone');
+  }
+
+  /**
+   * checks the OTP sent to the customer's phone number
+   *
+   * @param CheckResetPasswordOTPRequest request The request object.
+   *
+   * @return JsonResponse A JsonResponse object.
+   */
+  public function checkResetPasswordOTP(CheckResetPasswordOTPRequest $request): JsonResponse
+  {
+    $customer_email = $request->email;
+    $otp = $request->otp;
+
+    $customer = Customer::findByEmailOrFail($customer_email);
+
+    $this->security->authentication->checkResetPasswordOTP($customer, $otp);
+
+    return $this->response('success');
   }
 
   /**

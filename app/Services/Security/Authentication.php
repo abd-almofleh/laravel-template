@@ -13,6 +13,12 @@ use Hash;
 
 class Authentication
 {
+  /** -----------------------------------------------------------------------------------------
+   *
+   *  * Private Methods
+   *
+   * ----------------------------------------------------------------------------------------- */
+
   /**
    * It creates a new user or restore a deleted user and send him an OTP
    *
@@ -87,12 +93,7 @@ class Authentication
       throw new Exception('Otp Type is Required');
     }
 
-    $verificationCode = OtpVerificationCode::query()
-      ->where('customer_id', $customer->id)
-      ->where('otp', 'LIKE', $userOtp)
-      ->where('type', 'LIKE', $type)
-      ->latest('expire_at')
-      ->first();
+    $verificationCode = OtpVerificationCode::get($customer->id, $userOtp, $type);
 
     $now = Carbon::now();
     if (!$verificationCode) {
@@ -213,6 +214,18 @@ class Authentication
   public function requestResetPasswordThroughPhoneNumber(Customer $customer): void
   {
     $this->sendOTP($customer, OtpTypesEnum::ResetPassword);
+  }
+
+  public function checkResetPasswordOTP(Customer $customer, string $otp): bool
+  {
+    $verificationCode = OtpVerificationCode::get($customer->id, $otp, OtpTypesEnum::ResetPassword);
+    $now = Carbon::now();
+    if (!$verificationCode) {
+      abort(401, 'Your OTP is not correct');
+    } elseif ($verificationCode && $now->isAfter($verificationCode->expire_at)) {
+      abort(403, 'Your OTP has been expired');
+    }
+    return true;
   }
 
   /**

@@ -355,7 +355,7 @@ namespace App\Models{
  * @property int $id
  * @property int $customer_id
  * @property string $otp
- * @property string|null $expire_at
+ * @property \Illuminate\Support\Carbon|null $expire_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \App\Enums\OtpTypesEnum|null $type
