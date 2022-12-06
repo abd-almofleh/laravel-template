@@ -35,6 +35,7 @@ Route::prefix('v1')->group(
               Route::prefix('reset-password')->group(function () {
                 Route::post('request', 'requestResetPasswordThroughPhoneNumber');
                 Route::post('check', 'checkResetPasswordOTP');
+                Route::post('reset', 'resetPasswordOTP');
               });
             });
             Route::middleware('auth:api')->group(function () {

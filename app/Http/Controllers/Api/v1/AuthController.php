@@ -8,6 +8,7 @@ use App\Http\Requests\Api\Auth\RequestOtpRequest;
 use App\Http\Requests\Api\Auth\RequestResetPasswordRequest;
 use App\Http\Requests\Api\Auth\ValidateOtpRequest;
 use App\Http\Requests\Api\Auth\CheckResetPasswordOTPRequest;
+use App\Http\Requests\Api\Auth\ResetPasswordOTPRequest;
 use App\Models\Customer;
 use App\Services\Security\SecurityService;
 use Auth;
@@ -23,6 +24,11 @@ class AuthController extends \App\Http\Controllers\Controller
   private $security;
   public static $guard = 'api';
 
+  /**
+   * > The constructor function is called when the class is instantiated
+   *
+   * @param SecurityService security This is the service that was created by laravel and bond to this controller.
+   */
   public function __construct(SecurityService $security)
   {
     $this->security = $security;
@@ -99,6 +105,26 @@ class AuthController extends \App\Http\Controllers\Controller
     $this->security->authentication->checkResetPasswordOTP($customer, $otp);
 
     return $this->response('success');
+  }
+
+  /**
+   * resets the password of a customer using the OTP sent to the customer's phone number
+   *
+   * @param ResetPasswordOTPRequest request The request object.
+   *
+   * @return JsonResponse A JsonResponse object with the message "Password reseted successfully"
+   */
+  public function resetPasswordOTP(ResetPasswordOTPRequest $request): JsonResponse
+  {
+    $customer_email = $request->email;
+    $otp = $request->otp;
+    $password = $request->password;
+
+    $customer = Customer::findByEmailOrFail($customer_email);
+
+    $this->security->authentication->resetPasswordOTP($customer, $otp, $password);
+
+    return $this->response('Password reseted successfully');
   }
 
   /**
