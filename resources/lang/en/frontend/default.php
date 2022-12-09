@@ -55,7 +55,7 @@ return [
     'forget_password'  => 'Reset Your Password',
     'signup'           => 'Signup',
     'blogs'            => [
-      'list' => 'Blog',
+      'list' => 'Blogs',
       'show' => 'Blog Article',
     ],
   ],
