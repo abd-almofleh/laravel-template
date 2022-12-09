@@ -75,6 +75,7 @@ class ListedHorse extends Model implements HasMedia
     'type:id,name_en,name_ar',
     'passport:id,name_en,name_ar',
     'order',
+    'media',
   ];
 
   /**
