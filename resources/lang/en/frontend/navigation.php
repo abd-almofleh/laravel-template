@@ -7,7 +7,7 @@ return [
   'blog'            => 'Blog',
   'about_us'        => 'About Us',
   'contact_us'      => 'Contact Us',
-  'privacy-policy'  => 'Privacy policy',
+  'privacy_policy'  => 'Privacy policy',
   'terms_condition' => 'Terms & condition',
 
   'footer_list' => [
