@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Customer\GetListedHorsesRequest;
+use App\Http\Requests\Global\GetListedHorsesRequest;
 use App\Http\Requests\Api\Customer\GetRecentListedHorsesRequest;
 use App\Http\Requests\Api\Customer\OrderListedHorseRequest;
 use App\Models\ListedHorse;
