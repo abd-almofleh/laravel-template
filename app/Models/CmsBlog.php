@@ -5,7 +5,6 @@ namespace App\Models;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
@@ -62,7 +61,7 @@ class CmsBlog extends Model implements HasMedia
     'updated_at' => 'datetime',
   ];
 
-/* It's telling Laravel to hide these attributes when the model is converted to JSON or array. */
+  /* It's telling Laravel to hide these attributes when the model is converted to JSON or array. */
   protected $hidden = [
     'meta_title_ar',
     'meta_title_en',
@@ -216,19 +215,9 @@ class CmsBlog extends Model implements HasMedia
    * * scopes
    * * -----------------------------------------------------------------
    */
-
-  /**
-   * "Get the latest 5 posts."
-   *
-   * The `scope` method is a method that is available on all Eloquent models. It allows you to define a
-   * scope that can be used in your Eloquent queries
-   *
-   * @param Builder query The query builder instance.
-   * @param int count The number of records to return.
-   */
-  public function scopeRecent(Builder $query, int $count = 5)
+  public static function recentBlogs(int $count = 5)
   {
-    $query->latest('updated_at')->limit($count)->get();
+    return static::latest('updated_at')->limit($count)->get();
   }
 
   /**
