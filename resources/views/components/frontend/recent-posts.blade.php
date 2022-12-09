@@ -3,7 +3,7 @@
 @endphp
 <div class="sidebar_widget">
   <div class="widget-title">
-    <h2>Recent Posts</h2>
+    <h2>Recent Blogs</h2>
   </div>
   <div class="widget-content">
     <div class="list list-sidebar-products">

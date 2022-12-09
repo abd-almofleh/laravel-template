@@ -7,7 +7,9 @@
     {{ __('frontend/default.pages_titles.home') }}
   </a>
   <span aria-hidden="true">›</span>
-  <span>{{ __('frontend/default.pages_titles.blogs.list') }}</span>
+  <a href="{{ route('blogs.list') }}" title="{{ __('frontend/action_titles.go_back_to_blogs') }}">
+    {{ __('frontend/default.pages_titles.blogs.list') }}
+  </a>
   <span aria-hidden="true">›</span>
   <span>{{ __('frontend/default.pages_titles.blogs.show') }}</span>
 
