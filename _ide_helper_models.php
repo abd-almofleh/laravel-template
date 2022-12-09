@@ -45,7 +45,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog query()
- * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog recent(int $count = 5)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog whereAuthorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog whereCmsCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog whereCreatedAt($value)
