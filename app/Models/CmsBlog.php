@@ -38,9 +38,11 @@ class CmsBlog extends Model implements HasMedia
     'meta_keywords_en',
   ];
 
+  /* It's telling Laravel to eager load the `category`, `author`, and `media` relationships. */
   protected $with = [
     'category:id,name_ar,name_en',
     'author',
+    'media',
   ];
 
   /* It's telling Laravel that the `created_at` and `updated_at` fields are of type `datetime` */
@@ -53,12 +55,6 @@ class CmsBlog extends Model implements HasMedia
   representation. */
   protected $appends = [
     'photo',
-  ];
-
-  /* It's telling Laravel that the `created_at` and `updated_at` fields are of type `datetime` */
-  protected $casts = [
-    'created_at' => 'datetime',
-    'updated_at' => 'datetime',
   ];
 
   /* It's telling Laravel to hide these attributes when the model is converted to JSON or array. */
@@ -212,7 +208,7 @@ class CmsBlog extends Model implements HasMedia
 
   /**
    * * -----------------------------------------------------------------
-   * * scopes
+   * * Statics
    * * -----------------------------------------------------------------
    */
   public static function recentBlogs(int $count = 5)
