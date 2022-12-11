@@ -5,12 +5,15 @@
   <div class="widget-content">
     <div class="row birth-date-filter">
       <div class="col-4">
-        <p class="no-margin"><input id="min-year" min="2000" max="2030"
-                 placeholder="{{ __('frontend/default.form.min') }}" type="number"></p>
+        <p class="no-margin">
+          <input id="min-year" min="2000" max="2030" placeholder="{{ __('frontend/default.form.min') }}"
+                 type="number" value="{{ request()->query('min_birth_year') }}">
+        </p>
       </div>
       <div class="col-4">
-        <p class="no-margin"><input id="max-year" min="2000" max="2030"
-                 placeholder="{{ __('frontend/default.form.max') }}" type="number">
+        <p class="no-margin">
+          <input id="max-year" min="2000" max="2030" placeholder="{{ __('frontend/default.form.max') }}"
+                 type="number" value="{{ request()->query('max_birth_year') }}">
         </p>
       </div>
       <div class="col-4 margin-25px-top text-right">
