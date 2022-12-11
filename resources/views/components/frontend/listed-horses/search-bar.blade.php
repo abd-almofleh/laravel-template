@@ -18,10 +18,14 @@
     function handelQuerySubmit(event) {
       event.preventDefault();
       const searchEl = document.querySelector('#search-listed-horses');
-      const query = searchEl.value;
+      const query = searchEl.value.trim();
 
       var url = new URL('{!! route('listed_horses.list', request()->query()) !!}');
-      url.searchParams.set('query', query);
+      if (query === null || query === "")
+        url.searchParams.delete('query');
+      else
+        url.searchParams.set('query', query);
+
       window.location = url.href;
     }
   </script>
