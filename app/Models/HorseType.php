@@ -32,6 +32,11 @@ class HorseType extends Model implements HasMedia
   JSON. */
   protected $appends = [
     'photo',
+    'name',
+  ];
+
+  protected $with = [
+    'media',
   ];
 
   /**
@@ -71,6 +76,25 @@ class HorseType extends Model implements HasMedia
       $file->preview = $file->getFullUrl('preview');
     }
     return $file;
+  }
+
+  /**
+   * It returns the name of the model in the current locale
+   *
+   * @return string The name attribute of the model.
+   */
+  public function getNameAttribute(): string
+  {
+    switch(app()->getLocale()) {
+      case 'en':
+        return $this->name_en;
+        break;
+      case 'ar':
+        return $this->name_ar;
+        break;
+      default:
+        return $this->name_en;
+    }
   }
 
   /**

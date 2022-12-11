@@ -54,7 +54,7 @@ class ListedHorsesService
     if ($filters['passport'] !== false) {
       $query->where('passport_type_id', $filters['passport']);
     }
-    $data = $query->paginate();
+    $data = $query->paginate(15);
     return $data;
   }
 

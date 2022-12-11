@@ -16,6 +16,11 @@ class HorsePassport extends Model
     'status',
   ];
 
+  /* Appending the name attribute to the model. */
+  protected $append = [
+    'name',
+  ];
+
   public function horses()
   {
     return $this->hasMany(ListedHorse::class, 'passport_type_id');
@@ -29,5 +34,24 @@ class HorsePassport extends Model
   public function scopeActive($query)
   {
     $query->where('status', 1);
+  }
+
+  /**
+   * It returns the name of the model in the current locale
+   *
+   * @return string The name attribute of the model.
+   */
+  public function getNameAttribute(): string
+  {
+    switch(app()->getLocale()) {
+      case 'en':
+        return $this->name_en;
+        break;
+      case 'ar':
+        return $this->name_ar;
+        break;
+      default:
+        return $this->name_en;
+    }
   }
 }
