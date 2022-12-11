@@ -2486,7 +2486,7 @@ a.quick-view {
     line-height: 31px;
 }
 /* Price Range */
-.price-filter input[type="text"] {
+.birth-date-filter :is(input[type="text"], input[type="number"]) {
     height: 30px;
     padding: 0 10px;
     text-align: center;

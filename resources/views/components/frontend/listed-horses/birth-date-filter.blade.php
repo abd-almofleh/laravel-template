@@ -3,7 +3,7 @@
     <h2>{{ __('frontend/default.form.birth_year') }}</h2>
   </div>
   <div class="widget-content">
-    <div class="row price-filter">
+    <div class="row birth-date-filter">
       <div class="col-4">
         <p class="no-margin"><input id="min-year" min="2000" max="2030"
                  placeholder="{{ __('frontend/default.form.min') }}" type="number"></p>
