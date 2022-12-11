@@ -15,7 +15,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar order-md-0 order-last">
-        <x-frontend.categories />
+        <x-frontend.blogs.categories />
         <x-frontend.trending-horses />
         <x-frontend.recent-posts />
       </div>

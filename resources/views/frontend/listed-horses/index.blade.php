@@ -16,64 +16,11 @@
   </div>
   <div class="container">
     <div class="row">
-      <!--Sidebar-->
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
         <div class="closeFilter d-block d-md-none d-lg-none"><i class="icon icon anm anm-times-l"></i></div>
         <div class="sidebar_tags">
-          <!--Categories-->
-          <div class="sidebar_widget categories filter-widget">
-            <div class="widget-title">
-              <h2>Categories</h2>
-            </div>
-            <div class="widget-content">
-              <ul class="sidebar_categories">
-                <li class="level1 sub-level"><a href="#;" class="site-nav">Clothing</a>
-                  <ul class="sublinks">
-                    <li class="level2"><a href="#;" class="site-nav">Men</a></li>
-                    <li class="level2"><a href="#;" class="site-nav">Women</a></li>
-                    <li class="level2"><a href="#;" class="site-nav">Child</a></li>
-                    <li class="level2"><a href="#;" class="site-nav">View All Clothing</a></li>
-                  </ul>
-                </li>
-                <li class="level1 sub-level"><a href="#;" class="site-nav">Jewellery</a>
-                  <ul class="sublinks">
-                    <li class="level2"><a href="#;" class="site-nav">Ring</a></li>
-                    <li class="level2"><a href="#;" class="site-nav">Neckalses</a></li>
-                    <li class="level2"><a href="#;" class="site-nav">Eaarings</a></li>
-                    <li class="level2"><a href="#;" class="site-nav">View All Jewellery</a></li>
-                  </ul>
-                </li>
-                <li class="lvl-1"><a href="#;" class="site-nav">Shoes</a></li>
-                <li class="lvl-1"><a href="#;" class="site-nav">Accessories</a></li>
-                <li class="lvl-1"><a href="#;" class="site-nav">Collections</a></li>
-                <li class="lvl-1"><a href="#;" class="site-nav">Sale</a></li>
-                <li class="lvl-1"><a href="#;" class="site-nav">Page</a></li>
-              </ul>
-            </div>
-          </div>
-          <!--Categories-->
-          <!--Price Filter-->
-          <div class="sidebar_widget filterBox filter-widget">
-            <div class="widget-title">
-              <h2>Price</h2>
-            </div>
-            <form action="#" method="post" class="price-filter">
-              <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <p class="no-margin"><input id="amount" type="text"></p>
-                </div>
-                <div class="col-6 margin-25px-top text-right">
-                  <button class="btn btn-secondary btn--small">filter</button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!--End Price Filter-->
+          <x-frontend.listed-horses.types />
+
           <!--Size Swatches-->
           <div class="sidebar_widget filterBox filter-widget size-swacthes">
             <div class="widget-title">
