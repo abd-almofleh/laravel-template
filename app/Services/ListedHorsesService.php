@@ -23,7 +23,6 @@ class ListedHorsesService
   public function get_listed_horses_list(array $filters): LengthAwarePaginator
   {
     $query = ListedHorse::query()->available();
-
     if ($filters['query'] !== null && $filters['query'] !== false) {
       $query->whereRaw('UPPER(`name`) LIKE ?', ['%' . strtoupper($filters['query']) . '%'])
       ->orWhereHas('passport', function (Builder $q) use ($filters) {
@@ -49,7 +48,7 @@ class ListedHorsesService
     }
 
     if ($filters['max_height'] !== null && $filters['max_height'] !== false) {
-      $query->where('height', '<=', ['max_height']);
+      $query->where('height', '<=', $filters['max_height']);
     }
 
     if ($filters['color'] !== null && $filters['color'] !== false) {
@@ -62,7 +61,9 @@ class ListedHorsesService
     if ($filters['passport'] !== null && $filters['passport'] !== false) {
       $query->where('passport_type_id', $filters['passport']);
     }
+
     $data = $query->paginate(15);
+
     return $data;
   }
 
