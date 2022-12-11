@@ -22,6 +22,7 @@
           <x-frontend.listed-horses.search-bar />
           <x-frontend.listed-horses.types />
           <x-frontend.listed-horses.birth-date-filter />
+          <x-frontend.listed-horses.height-filter />
 
           <!--Size Swatches-->
           <div class="sidebar_widget filterBox filter-widget size-swacthes">
