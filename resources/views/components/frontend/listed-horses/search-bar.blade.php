@@ -20,7 +20,7 @@
       const searchEl = document.querySelector('#search-listed-horses');
       const query = searchEl.value.trim();
 
-      var url = new URL('{!! route('listed_horses.list', request()->query()) !!}');
+      const url = new URL('{!! route('listed_horses.list', request()->query()) !!}');
       if (query === null || query === "")
         url.searchParams.delete('query');
       else

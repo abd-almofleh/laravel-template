@@ -612,27 +612,27 @@ th {
 ========================================================================*/
 input:-moz-placeholder,
 textarea:-moz-placeholder {
-    opacity: 1;
-    filter: opacity(100);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 0.6;
+    filter: opacity(60);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
-    opacity: 1;
-    filter: opacity(100);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 0.6;
+    filter: opacity(60);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 input::-moz-placeholder,
 textarea::-moz-placeholder {
-    opacity: 1;
-    filter: opacity(100);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 0.6;
+    filter: opacity(60);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
-    opacity: 1;
-    filter: opacity(100);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 0.6;
+    filter: opacity(60);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 
 /*======================================================================

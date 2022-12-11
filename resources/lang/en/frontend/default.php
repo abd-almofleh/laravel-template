@@ -14,6 +14,10 @@ return [
     'password_confirmation'     => 'Confirm Password',
     'delete_account'            => 'Delete Account',
     'birth_date'                => 'Birth Date',
+    'birth_year'                => 'Birth Year',
+    'min'                       => 'Min',
+    'max'                       => 'Max',
+    'search'                    => 'Search',
 
     'messages' => [
       'update' => [

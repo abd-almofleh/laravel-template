@@ -21,6 +21,7 @@
         <div class="sidebar_tags">
           <x-frontend.listed-horses.search-bar />
           <x-frontend.listed-horses.types />
+          <x-frontend.listed-horses.price-filter />
 
           <!--Size Swatches-->
           <div class="sidebar_widget filterBox filter-widget size-swacthes">
