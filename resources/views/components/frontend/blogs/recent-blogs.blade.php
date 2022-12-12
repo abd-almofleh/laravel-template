@@ -9,8 +9,8 @@
     <div class="list list-sidebar-products">
       <div class="grid">
         @foreach ($blogs as $blog)
-          <x-frontend.recent-posts-item title="{{ $blog->title }}" author="{{ $blog->author->name }}" :image="$blog->photo"
-                                        blog-url="{{ $blog->pageUrl }}" />
+          <x-frontend.blogs.recent-blogs-item title="{{ $blog->title }}" author="{{ $blog->author->name }}"
+                                              :image="$blog->photo" blog-url="{{ $blog->pageUrl }}" />
         @endforeach
 
       </div>
