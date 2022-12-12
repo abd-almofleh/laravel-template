@@ -22,7 +22,7 @@
         <div class="sidebar_tags">
           <x-frontend.blogs.categories />
 
-          <x-frontend.recent-posts />
+          <x-frontend.blogs.recent-blogs />
 
           <x-frontend.trending-horses />
         </div>

@@ -17,7 +17,7 @@
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar order-md-0 order-last">
         <x-frontend.blogs.categories />
         <x-frontend.trending-horses />
-        <x-frontend.recent-posts />
+        <x-frontend.blogs.recent-blogs />
       </div>
       <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col order-md-last order-first">
         {{-- TODO: Add the search functionality --}}
