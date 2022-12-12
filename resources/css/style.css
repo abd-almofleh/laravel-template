@@ -612,27 +612,27 @@ th {
 ========================================================================*/
 input:-moz-placeholder,
 textarea:-moz-placeholder {
-    opacity: 1;
-    filter: opacity(100);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 0.6;
+    filter: opacity(60);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
-    opacity: 1;
-    filter: opacity(100);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 0.6;
+    filter: opacity(60);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 input::-moz-placeholder,
 textarea::-moz-placeholder {
-    opacity: 1;
-    filter: opacity(100);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 0.6;
+    filter: opacity(60);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
-    opacity: 1;
-    filter: opacity(100);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 0.6;
+    filter: opacity(60);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 
 /*======================================================================
@@ -2226,7 +2226,7 @@ a.quick-view {
 /*======================================================================
   18. Shop Pages
 ========================================================================*/
-.template-collection .collection-header {
+ .collection-header {
     margin-bottom: 45px;
 }
 .collection-hero {
@@ -2486,7 +2486,7 @@ a.quick-view {
     line-height: 31px;
 }
 /* Price Range */
-.price-filter input[type="text"] {
+:is(.birth-date-filter,.height-filter) :is(input[type="text"], input[type="number"]) {
     height: 30px;
     padding: 0 10px;
     text-align: center;

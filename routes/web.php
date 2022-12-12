@@ -145,4 +145,10 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/', [App\Http\Controllers\Frontend\BlogsController::class, 'index'])->name('list');
     Route::get('/{blog}', [App\Http\Controllers\Frontend\BlogsController::class, 'show'])->name('show');
   });
+
+  // * Blogs Routes
+  Route::prefix('listed-horses')->name('listed_horses.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'index'])->name('list');
+    Route::get('/{listedHorse}', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'show'])->name('show');
+  });
 });

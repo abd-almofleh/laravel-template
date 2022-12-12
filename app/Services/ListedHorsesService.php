@@ -23,8 +23,7 @@ class ListedHorsesService
   public function get_listed_horses_list(array $filters): LengthAwarePaginator
   {
     $query = ListedHorse::query()->available();
-
-    if ($filters['query'] !== false) {
+    if ($filters['query'] !== null && $filters['query'] !== false) {
       $query->whereRaw('UPPER(`name`) LIKE ?', ['%' . strtoupper($filters['query']) . '%'])
       ->orWhereHas('passport', function (Builder $q) use ($filters) {
         $q->whereRaw('UPPER(`name_ar`) LIKE ?', ['%' . strtoupper($filters['query']) . '%']);
@@ -32,29 +31,39 @@ class ListedHorsesService
       });
     }
 
-    if ($filters['sex'] !== false) {
+    if ($filters['sex'] !== null && $filters['sex'] !== false) {
       $query->where('sex', $filters['sex']);
     }
 
-    if ($filters['max_birth_year'] !== false && ['min_birth_year'] !== false) {
-      $query->where('birth_year', '>=', ['min_birth_year'])->where('birth_year', '<=', $filters['max_birth_year']);
+    if ($filters['max_birth_year'] !== null && $filters['max_birth_year'] !== false) {
+      $query->where('birth_year', '<=', $filters['max_birth_year']);
     }
 
-    if ($filters['min_height'] !== false && $filters['max_height'] !== false) {
-      $query->where('height', '>=', $filters['min_height'])->where('height', '<=', ['max_height']);
+    if ($filters['min_birth_year'] !== null && $filters['min_birth_year'] !== false) {
+      $query->where('birth_year', '>=', $filters['min_birth_year']);
     }
 
-    if ($filters['color'] !== false) {
+    if ($filters['min_height'] !== null && $filters['min_height'] !== false) {
+      $query->where('height', '>=', $filters['min_height']);
+    }
+
+    if ($filters['max_height'] !== null && $filters['max_height'] !== false) {
+      $query->where('height', '<=', $filters['max_height']);
+    }
+
+    if ($filters['color'] !== null && $filters['color'] !== false) {
       $query->whereRaw('UPPER(`color`) LIKE ?', ['%' . strtoupper($filters['color']) . '%']);
     }
 
-    if ($filters['type'] !== false) {
+    if ($filters['type'] !== null && $filters['type'] !== false) {
       $query->where('type_id', $filters['type']);
     }
-    if ($filters['passport'] !== false) {
+    if ($filters['passport'] !== null && $filters['passport'] !== false) {
       $query->where('passport_type_id', $filters['passport']);
     }
-    $data = $query->paginate();
+
+    $data = $query->paginate(15);
+
     return $data;
   }
 

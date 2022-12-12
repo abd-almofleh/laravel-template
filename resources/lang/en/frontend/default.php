@@ -14,6 +14,11 @@ return [
     'password_confirmation'     => 'Confirm Password',
     'delete_account'            => 'Delete Account',
     'birth_date'                => 'Birth Date',
+    'birth_year'                => 'Birth Year',
+    'height'                    => 'Height',
+    'min'                       => 'Min',
+    'max'                       => 'Max',
+    'search'                    => 'Search',
 
     'messages' => [
       'update' => [
@@ -46,17 +51,25 @@ return [
     'newsletter'          => 'newsletter',
     'sign_up_for'         => 'sign up for',
     'all_rights_reserved' => 'All rights reserved',
+    'horses'              => [
+      'passport' => 'Passport',
+      'type'     => 'Type',
+    ],
   ],
 
   'pages_titles' => [
-    'home'             => 'Home',
-    'login'            => 'Login',
-    'profile'          => 'Profile',
-    'forget_password'  => 'Reset Your Password',
-    'signup'           => 'Signup',
-    'blogs'            => [
+    'home'                    => 'Home',
+    'login'                   => 'Login',
+    'profile'                 => 'Profile',
+    'forget_password'         => 'Reset Your Password',
+    'signup'                  => 'Signup',
+    'browse_horses'           => 'Browse Our Listed horses collection',
+    'blogs'                   => [
       'list' => 'Blogs',
       'show' => 'Blog Article',
+    ],
+    'horses'            => [
+      'list' => 'Horses',
     ],
   ],
 

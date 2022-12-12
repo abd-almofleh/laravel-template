@@ -20,9 +20,9 @@
     <div class="row">
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar">
         <div class="sidebar_tags">
-          <x-frontend.categories />
+          <x-frontend.blogs.categories />
 
-          <x-frontend.recent-posts />
+          <x-frontend.blogs.recent-blogs />
 
           <x-frontend.trending-horses />
         </div>

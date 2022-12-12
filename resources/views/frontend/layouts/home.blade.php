@@ -26,25 +26,29 @@
 
     <div id="page-content">
 
-      <div class="page section-header mb-0 text-center">
-        <div class="page-title">
-          <div class="wrapper">
-            <h1 class="page-width">
-              @yield('title')
-              @sectionMissing('title')
-                {{ __('frontend/default.general.title') }}
-              @endif
-            </h1>
+      @hasSection('title')
+        <div class="page section-header mb-0 text-center">
+          <div class="page-title">
+            <div class="wrapper">
+              <h1 class="page-width">
+                @yield('title')
+                @sectionMissing('title')
+                  {{ __('frontend/default.general.title') }}
+                @endif
+              </h1>
+            </div>
           </div>
         </div>
-      </div>
+      @endif
 
       <main class="root">
-        <div class="bredcrumbWrap">
-          <div class="breadcrumbs container">
-            @yield('breadcrumbs')
+        @hasSection('breadcrumbs')
+          <div class="bredcrumbWrap">
+            <div class="breadcrumbs container">
+              @yield('breadcrumbs')
+            </div>
           </div>
-        </div>
+        @endif
 
         @yield('content')
         @sectionMissing('content')

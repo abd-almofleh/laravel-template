@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
       ApiRolePermissionSeeder::class,
       CustomerGuardRolePermissionSeeder::class,
       CustomerSeeder::class,
-      ListedHorsesOrderSeeder::class,
+      // ListedHorsesOrderSeeder::class,
     ]);
   }
 }

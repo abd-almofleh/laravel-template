@@ -18,9 +18,11 @@ class ListedHorseSeeder extends Seeder
       mkdir($folder_path);
     }
     ListedHorse::factory()->count(10)->create()->each(function ($horse) use ($folder_path) {
-      $path = Image::image($folder_path, 640, 480, null, true, true);
-      error_log($horse->id);
-      $horse->addMedia($path)->toMediaCollection('photos');
+      for ($i = 0; $i < 2; $i++) {
+        $path = Image::image($folder_path, 640, 480, null, true, true);
+        error_log($horse->id);
+        $horse->addMedia($path)->toMediaCollection('photos');
+      }
     });
   }
 }

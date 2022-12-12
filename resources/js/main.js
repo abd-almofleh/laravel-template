@@ -203,4 +203,9 @@
         });
     }
     profile_dropdown();
+    // * 9. ---------------- Sidebar widget-title ----------------
+    $(".filter-widget .widget-title").on("click", function () {
+        $(this).next().slideToggle('300');
+        $(this).toggleClass("active");
+    });
 })($);

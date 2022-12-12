@@ -75,6 +75,7 @@ class ListedHorse extends Model implements HasMedia
     'type:id,name_en,name_ar',
     'passport:id,name_en,name_ar',
     'order',
+    'media',
   ];
 
   /**
@@ -128,6 +129,11 @@ class ListedHorse extends Model implements HasMedia
     $query->latest('updated_at')->limit($count);
   }
 
+  /**
+   * If the horse is not ordered, then it's available.
+   *
+   * @param Builder query The query builder instance.
+   */
   public function scopeAvailable(Builder $query)
   {
     $query->doesntHave('order');
@@ -212,5 +218,15 @@ class ListedHorse extends Model implements HasMedia
       $file->preview = $file->getFullUrl('preview');
     }
     return $files;
+  }
+
+  /**
+   * > This function returns the URL of the page that displays the details of the horse
+   *
+   * @return string The route to the show page for the listed horse.
+   */
+  public function getPageUrlAttribute(): string
+  {
+    return route('listed_horses.show', $this->id);
   }
 }

@@ -32,6 +32,11 @@ class HorseType extends Model implements HasMedia
   JSON. */
   protected $appends = [
     'photo',
+    'name',
+  ];
+
+  protected $with = [
+    'media',
   ];
 
   /**
@@ -71,6 +76,49 @@ class HorseType extends Model implements HasMedia
       $file->preview = $file->getFullUrl('preview');
     }
     return $file;
+  }
+
+  /**
+   * It returns the name of the model in the current locale
+   *
+   * @return string The name attribute of the model.
+   */
+  public function getNameAttribute(): string
+  {
+    switch(app()->getLocale()) {
+      case 'en':
+        return $this->name_en;
+        break;
+      case 'ar':
+        return $this->name_ar;
+        break;
+      default:
+        return $this->name_en;
+    }
+  }
+
+  /**
+   * > This function returns the URL of the page that lists all horses of this type
+   *
+   * @return string The route to the listed horses page with the type of horse being passed in.
+   */
+  public function getUrlAttribute(): string
+  {
+    return route('listed_horses.list', ['type'=> $this->id]);
+  }
+
+  /**
+   * It takes an array of query parameters, adds the type of horse to the array, and then returns the URL
+   * of the list of horses
+   *
+   * @param array query The query parameters that are passed to the route.
+   *
+   * @return string A string
+   */
+  public function buildUrl(array $query): string
+  {
+    $query['type'] = $this->id;
+    return route('listed_horses.list', $query);
   }
 
   /**
