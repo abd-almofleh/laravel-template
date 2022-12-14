@@ -27,6 +27,7 @@ Route::prefix('v1')->group(
           function () {
             Route::post('register', 'register');
             Route::post('login', 'login');
+            Route::patch('phone-number', 'updatePhoneNumber');
             Route::prefix('otp')->group(function () {
               Route::prefix('phone-number')->group(function () {
                 Route::post('request', 'requestPhoneNumberVerificationOtp');
