@@ -9,6 +9,7 @@ use App\Http\Requests\Api\Auth\RequestResetPasswordRequest;
 use App\Http\Requests\Api\Auth\ValidateOtpRequest;
 use App\Http\Requests\Api\Auth\CheckResetPasswordOTPRequest;
 use App\Http\Requests\Api\Auth\ResetPasswordOTPRequest;
+use App\Http\Requests\Api\Auth\UpdatePhoneNumberRequest;
 use App\Models\Customer;
 use App\Services\Security\SecurityService;
 use Auth;
@@ -66,9 +67,9 @@ class AuthController extends \App\Http\Controllers\Controller
       'phone_number' => $request->input('phone_number'),
       'birth_date'   => $request->input('birth_date'),
     ];
-    $this->security->authentication->register_customer($data);
+    $customer = $this->security->authentication->register_customer($data);
 
-    return $this->response('Otp sent to your phone');
+    return $this->response('Otp sent to your phone', ['phone_number' => $customer->phone_number]);
   }
 
   /**
@@ -175,9 +176,9 @@ class AuthController extends \App\Http\Controllers\Controller
 
     $customer = Customer::findByEmailOrFail($customer_email);
 
-    $this->security->authentication->requestPhoneNumberVerificationOtp($customer);
+    $phoneNumber = $this->security->authentication->requestPhoneNumberVerificationOtp($customer);
 
-    return $this->response('Otp sent to your phone');
+    return $this->response('Otp sent to your phone', ['phone_number' => $phoneNumber]);
   }
 
   /**
@@ -199,5 +200,25 @@ class AuthController extends \App\Http\Controllers\Controller
     $token = $this->security->authentication->createApiToken($customer, 'customer');
 
     return $this->response('success', ['user' => $customer, 'access_token' => $token]);
+  }
+
+  /**
+   * It updates the phone number of a customer and sends an otp to the new phone number
+   *
+   * @param UpdatePhoneNumberRequest request The request object that contains the email and phone number
+   * of the customer.
+   *
+   * @return JsonResponse A JsonResponse with the message 'Phone Number has been changed and an otp has
+   *                      been sent to your phone' and the phone number.
+   */
+  public function updatePhoneNumber(UpdatePhoneNumberRequest $request): JsonResponse
+  {
+    $customersEmail = $request->email;
+    $customersPhoneNumber = $request->phone_number;
+    $customer = Customer::findByEmailOrFail($customersEmail);
+
+    $phoneNumber = $this->security->authentication->updatePhoneNumber($customer, $customersPhoneNumber);
+
+    return $this->response('Phone Number has been changed and an otp has been sent to your phone', ['phone_number' => $phoneNumber]);
   }
 }

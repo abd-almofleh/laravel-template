@@ -13,11 +13,9 @@ use Hash;
 
 class Authentication
 {
-  /** -----------------------------------------------------------------------------------------
-   *
-   *  * Private Methods
-   *
-   * ----------------------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /*                               Private Methods                              */
+  /* -------------------------------------------------------------------------- */
 
   /**
    * It creates a new user or restore a deleted user and send him an OTP
@@ -57,8 +55,11 @@ class Authentication
    * it generates a new one and returns it
    *
    * @param Customer customer The customer object
+   * @param OtpTypesEnum type The type of OTP you want to send.
+   *
+   * @return string The phone number of the customer.
    */
-  private function sendOTP(Customer $customer, OtpTypesEnum $type): void
+  private function sendOTP(Customer $customer, OtpTypesEnum $type): string
   {
     if (!$type) {
       throw new Exception('Otp Type is Required');
@@ -79,6 +80,7 @@ class Authentication
       ]);
     }
     SendOTPJob::dispatch($customer->phone_number, $otpCode);
+    return $customer->phone_number;
   }
 
   /**
@@ -132,13 +134,15 @@ class Authentication
    * It sends an OTP to the customer's phone number
    *
    * @param Customer customer The customer object
+   *
+   * @return string The phone number of the customer used to send the otp to.
    */
-  public function requestPhoneNumberVerificationOtp(Customer $customer): void
+  public function requestPhoneNumberVerificationOtp(Customer $customer): string
   {
     if ($customer->phone_verified_at != null) {
       abort(401, 'Phone Number is already verified');
     }
-    $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
+    return $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
   }
 
   /**
@@ -294,5 +298,25 @@ class Authentication
   public function deleteCustomer(Customer $customer): bool
   {
     return $customer->delete();
+  }
+
+  /**
+   * It updates the phone number of the customer and sends an OTP to the new phone number
+   *
+   * @param Customer customer The customer object
+   * @param string phoneNumber The phone number to be updated.
+   *
+   * @return string The phone number of the customer used to send the otp to.
+   */
+  public function updatePhoneNumber(Customer $customer, string $phoneNumber): string
+  {
+    if ($customer->phone_verified_at != null) {
+      abort(401, 'Phone Number is already verified');
+    }
+
+    $customer->update([
+      'phone_number' => $phoneNumber,
+    ]);
+    return $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
   }
 }
