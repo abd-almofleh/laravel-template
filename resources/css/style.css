@@ -5439,3 +5439,23 @@ input.checkbox {
 .required-f {
     color: red;
 }
+
+/*---------------------------------------
+  28.8 Home9 - Parallax  ----------------
+  ---------------------------------------*/
+  .home-parallax #siteNav > li > a { color:#fff; font-weight:400; }
+  .home-parallax #siteNav > li > a:hover, .home9-parallax .site-header__search .search-trigger,
+  .home-parallax .site-header__cart .icon { color:#fff; }
+  .home-parallax .stickyNav #siteNav > li > a, .home9-parallax #siteNav > li > a:hover, .home9-parallax .stickyNav .site-header__search .search-trigger, .home9-parallax .stickyNav .site-header__cart .icon { color:#000; }
+  .home-parallax .stickyNav .site-header__cart-count { color:#fff; background-color:#000; }
+  .home-parallax .site-header__cart-count { color:#000; background-color:#fff; }
+  .home-parallax .section { padding:0; }
+  .home-parallax .hero { background-attachment:fixed; }
+  .home-parallax .slideshow .slideshow__subtitle { color:#ffffff;font-weight:300; font-size:24px; text-transform:none; line-height:1.2; text-shadow:1px 1px 4px rgba(0,0,0,0); max-width:90%; margin:0 auto 20px; }
+  .home-parallax .slick-slide img { display:inline-block; }
+  .home-parallax .hero__inner h2, .home9-parallax .hero__inner .h2, .home9-parallax .hero__inner p, .home9-parallax .hero .mega-subtitle { color:#fff; }
+  .home-parallax #footer { margin-top:0; }
+  .home-parallax .site-footer { background-color:#fff; }
+  .home-parallax .footer-top h4 { text-transform:uppercase; }
+  .home-parallax .footer-top h4, .home9-parallax .footer-top .h4, .home9-parallax .footer-top, .home9-parallax .footer-links a, .home9-parallax .footer-top p, .home9-parallax .footer-bottom, .home9-parallax .footer-bottom a { color:#000; }
+  .home-parallax .site-footer hr { border-color:#e8e9eb; }
