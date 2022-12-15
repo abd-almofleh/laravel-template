@@ -28,8 +28,10 @@
         "wow.js": "^1.2.2"
     },
     "dependencies": {
+        "@zeitiger/elevatezoom": "^2.5.4",
         "jquery-ui": "jquery/jquery-ui#1.13.2",
         "lazysizes": "^5.3.2",
+        "slick-carousel": "^1.8.1",
         "sweetalert2": "^11.6.11",
         "toastr": "^2.1.4"
     }

@@ -70,6 +70,7 @@ return [
     ],
     'horses'            => [
       'list' => 'Horses',
+      'show' => 'Horse Details',
     ],
   ],
 

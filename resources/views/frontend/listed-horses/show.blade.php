@@ -1,0 +1,197 @@
+@extends('frontend.layouts.home')
+
+@section('title', __('frontend/default.pages_titles.horses.show'))
+
+@section('breadcrumbs')
+  <a href="{{ route('home') }}" title="{{ __('frontend/action_titles.go_back_home') }}">
+    {{ __('frontend/default.pages_titles.home') }}
+  </a>
+  <span aria-hidden="true">›</span>
+  <a href="{{ route('listed_horses.list') }}" title="{{ __('frontend/action_titles.go_back_to_horses') }}">
+    {{ __('frontend/default.pages_titles.horses.list') }}
+  </a>
+  <span aria-hidden="true">›</span>
+  <span>{{ __('frontend/default.pages_titles.horses.show') }}</span>
+
+@endsection
+
+@section('content')
+  <div id="ProductSection-product-template" class="product-template__container prstyle2 container">
+    <div class="product-single product-single-1">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="product-details-img product-single__photos bottom">
+            <div class="zoompro-wrap product-zoom-right pl-20">
+              <div class="zoompro-span">
+                <img class="blur-up lazyload zoompro" data-zoom-image="{{ $listedHorse->photos[0]->preview }}"
+                     alt="{{ $listedHorse->name }}" src="{{ $listedHorse->photos[0]->fullUrl }}" />
+              </div>
+            </div>
+            <div class="product-thumb product-thumb-1">
+              <div id="gallery" class="product-dec-slider-1 product-tab-left">
+                @foreach ($listedHorse->photos as $photo)
+                  <a data-image="{{ $photo->fullUrl }}" data-zoom-image="{{ $photo->fullUrl }}"
+                     class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" tabindex="-1">
+                    <img class="blur-up lazyload" src="{{ $photo->fullUrl }}" alt="" />
+                  </a>
+                @endforeach
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="product-single__meta">
+            <h1 class="product-single__title">{{ $listedHorse->name }}</h1>
+            <div class="row">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <table class="table-bordered table-striped table">
+                        <tbody>
+
+                          @if ($listedHorse->father_name)
+                            <tr>
+                              <th>
+                                {{ __('default.form.father_name') }}
+                              </th>
+                              <td>
+                                {{ $listedHorse->father_name }}
+                              </td>
+                            </tr>
+                          @endif
+                          @if ($listedHorse->mother_name)
+                            <tr>
+                              <th>
+                                {{ __('default.form.mother_name') }}
+                              </th>
+                              <td>
+                                {{ $listedHorse->mother_name }}
+                              </td>
+                            </tr>
+                          @endif
+                          <tr>
+                            <th>
+                              {{ __('default.form.location') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->location }}
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <th>
+                              {{ __('default.form.sex') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->sex == 1 ? __('default.sex.male') : __('default.sex.female') }}
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <th>
+                              {{ __('default.form.type') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->type->name_en }} - {{ $listedHorse->type->name_ar }}
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <th>
+                              {{ __('default.form.race') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->race }}
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <th>
+                              {{ __('default.form.birth_year') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->birth_year }}
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <th>
+                              {{ __('default.form.passport') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->passport->name_en }} - {{ $listedHorse->passport->name_ar }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>
+                              {{ __('default.form.height') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->height }} <small>{{ __('default.form.meter') }}</small>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>
+                              {{ __('default.form.color') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->color }}
+                            </td>
+                          </tr>
+                          <tr>
+                          <tr>
+                            <th>
+                              {{ __('default.form.health') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->health }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>
+                              {{ __('default.form.contact_number') }}
+                            </th>
+                            <td>
+                              {{ $listedHorse->contact_number }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- end card -->
+            </div>
+            <div class="prInfoRow">
+              <div class="product-single__description rte">
+                <p class="h1">{{ __('default.form.description') }}</p>
+                <p>{{ $listedHorse->description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        @if (count($listedHorse->videos))
+          <div class="col-12">
+            <!-- Swiper -->
+            <div class="swiper videosSwiper">
+              <div class="swiper-wrapper">
+                @foreach ($listedHorse->videos as $video)
+                  <div class="swiper-slide">
+                    <video controls>
+                      <source src="{{ $video->url }}" type="{{ $video->mime_type }}">
+                    </video>
+                  </div>
+                @endforeach
+              </div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        @endif
+      </div>
+    </div>
+  @endsection

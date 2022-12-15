@@ -19,4 +19,6 @@ require("jquery.scrollup/dist/jquery.scrollUp");
 require("@popperjs/core");
 require("bootstrap");
 require("toastr");
+require("slick-carousel");
+require("@zeitiger/elevatezoom");
 require("./main");
