@@ -4,8 +4,10 @@
       <img class="primary blur-up lazyload h-100" style="vertical-align: center;"
            data-src="{{ $horse->photos[0]->fullUrl }}" src="{{ $horse->photos[0]->fullUrl }}" alt="image"
            title="product">
-      <img class="hover blur-up lazyload" data-src="{{ $horse->photos[1]->fullUrl }}"
-           src="{{ $horse->photos[1]->fullUrl }}" alt="image" title="product">
+      @if (count($horse->photos) > 1)
+        <img class="hover blur-up lazyload" data-src="{{ $horse->photos[1]->fullUrl }}"
+             src="{{ $horse->photos[1]->fullUrl }}" alt="image" title="product">
+      @endif
     </a>
 
     <div class="variants add">
