@@ -183,7 +183,6 @@
                     <video controls>
                       <source src="{{ $video->url }}" type="{{ $video->mime_type }}">
                     </video>
-
                   </div>
                 @endforeach
               </div>
