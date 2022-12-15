@@ -45,7 +45,7 @@ class CMSBlogController extends Controller
   public function recentBlogs(GetBlogsHorsesRequest $request)
   {
     $count = $request->input('count', 5);
-    $data = CmsBlog::recent($count)->get();
+    $data = CmsBlog::recentBlogs($count);
 
     return $this->response('success', $data);
   }
