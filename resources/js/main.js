@@ -208,4 +208,28 @@
         $(this).next().slideToggle('300');
         $(this).toggleClass("active");
     });
+
+  	function product_thumb1(){
+      $('.product-dec-slider-1').slick({
+        infinite: true,
+        slidesToShow: 6,
+        stageMargin: 5,
+        slidesToScroll: 1
+      });
+    }
+  product_thumb1();
+
+
+  function product_zoom(){
+		$(".zoompro").elevateZoom({
+			gallery: "gallery",
+			galleryActiveClass: "active",
+			zoomWindowWidth: 300,
+			zoomWindowHeight: 100,
+			scrollZoom: false,
+			zoomType: "inner",
+			cursor: "crosshair"
+		});
+	}
+	product_zoom();
 })($);

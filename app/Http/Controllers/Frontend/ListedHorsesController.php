@@ -42,6 +42,6 @@ class ListedHorsesController extends Controller
 
   public function show(ListedHorse $listedHorse)
   {
-    return $listedHorse;
+    return view('frontend.listed-horses.show', compact('listedHorse'));
   }
 }
