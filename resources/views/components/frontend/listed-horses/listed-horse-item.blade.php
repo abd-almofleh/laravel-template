@@ -1,7 +1,7 @@
 <div class="col-12 col-sm-12 col-md-6 col-lg-6 item">
   <div class="product-image">
     <a href="{{ $horse->pageUrl }}" style="max-height: 300px" class="d-flex align-items-center">
-      <img class="primary blur-up lazyload h-100" style="vertical-align: center;"
+      <img class="{{ count($horse->photos) > 1 ? 'primary' : '' }} blur-up lazyload h-100" style="vertical-align: center;"
            data-src="{{ $horse->photos[0]->fullUrl }}" src="{{ $horse->photos[0]->fullUrl }}" alt="image"
            title="product">
       @if (count($horse->photos) > 1)
