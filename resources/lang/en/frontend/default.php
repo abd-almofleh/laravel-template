@@ -19,6 +19,7 @@ return [
     'min'                       => 'Min',
     'max'                       => 'Max',
     'search'                    => 'Search',
+    'otp'                       => 'One Time Password',
 
     'messages' => [
       'update' => [
@@ -44,6 +45,11 @@ return [
     'your_information'        => 'Your information',
     'read_more'               => 'Read More',
     'all'                     => 'All',
+    'verify_phone_number'     => 'Verify Phone Number',
+    'verify'                  => 'Verify',
+    'change_phone_number'     => 'Change Phone Number',
+    'resend_otp'              => 'Resend OTP!',
+    'unauthorized_redirected' => 'You are not authorized to access this route, redirecting to home',
   ],
 
   'layout' => [

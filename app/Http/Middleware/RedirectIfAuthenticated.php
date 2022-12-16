@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,22 +21,16 @@ class RedirectIfAuthenticated
    */
   public function handle(Request $request, Closure $next, ...$guards)
   {
-    Debugbar::info('-----------------------------------------');
-    Debugbar::info($guards);
     $guards = empty($guards) ? [null] : $guards;
-    Debugbar::info($guards);
     foreach ($guards as $guard) {
       if (Auth::guard($guard)->check()) {
-        Debugbar::info($guard);
         if ($guard !== null && RouteServiceProvider::HOMES[$guard] !== null) {
-          Toastr::error(__('default.general.unauthorized_redirected'));
+          Toastr::error(__('frontend/default.general.unauthorized_redirected'));
           return redirect()->route(RouteServiceProvider::HOMES[$guard]);
         }
-
         redirect()->route(RouteServiceProvider::HOME);
       }
     }
-
     return $next($request);
   }
 }

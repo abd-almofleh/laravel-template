@@ -20,7 +20,7 @@ class AuthCustomerController extends Controller
 
   public function __construct(SecurityService $security)
   {
-    $this->middleware('guest:customer_frontend')->except(['logout', 'deleteAccount']);
+    $this->middleware('guest:customer_frontend')->except(['logout', 'deleteAccount', 'validatePhoneNumberView']);
     $this->security = $security;
   }
 
@@ -37,7 +37,7 @@ class AuthCustomerController extends Controller
       $data['remember'] = false;
     }
 
-    if (Auth::guard($this->guard)->attempt(['email' => $data['email'], 'password' => $data['password']], $request->get('remember'))) {
+    if (Auth::guard(static::$guard)->attempt(['email' => $data['email'], 'password' => $data['password']], $request->get('remember'))) {
       Toastr::success('Welcome!');
       return redirect()->route('home');
     } else {
@@ -107,5 +107,10 @@ class AuthCustomerController extends Controller
     }
 
     return redirect()->route('home');
+  }
+
+  public function validatePhoneNumberView()
+  {
+    return view('frontend.Customer.auth.validate-phone-number');
   }
 }
