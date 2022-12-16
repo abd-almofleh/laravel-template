@@ -132,12 +132,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['middleware' => ['auth:customer_frontend']], function () {
           Route::post('logout', 'logout')->name('logout');
           Route::delete('account', 'deleteAccount')->name('account.delete');
-          Route::get('validate-phone-number', 'validatePhoneNumberView')
-          ->withoutMiddleware('validate_phone_number')
-          ->name('account.validate-phone-number-view');
-          Route::post('validate-phone-number', 'validatePhoneNumber')
-          ->withoutMiddleware('validate_phone_number')
-          ->name('account.validate-phone-number');
+          Route::withoutMiddleware('validate_phone_number')
+          ->name('account.validate-phone-number.')
+          ->prefix('validate-phone-number')
+          ->group(function () {
+            Route::get('', 'validatePhoneNumberView')
+            ->name('view');
+            Route::post('', 'validatePhoneNumber')
+            ->name('verify');
+          });
         });
       });
 

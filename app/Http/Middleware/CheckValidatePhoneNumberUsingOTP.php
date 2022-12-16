@@ -20,7 +20,7 @@ class CheckValidatePhoneNumberUsingOTP
     $user = Auth::guard('customer_frontend')->user();
     if ($user) {
       if ($user->phone_verified_at == null) {
-        return redirect()->route('customer.auth.account.validate-phone-number-view');
+        return redirect()->route('customer.auth.account.validate-phone-number.view');
       }
     }
 
