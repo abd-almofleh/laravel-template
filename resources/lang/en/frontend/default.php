@@ -29,6 +29,9 @@ return [
         'success' => 'Successfully deleted',
         'failed'  => 'Failed to deleted',
       ],
+      'phone_number' => [
+        'verified' => 'Phone Number successfully verified',
+      ],
     ],
   ],
 

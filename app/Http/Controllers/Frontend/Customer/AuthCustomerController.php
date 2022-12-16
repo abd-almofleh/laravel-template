@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Frontend\Customer;
 
+use App\Enums\OtpTypesEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FrontEnd\Customer\LoginRequest;
 use App\Http\Requests\Frontend\Customer\ResetPasswordRequest;
 use App\Http\Requests\FrontEnd\Customer\SignupRequest;
+use App\Http\Requests\FrontEnd\Customer\ValidateOtpRequest;
 use App\Models\Customer;
+use App\Models\OtpVerificationCode;
 use App\Services\Security\SecurityService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 
 class AuthCustomerController extends Controller
 {
@@ -20,7 +24,7 @@ class AuthCustomerController extends Controller
 
   public function __construct(SecurityService $security)
   {
-    $this->middleware('guest:customer_frontend')->except(['logout', 'deleteAccount', 'validatePhoneNumberView']);
+    $this->middleware('guest:customer_frontend')->except(['logout', 'deleteAccount', 'validatePhoneNumberView', 'validatePhoneNumber']);
     $this->security = $security;
   }
 
@@ -111,6 +115,23 @@ class AuthCustomerController extends Controller
 
   public function validatePhoneNumberView()
   {
+    $customer = Auth::guard(static::$guard)->user();
+    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('type', OtpTypesEnum::PhoneNumber)->latest()->first();
+    $now = Carbon::now();
+    if (!($verificationCode && $now->isBefore($verificationCode->expire_at))) {
+      $this->security->authentication->requestPhoneNumberVerificationOtp($customer);
+    }
     return view('frontend.Customer.auth.validate-phone-number');
+  }
+
+  public function validatePhoneNumber(ValidateOtpRequest $request)
+  {
+    $customer = Auth::guard(static::$guard)->user();
+    $otp = $request->otp;
+    $this->security->authentication->validatePhoneNumberThoughOTP($customer, $otp);
+
+    Toastr::success(__('frontend/default.form.messages.phone_number.verified'));
+
+    return redirect()->route('home');
   }
 }

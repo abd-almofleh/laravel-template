@@ -135,7 +135,9 @@ Route::group(['middleware' => 'language'], function () {
           Route::get('validate-phone-number', 'validatePhoneNumberView')
           ->withoutMiddleware('validate_phone_number')
           ->name('account.validate-phone-number-view');
-          ;
+          Route::post('validate-phone-number', 'validatePhoneNumber')
+          ->withoutMiddleware('validate_phone_number')
+          ->name('account.validate-phone-number');
         });
       });
 
