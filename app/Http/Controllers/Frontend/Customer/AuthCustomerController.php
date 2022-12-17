@@ -15,6 +15,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 
 class AuthCustomerController extends Controller
 {
@@ -24,16 +27,34 @@ class AuthCustomerController extends Controller
 
   public function __construct(SecurityService $security)
   {
-    $this->middleware('guest:customer_frontend')->except(['logout', 'deleteAccount', 'validatePhoneNumberView', 'validatePhoneNumber']);
+    $this->middleware('guest:customer_frontend')->except([
+      'logout',
+      'deleteAccount',
+      'validatePhoneNumber',
+      'validatePhoneNumberView',
+      'requestPhoneNumberVerificationOtp',
+    ]);
     $this->security = $security;
   }
 
-  public function loginView()
+  /**
+   * It returns the login view
+   *
+   * @return View A view
+   */
+  public function loginView(): View
   {
     return view('frontend.customer.auth.login');
   }
 
-  public function login(LoginRequest $request)
+  /**
+   * It checks if the user is authenticated or not.
+   *
+   * @param LoginRequest request The request object.
+   *
+   * @return RedirectResponse The login method is returning a redirect to the home route.
+   */
+  public function login(LoginRequest $request): RedirectResponse
   {
     $data = $request->validated();
 
@@ -50,12 +71,12 @@ class AuthCustomerController extends Controller
     }
   }
 
-  public function signupForm()
+  public function signupForm(): View
   {
     return view('frontend.customer.auth.signup');
   }
 
-  public function signup(SignupRequest $request)
+  public function signup(SignupRequest $request): RedirectResponse
   {
     $data = [
       'name'         => $request->input('name'),
@@ -71,12 +92,12 @@ class AuthCustomerController extends Controller
     return redirect()->route('home');
   }
 
-  public function forgetPasswordView()
+  public function forgetPasswordView(): View
   {
     return view('frontend.Customer.auth.forget-password');
   }
 
-  public function resetPassword(ResetPasswordRequest $request)
+  public function resetPassword(ResetPasswordRequest $request): RedirectResponse
   {
     $data = $request->validated();
     $customer = Customer::whereEmail($data['email'])->first();
@@ -92,13 +113,13 @@ class AuthCustomerController extends Controller
     return redirect()->route('customer.auth.login');
   }
 
-  public function logout()
+  public function logout(): RedirectResponse
   {
     Auth::guard(static::$guard)->logout();
     return redirect()->route('home');
   }
 
-  public function deleteAccount()
+  public function deleteAccount(): RedirectResponse
   {
     $customer = Auth::guard(static::$guard)->user();
     $result = $this->security->authentication->deleteCustomer($customer);
@@ -113,7 +134,7 @@ class AuthCustomerController extends Controller
     return redirect()->route('home');
   }
 
-  public function validatePhoneNumberView()
+  public function validatePhoneNumberView(): View
   {
     $customer = Auth::guard(static::$guard)->user();
     $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('type', OtpTypesEnum::PhoneNumber)->latest()->first();
@@ -124,7 +145,7 @@ class AuthCustomerController extends Controller
     return view('frontend.Customer.auth.validate-phone-number');
   }
 
-  public function validatePhoneNumber(ValidateOtpRequest $request)
+  public function validatePhoneNumber(ValidateOtpRequest $request): RedirectResponse
   {
     $customer = Auth::guard(static::$guard)->user();
     $otp = $request->otp;
@@ -133,5 +154,20 @@ class AuthCustomerController extends Controller
     Toastr::success(__('frontend/default.form.messages.phone_number.verified'));
 
     return redirect()->route('home');
+  }
+
+  /**
+   * It sends an OTP to the user's phone number
+   *
+   * @return JsonResponse A JsonResponse object is being returned.
+   */
+  public function requestPhoneNumberVerificationOtp(): JsonResponse
+  {
+    $customer = Auth::guard(static::$guard)->user();
+
+    $phoneNumber = $this->security->authentication->requestPhoneNumberVerificationOtp($customer);
+    Toastr::success(__('frontend/default.form.messages.phone_number.sent', [$phoneNumber]));
+
+    return $this->response('Otp sent to your phone', ['phone_number' => $phoneNumber]);
   }
 }

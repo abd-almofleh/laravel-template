@@ -136,10 +136,9 @@ Route::group(['middleware' => 'language'], function () {
           ->name('account.validate-phone-number.')
           ->prefix('validate-phone-number')
           ->group(function () {
-            Route::get('', 'validatePhoneNumberView')
-            ->name('view');
-            Route::post('', 'validatePhoneNumber')
-            ->name('verify');
+            Route::get('', 'validatePhoneNumberView')->name('view');
+            Route::post('', 'validatePhoneNumber')->name('validate');
+            Route::post('request', 'requestPhoneNumberVerificationOtp')->name('request');
           });
         });
       });

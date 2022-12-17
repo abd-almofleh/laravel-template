@@ -31,6 +31,7 @@ return [
       ],
       'phone_number' => [
         'verified' => 'Phone Number successfully verified',
+        'sent'     => 'Otp sent to your phone ({0})',
       ],
     ],
   ],
