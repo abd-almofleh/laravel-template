@@ -252,10 +252,8 @@ class Authentication
    *
    * @param Customer customer The customer object
    * @param string otp The OTP that the user has entered.
-   *
-   * @return bool A boolean value.
    */
-  public function checkResetPasswordOTP(Customer $customer, string $otp): bool
+  public function checkResetPasswordOTP(Customer $customer, string $otp): void
   {
     $verificationCode = OtpVerificationCode::get($customer->id, $otp, OtpTypesEnum::ResetPassword);
     $now = Carbon::now();
@@ -264,7 +262,6 @@ class Authentication
     } elseif ($verificationCode && $now->isAfter($verificationCode->expire_at)) {
       throw new ExpiredOTPException();
     }
-    return true;
   }
 
   /**

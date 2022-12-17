@@ -12,6 +12,7 @@ use App\Http\Requests\Frontend\Customer\ResetPasswordRequest;
 use App\Http\Requests\FrontEnd\Customer\SignupRequest;
 use App\Http\Requests\FrontEnd\Customer\UpdatePhoneNumberRequest;
 use App\Http\Requests\FrontEnd\Customer\ValidateOtpRequest;
+use App\Http\Requests\Global\ValidateOtpRequest as GlobalValidateOtpRequest;
 use App\Models\Customer;
 use App\Models\OtpVerificationCode;
 use App\Services\Security\SecurityService;
@@ -115,12 +116,39 @@ class AuthCustomerController extends Controller
 
     Toastr::success(__('frontend/default.form.messages.reset_password.sent', ['phone_number' => $phoneNumber]));
 
-    return redirect()->route('customer.auth.reset_password.validate.view');
+    return redirect()->route('customer.auth.reset_password.validate.view', ['email' => $email]);
   }
 
-  public function validateResetPasswordOTPView()
+  public function validateResetPasswordOTPView(ResetPasswordRequest $request): View
   {
-    return 'not ready';
+    $email = $request->email;
+    return view('frontend.Customer.auth.validate-reset-password-otp', ['email' => $email]);
+  }
+
+  public function validateResetPasswordOTP(GlobalValidateOtpRequest $request)
+  {
+    $email = $request->email;
+    $otp = $request->otp;
+
+    $customer = Customer::findByEmail($email);
+    if ($customer == null) {
+      toastr()->error(__('default.errors.customer_not_found'));
+      return redirect()->route('customer.auth.reset_password.form');
+    }
+
+    try {
+      $this->security->authentication->checkResetPasswordOTP($customer, $otp);
+    } catch(WrongOTPException $ex) {
+      $message = $ex->getMessage();
+      Toastr::error($message);
+      return redirect()->route('customer.auth.reset_password.validate.view', ['email' => $email]);
+    } catch(ExpiredOTPException $ex) {
+      $message = $ex->getMessage();
+      Toastr::error($message);
+      $this->security->authentication->requestResetPasswordThroughPhoneNumber($customer);
+      return redirect()->route('customer.auth.reset_password.validate.view', ['email' => $email]);
+    }
+    return 'ok';
   }
 
   public function logout(): RedirectResponse

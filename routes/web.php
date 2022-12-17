@@ -133,9 +133,8 @@ Route::group(['middleware' => 'language'], function () {
           Route::get('/', 'forgetPasswordView')->name('form');
           Route::post('request', 'resetPassword')->name('request');
           Route::get('validate-otp', 'validateResetPasswordOTPView')->name('validate.view');
+          Route::post('validate-otp', 'validateResetPasswordOTP')->name('validate');
         });
-        Route::get('forget-password', 'forgetPasswordView')->name('reset_password.form');
-        Route::patch('reset-password', 'resetPassword')->name('reset_password.reset');
         Route::get('signup', 'signupForm')->name('signup.form');
         Route::post('signup', 'signup')->name('signup');
         Route::group(['middleware' => ['auth:customer_frontend']], function () {

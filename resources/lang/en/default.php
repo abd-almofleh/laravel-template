@@ -235,5 +235,6 @@ return [
     'your_otp_has_been_expired'        => 'Your OTP has been expired',
     'phone_number_is_already_verified' => 'Phone Number is already verified',
     'your_otp_is_not_correct'          => 'Your OTP is not correct',
+    'Customer_not_found'               => 'Customer not found',
   ],
 ];
