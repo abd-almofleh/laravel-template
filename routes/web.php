@@ -133,7 +133,7 @@ Route::group(['middleware' => 'language'], function () {
           Route::post('logout', 'logout')->name('logout');
           Route::delete('account', 'deleteAccount')->name('account.delete');
           Route::withoutMiddleware('validate_phone_number')
-          ->name('account.validate-phone-number.')
+          ->name('account.validate_phone_number.')
           ->prefix('validate-phone-number')
           ->group(function () {
             Route::get('', 'validatePhoneNumberView')->name('view');

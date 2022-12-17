@@ -8,7 +8,7 @@
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
         <div class="mb-4">
           <form method="post"
-                action="{{ route('customer.auth.account.validate-phone-number.change_phone_number.update') }}"
+                action="{{ route('customer.auth.account.validate_phone_number.change_phone_number.update') }}"
                 class="contact-form">
             @csrf
             <x-errors-alert />

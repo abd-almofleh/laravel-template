@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
         <div class="mb-4">
-          <form method="post" action="{{ route('customer.auth.account.validate-phone-number.validate') }}"
+          <form method="post" action="{{ route('customer.auth.account.validate_phone_number.validate') }}"
                 class="contact-form">
             @csrf
             <x-errors-alert />
@@ -30,7 +30,7 @@
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-4 text-center">
             <button id="resend-otp" style="border: 0;">{{ __('frontend/default.general.resend_otp') }}</button>
             &nbsp; | &nbsp;
-            <a href="{{ route('customer.auth.account.validate-phone-number.change_phone_number.view') }}"
+            <a href="{{ route('customer.auth.account.validate_phone_number.change_phone_number.view') }}"
                id="change-phone-number">{{ __('frontend/default.general.change_phone_number') }}</a>
           </div>
         </div>
@@ -45,7 +45,7 @@
     $('#resend-otp').on('click', (e) => {
       e.preventDefault();
       $.ajax({
-        url: '{{ route('customer.auth.account.validate-phone-number.request') }}',
+        url: '{{ route('customer.auth.account.validate_phone_number.request') }}',
         type: "POST",
         data: {
           _token: '{{ csrf_token() }}'

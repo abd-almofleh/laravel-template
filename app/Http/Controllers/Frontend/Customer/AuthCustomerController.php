@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Frontend\Customer;
 
 use App\Enums\OtpTypesEnum;
+use App\Exceptions\ExpiredOTPException;
+use App\Exceptions\PhoneAlreadyVerifiedException;
+use App\Exceptions\WrongOTPException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FrontEnd\Customer\LoginRequest;
 use App\Http\Requests\Frontend\Customer\ResetPasswordRequest;
@@ -140,7 +143,7 @@ class AuthCustomerController extends Controller
   public function validatePhoneNumberView(): View
   {
     $customer = Auth::guard(static::$guard)->user();
-    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('type', OtpTypesEnum::PhoneNumber)->latest()->first();
+    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('type', OtpTypesEnum::PhoneNumber)->latest('updated_at')->first();
     $now = Carbon::now();
     if (!($verificationCode && $now->isBefore($verificationCode->expire_at))) {
       $this->security->authentication->requestPhoneNumberVerificationOtp($customer);
@@ -152,7 +155,22 @@ class AuthCustomerController extends Controller
   {
     $customer = Auth::guard(static::$guard)->user();
     $otp = $request->otp;
-    $this->security->authentication->validatePhoneNumberThoughOTP($customer, $otp);
+    try {
+      $this->security->authentication->validatePhoneNumberThoughOTP($customer, $otp);
+    } catch (PhoneAlreadyVerifiedException $ex) {
+      $message = $ex->getMessage();
+      Toastr::error($message);
+      return redirect()->route('home');
+    } catch(WrongOTPException $ex) {
+      $message = $ex->getMessage();
+      Toastr::error($message);
+      return redirect()->route('customer.auth.account.validate_phone_number.view');
+    } catch(ExpiredOTPException $ex) {
+      $message = $ex->getMessage();
+      Toastr::error($message);
+      $this->security->authentication->requestPhoneNumberVerificationOtp($customer);
+      return redirect()->route('customer.auth.account.validate_phone_number.view');
+    }
 
     Toastr::success(__('frontend/default.form.messages.phone_number.verified'));
 
@@ -202,6 +220,6 @@ class AuthCustomerController extends Controller
       throw $th;
     }
     toastr()->success(__('default.general.phone_number_changed_with_phone_number', ['new_phone_number' => $phoneNumber]));
-    return redirect()->route('customer.auth.account.validate-phone-number.view');
+    return redirect()->route('customer.auth.account.validate_phone_number.view');
   }
 }

@@ -231,4 +231,9 @@ return [
     'phone_number_changed'                   => 'Phone Number has been changed and an otp has been sent to your phone',
     'phone_number_changed_with_phone_number' => 'Phone Number has been changed to ":new_phone_number" and an otp has been sent to your phone',
   ],
+  'errors' => [
+    'your_otp_has_been_expired'        => 'Your OTP has been expired',
+    'phone_number_is_already_verified' => 'Phone Number is already verified',
+    'your_otp_is_not_correct'          => 'Your OTP is not correct',
+  ],
 ];

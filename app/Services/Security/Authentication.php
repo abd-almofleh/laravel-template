@@ -3,6 +3,9 @@
 namespace App\Services\Security;
 
 use App\Enums\OtpTypesEnum;
+use App\Exceptions\ExpiredOTPException;
+use App\Exceptions\PhoneAlreadyVerifiedException;
+use App\Exceptions\WrongOTPException;
 use App\Models\Customer;
 use App\Helpers\Random;
 use App\Jobs\SendOTPJob;
@@ -74,6 +77,7 @@ class Authentication
         $otpCode = $this->createOtp($customer, $type);
       }
     } else {
+      $this->expireAllOldOtp($customer, $type);
       $otpCode = $this->createOtp($customer, $type);
     }
 
@@ -117,11 +121,16 @@ class Authentication
 
     $now = Carbon::now();
     if (!$verificationCode) {
-      abort(401, 'Your OTP is not correct');
+      throw new WrongOTPException();
     } elseif ($verificationCode && $now->isAfter($verificationCode->expire_at)) {
-      abort(403, 'Your OTP has been expired');
+      throw new ExpiredOTPException();
     }
-    $verificationCode->update([
+    $this->expireAllOldOtp($customer, $type);
+  }
+
+  private function expireAllOldOtp(Customer $customer, OtpTypesEnum $type)
+  {
+    OtpVerificationCode::where('customer_id', $customer->id)->where('type', $type)->where('expire_at', '>', Carbon::now())->update([
       'expire_at' => Carbon::now(),
     ]);
   }
@@ -138,7 +147,7 @@ class Authentication
   public function validatePhoneNumberThoughOTP(Customer $customer, string $userOtp): bool
   {
     if ($customer->phone_verified_at != null) {
-      abort(401, 'Phone Number is already verified');
+      throw new PhoneAlreadyVerifiedException();
     }
 
     $this->ValidateOTP($customer, $userOtp, OtpTypesEnum::PhoneNumber);
@@ -158,7 +167,7 @@ class Authentication
   public function requestPhoneNumberVerificationOtp(Customer $customer): string
   {
     if ($customer->phone_verified_at != null) {
-      abort(401, 'Phone Number is already verified');
+      throw new PhoneAlreadyVerifiedException();
     }
     return $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
   }
@@ -329,7 +338,7 @@ class Authentication
   public function updatePhoneNumber(Customer $customer, string $phoneNumber): string
   {
     if ($customer->phone_verified_at != null) {
-      abort(401, 'Phone Number is already verified');
+      throw new PhoneAlreadyVerifiedException();
     }
 
     $customer->update([
