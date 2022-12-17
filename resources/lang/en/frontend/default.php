@@ -19,6 +19,7 @@ return [
     'min'                       => 'Min',
     'max'                       => 'Max',
     'search'                    => 'Search',
+    'otp'                       => 'One Time Password',
 
     'messages' => [
       'update' => [
@@ -27,6 +28,10 @@ return [
       'delete' => [
         'success' => 'Successfully deleted',
         'failed'  => 'Failed to deleted',
+      ],
+      'phone_number' => [
+        'verified' => 'Phone Number successfully verified',
+        'sent'     => 'Otp sent to your phone ({0})',
       ],
     ],
   ],
@@ -44,6 +49,14 @@ return [
     'your_information'        => 'Your information',
     'read_more'               => 'Read More',
     'all'                     => 'All',
+    'verify_phone_number'     => 'Verify Phone Number',
+    'verify'                  => 'Verify',
+    'change_phone_number'     => 'Change Phone Number',
+    'change_phone_number_from'=> 'Change Phone Number from (:current_phone_number)',
+    'resend_otp'              => 'Resend OTP!',
+    'update'                  => 'Update',
+    'cancel'                  => 'Cancel',
+    'unauthorized_redirected' => 'You are not authorized to access this route, redirecting to home',
   ],
 
   'layout' => [

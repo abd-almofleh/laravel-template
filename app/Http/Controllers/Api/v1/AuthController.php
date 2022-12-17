@@ -219,6 +219,6 @@ class AuthController extends \App\Http\Controllers\Controller
 
     $phoneNumber = $this->security->authentication->updatePhoneNumber($customer, $customersPhoneNumber);
 
-    return $this->response('Phone Number has been changed and an otp has been sent to your phone', ['phone_number' => $phoneNumber]);
+    return $this->response(__('default.general.phone_number_changed'), ['phone_number' => $phoneNumber]);
   }
 }

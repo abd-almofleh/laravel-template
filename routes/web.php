@@ -18,9 +18,6 @@ Route::get('setlocale/{locale}', function ($lang) {
   return redirect()->back();
 })->name('setlocale');
 
-// Frontend Routes
-Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
-
 Route::group(['middleware' => 'language'], function () {
   // * Admin Routes
   Route::prefix('admin')->group(function () {
@@ -117,38 +114,55 @@ Route::group(['middleware' => 'language'], function () {
     });
   });
 
-  // * Customer Routes
-  Route::prefix('customer')->name('customer.')->group(function () {
-    Route::name('auth.')->controller(App\Http\Controllers\Frontend\Customer\AuthCustomerController::class)->group(function () {
-      Route::get('login', 'loginView')->name('login');
-      Route::post('login', 'login')->name('login.attempt');
-      Route::get('forget-password', 'forgetPasswordView')->name('forget_password.form');
-      Route::patch('reset-password', 'resetPassword')->name('forget_password.reset');
-      Route::get('signup', 'signupForm')->name('signup.form');
-      Route::post('signup', 'signup')->name('signup');
+  /* -------------------------------------------------------------------------- */
+  /*                               Frontend Routes                              */
+  /* -------------------------------------------------------------------------- */
+  Route::middleware('validate_phone_number')->group(function () {
+    Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
+
+    // * Customer Routes
+    Route::prefix('customer')->name('customer.')->group(function () {
+      Route::name('auth.')->controller(App\Http\Controllers\Frontend\Customer\AuthCustomerController::class)->group(function () {
+        Route::get('login', 'loginView')->name('login');
+        Route::post('login', 'login')->name('login.attempt');
+        Route::get('forget-password', 'forgetPasswordView')->name('forget_password.form');
+        Route::patch('reset-password', 'resetPassword')->name('forget_password.reset');
+        Route::get('signup', 'signupForm')->name('signup.form');
+        Route::post('signup', 'signup')->name('signup');
+        Route::group(['middleware' => ['auth:customer_frontend']], function () {
+          Route::post('logout', 'logout')->name('logout');
+          Route::delete('account', 'deleteAccount')->name('account.delete');
+          Route::withoutMiddleware('validate_phone_number')
+          ->name('account.validate_phone_number.')
+          ->prefix('validate-phone-number')
+          ->group(function () {
+            Route::get('', 'validatePhoneNumberView')->name('view');
+            Route::post('', 'validatePhoneNumber')->name('validate');
+            Route::post('request', 'requestPhoneNumberVerificationOtp')->name('request');
+            Route::get('change-phone-number', 'updatePhoneNumberView')->name('change_phone_number.view');
+            Route::post('change-phone-number', 'updatePhoneNumber')->name('change_phone_number.update');
+          });
+        });
+      });
+
+      // Customer Authenticated Routes
       Route::group(['middleware' => ['auth:customer_frontend']], function () {
-        Route::post('logout', 'logout')->name('logout');
-        Route::delete('/account', 'deleteAccount')->name('account.delete');
+        // Profile
+        Route::get('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'index'])->name('profile');
+        Route::put('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'update'])->name('profile.update');
       });
     });
 
-    // Customer Authenticated Routes
-    Route::group(['middleware' => ['auth:customer_frontend']], function () {
-      // Profile
-      Route::get('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'index'])->name('profile');
-      Route::put('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'update'])->name('profile.update');
+    // * Blogs Routes
+    Route::prefix('blogs')->name('blogs.')->group(function () {
+      Route::get('/', [App\Http\Controllers\Frontend\BlogsController::class, 'index'])->name('list');
+      Route::get('/{blog}', [App\Http\Controllers\Frontend\BlogsController::class, 'show'])->name('show');
     });
-  });
 
-  // * Blogs Routes
-  Route::prefix('blogs')->name('blogs.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Frontend\BlogsController::class, 'index'])->name('list');
-    Route::get('/{blog}', [App\Http\Controllers\Frontend\BlogsController::class, 'show'])->name('show');
-  });
-
-  // * Blogs Routes
-  Route::prefix('listed-horses')->name('listed_horses.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'index'])->name('list');
-    Route::get('/{listedHorse}', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'show'])->name('show');
+    // * Listed horses Routes
+    Route::prefix('listed-horses')->name('listed_horses.')->group(function () {
+      Route::get('/', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'index'])->name('list');
+      Route::get('/{listedHorse}', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'show'])->name('show');
+    });
   });
 });
