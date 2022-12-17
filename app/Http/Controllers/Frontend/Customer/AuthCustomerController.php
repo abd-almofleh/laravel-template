@@ -105,18 +105,22 @@ class AuthCustomerController extends Controller
 
   public function resetPassword(ResetPasswordRequest $request): RedirectResponse
   {
-    $data = $request->validated();
-    $customer = Customer::whereEmail($data['email'])->first();
+    $email = $request->email;
+    $customer = Customer::whereEmail($email)->first();
     if ($customer === null) {
       Toastr::error(__('frontend/validation.email_not_found'));
       return redirect()->back();
     }
+    $phoneNumber = $this->security->authentication->requestResetPasswordThroughPhoneNumber($customer);
 
-    $customer->password = $data['password'];
-    $customer->save();
-    Toastr::success(__('frontend/default.form.messages.update.success'));
+    Toastr::success(__('frontend/default.form.messages.reset_password.sent', ['phone_number' => $phoneNumber]));
 
-    return redirect()->route('customer.auth.login');
+    return redirect()->route('customer.auth.reset_password.validate.view');
+  }
+
+  public function validateResetPasswordOTPView()
+  {
+    return 'not ready';
   }
 
   public function logout(): RedirectResponse

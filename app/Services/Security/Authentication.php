@@ -242,9 +242,9 @@ class Authentication
    *
    * @param Customer customer The customer object that the OTP will be sent to.
    */
-  public function requestResetPasswordThroughPhoneNumber(Customer $customer): void
+  public function requestResetPasswordThroughPhoneNumber(Customer $customer): string
   {
-    $this->sendOTP($customer, OtpTypesEnum::ResetPassword);
+    return $this->sendOTP($customer, OtpTypesEnum::ResetPassword);
   }
 
   /**

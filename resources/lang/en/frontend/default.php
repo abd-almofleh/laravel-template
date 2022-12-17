@@ -33,6 +33,10 @@ return [
         'verified' => 'Phone Number successfully verified',
         'sent'     => 'Otp sent to your phone ({0})',
       ],
+      'reset_password' => [
+        'sent'     => 'Otp sent to your phone (:phone_number)',
+        'verified' => 'Phone Number successfully verified',
+      ],
     ],
   ],
 
@@ -46,6 +50,7 @@ return [
     'delete_profile'          => 'Delete Profile',
     'forgot_your_password'    => 'Forgot your password?',
     'reset_password'          => 'Reset Password',
+    'request_reset_password'  => 'Request Reset Password',
     'your_information'        => 'Your information',
     'read_more'               => 'Read More',
     'all'                     => 'All',
