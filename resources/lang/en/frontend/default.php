@@ -52,7 +52,10 @@ return [
     'verify_phone_number'     => 'Verify Phone Number',
     'verify'                  => 'Verify',
     'change_phone_number'     => 'Change Phone Number',
+    'change_phone_number_from'=> 'Change Phone Number from (:current_phone_number)',
     'resend_otp'              => 'Resend OTP!',
+    'update'                  => 'Update',
+    'cancel'                  => 'Cancel',
     'unauthorized_redirected' => 'You are not authorized to access this route, redirecting to home',
   ],
 

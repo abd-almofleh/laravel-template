@@ -139,6 +139,8 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('', 'validatePhoneNumberView')->name('view');
             Route::post('', 'validatePhoneNumber')->name('validate');
             Route::post('request', 'requestPhoneNumberVerificationOtp')->name('request');
+            Route::get('change-phone-number', 'updatePhoneNumberView')->name('change_phone_number.view');
+            Route::post('change-phone-number', 'updatePhoneNumber')->name('change_phone_number.update');
           });
         });
       });

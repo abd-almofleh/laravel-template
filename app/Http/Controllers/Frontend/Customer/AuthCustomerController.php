@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FrontEnd\Customer\LoginRequest;
 use App\Http\Requests\Frontend\Customer\ResetPasswordRequest;
 use App\Http\Requests\FrontEnd\Customer\SignupRequest;
+use App\Http\Requests\FrontEnd\Customer\UpdatePhoneNumberRequest;
 use App\Http\Requests\FrontEnd\Customer\ValidateOtpRequest;
 use App\Models\Customer;
 use App\Models\OtpVerificationCode;
@@ -33,6 +34,8 @@ class AuthCustomerController extends Controller
       'validatePhoneNumber',
       'validatePhoneNumberView',
       'requestPhoneNumberVerificationOtp',
+      'updatePhoneNumberView',
+      'updatePhoneNumber',
     ]);
     $this->security = $security;
   }
@@ -169,5 +172,36 @@ class AuthCustomerController extends Controller
     Toastr::success(__('frontend/default.form.messages.phone_number.sent', [$phoneNumber]));
 
     return $this->response('Otp sent to your phone', ['phone_number' => $phoneNumber]);
+  }
+
+  public function updatePhoneNumberView(): View|RedirectResponse
+  {
+    $customer = Auth::guard(static::$guard)->user();
+    if ($customer->phone_verified_at != null) {
+      toastr()->error(__('default.general.phone_already_verified'));
+      return redirect()->route('home');
+    }
+
+    $currentPhoneNumber = $customer->phone_number;
+    return view('frontend.Customer.auth.change-phone-number', compact('currentPhoneNumber'));
+  }
+
+  public function updatePhoneNumber(UpdatePhoneNumberRequest $request): RedirectResponse
+  {
+    $customersPhoneNumber = $request->phone_number;
+    $customer = Auth::guard(static::$guard)->user();
+    try {
+      $phoneNumber = $this->security->authentication->updatePhoneNumber($customer, $customersPhoneNumber);
+    } catch (\Symfony\Component\HttpKernel\Exception\HttpException $th) {
+      $message = $th->getMessage();
+      $statusCode = $th->getStatusCode();
+      if ($statusCode === 401) {
+        toastr()->error($message);
+        return redirect()->route('home');
+      }
+      throw $th;
+    }
+    toastr()->success(__('default.general.phone_number_changed_with_phone_number', ['new_phone_number' => $phoneNumber]));
+    return redirect()->route('customer.auth.account.validate-phone-number.view');
   }
 }

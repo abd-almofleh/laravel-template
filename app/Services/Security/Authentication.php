@@ -59,28 +59,46 @@ class Authentication
    *
    * @return string The phone number of the customer.
    */
-  private function sendOTP(Customer $customer, OtpTypesEnum $type): string
+  private function sendOTP(Customer $customer, OtpTypesEnum $type, bool $new = false): string
   {
     if (!$type) {
       throw new Exception('Otp Type is Required');
     }
-
-    $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('type', $type)->latest()->first();
-    $now = Carbon::now();
     $otpCode = '';
-    if ($verificationCode && $now->isBefore($verificationCode->expire_at)) {
-      $otpCode = $verificationCode->otp;
+    if (!$new) {
+      $verificationCode = OtpVerificationCode::where('customer_id', $customer->id)->where('type', $type)->latest('updated_at')->first();
+      $now = Carbon::now();
+      if ($verificationCode && $now->isBefore($verificationCode->expire_at)) {
+        $otpCode = $verificationCode->otp;
+      } else {
+        $otpCode = $this->createOtp($customer, $type);
+      }
     } else {
-      $otpCode = Random::Numbers();
-      OtpVerificationCode::create([
-        'customer_id' => $customer->id,
-        'otp'         => $otpCode,
-        'expire_at'   => Carbon::now()->addMinutes(5),
-        'type'        => $type,
-      ]);
+      $otpCode = $this->createOtp($customer, $type);
     }
+
     SendOTPJob::dispatch($customer->phone_number, $otpCode);
     return $customer->phone_number;
+  }
+
+  /**
+   * It creates a random 6 digit number, saves it in the database, and returns it
+   *
+   * @param Customer customer The customer object
+   * @param OtpTypesEnum type The type of OTP you want to send.
+   *
+   * @return string the generated OTP
+   */
+  private function createOtp(Customer $customer, OtpTypesEnum $type): string
+  {
+    $otpCode = Random::Numbers();
+    OtpVerificationCode::create([
+      'customer_id' => $customer->id,
+      'otp'         => $otpCode,
+      'expire_at'   => Carbon::now()->addMinutes(5),
+      'type'        => $type,
+    ]);
+    return $otpCode;
   }
 
   /**
@@ -317,6 +335,6 @@ class Authentication
     $customer->update([
       'phone_number' => $phoneNumber,
     ]);
-    return $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
+    return $this->sendOTP($customer, OtpTypesEnum::PhoneNumber, true);
   }
 }
