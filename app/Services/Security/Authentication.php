@@ -260,9 +260,9 @@ class Authentication
     $verificationCode = OtpVerificationCode::get($customer->id, $otp, OtpTypesEnum::ResetPassword);
     $now = Carbon::now();
     if (!$verificationCode) {
-      abort(401, 'Your OTP is not correct');
+      throw new WrongOTPException();
     } elseif ($verificationCode && $now->isAfter($verificationCode->expire_at)) {
-      abort(403, 'Your OTP has been expired');
+      throw new ExpiredOTPException();
     }
     return true;
   }
