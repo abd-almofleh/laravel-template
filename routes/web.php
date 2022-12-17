@@ -130,10 +130,12 @@ Route::group(['middleware' => 'language'], function () {
         ->name('reset_password.')
         ->withoutMiddleware([CheckValidatePhoneNumberUsingOTP::class])
         ->group(function () {
-          Route::get('/', 'forgetPasswordView')->name('form');
-          Route::post('request', 'resetPassword')->name('request');
+          Route::get('/', 'requestResetPasswordView')->name('form');
+          Route::post('request', 'requestResetPassword')->name('request');
           Route::get('validate-otp', 'validateResetPasswordOTPView')->name('validate.view');
           Route::post('validate-otp', 'validateResetPasswordOTP')->name('validate');
+          Route::get('new-password', 'resetPasswordView')->name('new_password.view');
+          Route::post('new-password', 'resetPassword')->name('new_password');
         });
         Route::get('signup', 'signupForm')->name('signup.form');
         Route::post('signup', 'signup')->name('signup');

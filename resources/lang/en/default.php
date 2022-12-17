@@ -230,6 +230,7 @@ return [
     'phone_already_verified'                 => 'Phone Already Verified',
     'phone_number_changed'                   => 'Phone Number has been changed and an otp has been sent to your phone',
     'phone_number_changed_with_phone_number' => 'Phone Number has been changed to ":new_phone_number" and an otp has been sent to your phone',
+    'password_updated'                       => 'Your password has been updated successfully. You can login to you account now.',
   ],
   'errors' => [
     'your_otp_has_been_expired'        => 'Your OTP has been expired',
