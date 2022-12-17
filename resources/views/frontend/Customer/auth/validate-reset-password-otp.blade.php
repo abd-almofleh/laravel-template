@@ -8,7 +8,6 @@
         <div class="mb-4">
           <form method="post" action="{{ route('customer.auth.reset_password.validate') }}" class="contact-form">
             @csrf
-            @form_hidden("email",$email)
             <x-errors-alert />
             <div class="row">
               <div class="form-group">

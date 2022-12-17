@@ -36,6 +36,7 @@ return [
       'reset_password' => [
         'sent'     => 'Otp sent to your phone (:phone_number)',
         'verified' => 'Phone Number successfully verified',
+        'no_email' => 'Your session has ben expired please reenter the your email',
       ],
     ],
   ],

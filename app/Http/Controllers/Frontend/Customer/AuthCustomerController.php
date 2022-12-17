@@ -12,7 +12,6 @@ use App\Http\Requests\Frontend\Customer\ResetPasswordRequest;
 use App\Http\Requests\FrontEnd\Customer\SignupRequest;
 use App\Http\Requests\FrontEnd\Customer\UpdatePhoneNumberRequest;
 use App\Http\Requests\FrontEnd\Customer\ValidateOtpRequest;
-use App\Http\Requests\Global\ValidateOtpRequest as GlobalValidateOtpRequest;
 use App\Models\Customer;
 use App\Models\OtpVerificationCode;
 use App\Services\Security\SecurityService;
@@ -23,6 +22,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class AuthCustomerController extends Controller
 {
@@ -99,8 +99,9 @@ class AuthCustomerController extends Controller
     return redirect()->route('home');
   }
 
-  public function forgetPasswordView(): View
+  public function forgetPasswordView(Request $request): View
   {
+    $request->session()->forget('resetPassword');
     return view('frontend.Customer.auth.forget-password');
   }
 
@@ -116,18 +117,29 @@ class AuthCustomerController extends Controller
 
     Toastr::success(__('frontend/default.form.messages.reset_password.sent', ['phone_number' => $phoneNumber]));
 
-    return redirect()->route('customer.auth.reset_password.validate.view', ['email' => $email]);
+    $request->session()->forget('resetPassword');
+    $request->session()->put('resetPassword.email', $email);
+    return redirect()->route('customer.auth.reset_password.validate.view');
   }
 
-  public function validateResetPasswordOTPView(ResetPasswordRequest $request): View
+  public function validateResetPasswordOTPView(Request $request): View|RedirectResponse
   {
-    $email = $request->email;
-    return view('frontend.Customer.auth.validate-reset-password-otp', ['email' => $email]);
+    if (!$request->session()->has('resetPassword.email')) {
+      Toastr::success(__('frontend/default.form.messages.reset_password.no_email'));
+      return redirect()->route('customer.auth.reset_password.form');
+    }
+
+    return view('frontend.Customer.auth.validate-reset-password-otp');
   }
 
-  public function validateResetPasswordOTP(GlobalValidateOtpRequest $request)
+  public function validateResetPasswordOTP(ValidateOtpRequest $request)
   {
-    $email = $request->email;
+    if (!$request->session()->has('resetPassword.email')) {
+      Toastr::success(__('frontend/default.form.messages.reset_password.no_email'));
+      return redirect()->route('customer.auth.reset_password.form');
+    }
+
+    $email = $request->session()->get('resetPassword.email');
     $otp = $request->otp;
 
     $customer = Customer::findByEmail($email);
@@ -148,6 +160,7 @@ class AuthCustomerController extends Controller
       $this->security->authentication->requestResetPasswordThroughPhoneNumber($customer);
       return redirect()->route('customer.auth.reset_password.validate.view', ['email' => $email]);
     }
+    $request->session()->put('resetPassword.otp', $otp);
     return 'ok';
   }
 
