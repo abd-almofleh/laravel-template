@@ -15,8 +15,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  @yield('styles')
-
+  <style>
+    .icon-size {
+      font-size: 20px !important;
+    }
+  </style>
+  @stack('styles')
 </head>
 
 <body class="page-template belle">

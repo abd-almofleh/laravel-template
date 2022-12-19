@@ -15,6 +15,49 @@
 
 @endsection
 
+@push('styles')
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <style>
+    #output {
+      width: 100%;
+    }
+
+    .swiper {
+      width: 100%;
+      height: fit-content;
+      max-height: 20rem;
+      padding-bottom: 30px;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      height: 90%;
+      object-fit: cover;
+    }
+  </style>
+@endpush
+
 @section('content')
   <div id="ProductSection-product-template" class="product-template__container prstyle2 container">
     <div class="product-single product-single-1">
@@ -195,3 +238,20 @@
       </div>
     </div>
   @endsection
+
+  @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+      const swiper = new Swiper(".videosSwiper", {
+        navigation: {
+          nextEl: ".videosSwiper .swiper-button-next",
+          prevEl: ".videosSwiper .swiper-button-prev",
+        },
+        pagination: {
+          el: '.videosSwiper .swiper-pagination',
+          type: 'bullets',
+        },
+        loop: true
+      });
+    </script>
+  @endpush

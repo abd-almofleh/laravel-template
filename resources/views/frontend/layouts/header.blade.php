@@ -7,9 +7,9 @@
   <div class="container-fluid">
     <div class="row align-items-center">
       <!--Desktop Logo-->
-      <div class="logo col-md-2 col-lg-3 d-none d-lg-block">
-        <a href="index.html">
-          <img src="{{ asset('images/logo.svg') }}" />
+      <div class="logo col-md-2 col-lg-3 d-none d-lg-block py-0">
+        <a href="{{ route('home') }}">
+          <img width="70" src="{{ asset('images/logo.png') }}" />
         </a>
       </div>
       <!--End Desktop Logo-->
@@ -35,8 +35,8 @@
       </div>
       <div class="col-6 col-sm-6 col-md-6 col-lg-3 d-block d-lg-none mobile-logo">
         <div class="logo">
-          <a href="index.html">
-            <img src="{{ asset('images/logo.svg') }}" />
+          <a href="{{ route('home') }}">
+            <img src="{{ asset('images/logo.png') }}" />
           </a>
         </div>
       </div>
