@@ -83,9 +83,6 @@
           <div class="col-12 col-sm-12 col-md-3 col-lg-3 contact-box ms-auto">
             <h4 class="h4">{{ __('frontend/navigation.footer_list.contact_us') }}</h4>
             <ul class="addressFooter">
-              <li><i class="icon anm anm-map-marker-al"></i>
-                <p>55 Gallaxy Enque,<br>2568 steet, 23568 NY</p>
-              </li>
               <li class="phone"><i class="icon anm anm-phone-s"></i>
                 <p>+971565088333</p>
               </li>
