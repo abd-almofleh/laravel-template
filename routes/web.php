@@ -136,6 +136,7 @@ Route::group(['middleware' => 'language'], function () {
           Route::post('validate-otp', 'validateResetPasswordOTP')->name('validate');
           Route::get('new-password', 'resetPasswordView')->name('new_password.view');
           Route::post('new-password', 'resetPassword')->name('new_password');
+          Route::post('resend-otp', 'requestResetPasswordThroughPhoneNumber')->name('resend_otp');
         });
         Route::get('signup', 'signupForm')->name('signup.form');
         Route::post('signup', 'signup')->name('signup');

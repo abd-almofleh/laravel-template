@@ -27,8 +27,8 @@
             <li><a href="{{ route('home') }}">{{ __('frontend/navigation.home') }}</a></li>
             <li><a href="{{ route('listed_horses.list') }}">{{ __('frontend/navigation.horses') }}</a></li>
             <li><a href="{{ route('blogs.list') }}">{{ __('frontend/navigation.blogs') }}</a></li>
-            <li><a href="#">{{ __('frontend/navigation.about_us') }}</a></li>
-            <li><a href="#">{{ __('frontend/navigation.contact_us') }}</a></li>
+            {{-- <li><a href="#">{{ __('frontend/navigation.about_us') }}</a></li>
+            <li><a href="#">{{ __('frontend/navigation.contact_us') }}</a></li> --}}
           </ul>
         </nav>
         <!--End Desktop Menu-->

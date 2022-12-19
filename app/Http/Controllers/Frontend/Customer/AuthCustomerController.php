@@ -210,6 +210,22 @@ class AuthCustomerController extends Controller
     return redirect()->route('customer.auth.login');
   }
 
+  public function requestResetPasswordThroughPhoneNumber(Request $request): JsonResponse
+  {
+    $email = $request->session()->get('resetPassword.email');
+    $customer = Customer::findByEmail($email);
+
+    if ($customer == null) {
+      toastr()->error(__('default.errors.customer_not_found'));
+      return redirect()->route('customer.auth.reset_password.form');
+    }
+
+    $phoneNumber = $this->security->authentication->requestResetPasswordThroughPhoneNumber($customer);
+    Toastr::success(__('frontend/default.form.messages.phone_number.sent', [$phoneNumber]));
+
+    return $this->response('Otp sent to your phone', ['phone_number' => $phoneNumber]);
+  }
+
   public function logout(): RedirectResponse
   {
     Auth::guard(static::$guard)->logout();

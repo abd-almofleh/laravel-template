@@ -39,23 +39,4 @@
       </div>
     </div>
   </div>
-  </div>
 @endsection
-
-@push('scripts')
-  <script>
-    $('#resend-otp').on('click', (e) => {
-      e.preventDefault();
-      $.ajax({
-        url: '{{ route('customer.auth.account.validate_phone_number.request') }}',
-        type: "POST",
-        data: {
-          _token: '{{ csrf_token() }}'
-        },
-        success: function(data) {
-          toastr.success(`${data.message} (${data.data.phone_number})`);
-        },
-      });
-    });
-  </script>
-@endpush

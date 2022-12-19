@@ -28,9 +28,6 @@
           </form>
           <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-4 text-center">
             <button id="resend-otp" style="border: 0;">{{ __('frontend/default.general.resend_otp') }}</button>
-            &nbsp; | &nbsp;
-            <a href="{{ route('customer.auth.account.validate_phone_number.change_phone_number.view') }}"
-               id="change-phone-number">{{ __('frontend/default.general.change_phone_number') }}</a>
           </div>
         </div>
       </div>
@@ -44,7 +41,7 @@
     $('#resend-otp').on('click', (e) => {
       e.preventDefault();
       $.ajax({
-        url: '{{ route('customer.auth.account.validate_phone_number.request') }}',
+        url: '{{ route('customer.auth.reset_password.resend_otp') }}',
         type: "POST",
         data: {
           _token: '{{ csrf_token() }}'
