@@ -106,10 +106,14 @@ class Authentication
   }
 
   /**
-   * It checks if the OTP is correct and not expired
+   * It validates the OTP.
    *
    * @param Customer customer The customer object
    * @param string userOtp The OTP that the user has entered.
+   * @param OtpTypesEnum type The type of OTP you want to validate.
+   *
+   * @throws WrongOTPException
+   * @throws ExpiredOTPException
    */
   private function ValidateOTP(Customer $customer, string $userOtp, OtpTypesEnum $type): void
   {
@@ -242,9 +246,9 @@ class Authentication
    *
    * @param Customer customer The customer object that the OTP will be sent to.
    */
-  public function requestResetPasswordThroughPhoneNumber(Customer $customer): void
+  public function requestResetPasswordThroughPhoneNumber(Customer $customer): string
   {
-    $this->sendOTP($customer, OtpTypesEnum::ResetPassword);
+    return $this->sendOTP($customer, OtpTypesEnum::ResetPassword);
   }
 
   /**
@@ -252,10 +256,8 @@ class Authentication
    *
    * @param Customer customer The customer object
    * @param string otp The OTP that the user has entered.
-   *
-   * @return bool A boolean value.
    */
-  public function checkResetPasswordOTP(Customer $customer, string $otp): bool
+  public function checkResetPasswordOTP(Customer $customer, string $otp): void
   {
     $verificationCode = OtpVerificationCode::get($customer->id, $otp, OtpTypesEnum::ResetPassword);
     $now = Carbon::now();
@@ -264,7 +266,6 @@ class Authentication
     } elseif ($verificationCode && $now->isAfter($verificationCode->expire_at)) {
       throw new ExpiredOTPException();
     }
-    return true;
   }
 
   /**
@@ -273,6 +274,9 @@ class Authentication
    * @param Customer customer The customer object
    * @param string otp The OTP that the user has entered.
    * @param string password The new password
+   *
+   * @throws ExpiredOTPException
+   * @throws WrongOTPException
    *
    * @return bool A boolean value.
    */

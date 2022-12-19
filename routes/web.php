@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckValidatePhoneNumberUsingOTP;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -117,7 +118,7 @@ Route::group(['middleware' => 'language'], function () {
   /* -------------------------------------------------------------------------- */
   /*                               Frontend Routes                              */
   /* -------------------------------------------------------------------------- */
-  Route::middleware('validate_phone_number')->group(function () {
+  Route::middleware([CheckValidatePhoneNumberUsingOTP::class])->group(function () {
     Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 
     // * Customer Routes
@@ -125,14 +126,24 @@ Route::group(['middleware' => 'language'], function () {
       Route::name('auth.')->controller(App\Http\Controllers\Frontend\Customer\AuthCustomerController::class)->group(function () {
         Route::get('login', 'loginView')->name('login');
         Route::post('login', 'login')->name('login.attempt');
-        Route::get('forget-password', 'forgetPasswordView')->name('forget_password.form');
-        Route::patch('reset-password', 'resetPassword')->name('forget_password.reset');
+        Route::prefix('reset-password')
+        ->name('reset_password.')
+        ->withoutMiddleware([CheckValidatePhoneNumberUsingOTP::class])
+        ->group(function () {
+          Route::get('/', 'requestResetPasswordView')->name('form');
+          Route::post('request', 'requestResetPassword')->name('request');
+          Route::get('validate-otp', 'validateResetPasswordOTPView')->name('validate.view');
+          Route::post('validate-otp', 'validateResetPasswordOTP')->name('validate');
+          Route::get('new-password', 'resetPasswordView')->name('new_password.view');
+          Route::post('new-password', 'resetPassword')->name('new_password');
+          Route::post('resend-otp', 'requestResetPasswordThroughPhoneNumber')->name('resend_otp');
+        });
         Route::get('signup', 'signupForm')->name('signup.form');
         Route::post('signup', 'signup')->name('signup');
         Route::group(['middleware' => ['auth:customer_frontend']], function () {
-          Route::post('logout', 'logout')->name('logout');
+          Route::post('logout', 'logout')->name('logout')->withoutMiddleware([CheckValidatePhoneNumberUsingOTP::class]);
           Route::delete('account', 'deleteAccount')->name('account.delete');
-          Route::withoutMiddleware('validate_phone_number')
+          Route::withoutMiddleware([CheckValidatePhoneNumberUsingOTP::class])
           ->name('account.validate_phone_number.')
           ->prefix('validate-phone-number')
           ->group(function () {

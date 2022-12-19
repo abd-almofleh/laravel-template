@@ -206,6 +206,7 @@ namespace App\Models{
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string $name
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListedHorse[] $horses
  * @property-read int|null $horses_count
  * @method static \Illuminate\Database\Eloquent\Builder|HorsePassport active()
@@ -233,7 +234,9 @@ namespace App\Models{
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string $name
  * @property-read object $photo
+ * @property-read string $url
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListedHorse[] $horses
  * @property-read int|null $horses_count
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
@@ -278,6 +281,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string $page_url
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection $photos
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection $videos
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media

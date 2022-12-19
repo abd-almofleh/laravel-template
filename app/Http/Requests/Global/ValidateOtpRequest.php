@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Frontend\Customer;
+namespace App\Http\Requests\Global;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResetPasswordRequest extends FormRequest
+class ValidateOtpRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class ResetPasswordRequest extends FormRequest
   public function rules()
   {
     return [
-      'email'    => 'required|string|email',
+      'otp'   => 'required|string|min:6|max:6',
+      'email' => 'required|string|email',
     ];
   }
 }
