@@ -219,7 +219,7 @@
         @if (count($listedHorse->videos))
           <div class="col-12">
             <!-- Swiper -->
-            <div class="swiper videosSwiper" style="max-width: fit-content !important;">
+            <div class="swiper videosSwiper" style="max-height: fit-content !important;">
               <div class="swiper-wrapper">
                 @foreach ($listedHorse->videos as $video)
                   <div class="swiper-slide">
