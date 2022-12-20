@@ -67,7 +67,7 @@
             <h4 class="h4">{{ __('frontend/navigation.footer_list.horses_types') }}</h4>
             <ul>
               @foreach ($horseTypes as $type)
-                <li><a href="#">{{ $type->name_en }}</a></li>
+                <li><a href="{{ $type->buildUrl() }}">{{ $type->name }}</a></li>
               @endforeach
             </ul>
           </div>
@@ -98,8 +98,8 @@
       <hr>
       <div class="footer-bottom">
         <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 order-md-0 copyright text-sm-center text-md-start order-1">
-            <span class="fw-bolder">{{ config('app.name') }}</span>©.
+          <div class="col-12 copyright text-center" dir="ltr">
+            <span class="fw-bolder">{{ config('app.name') }}</span>©
             {{ __('frontend/default.layout.all_rights_reserved') }}.
           </div>
         </div>

@@ -44,7 +44,7 @@
       <div class="col-4 col-sm-3 col-md-3 col-lg-2 text-right">
         @guest('customer_frontend')
           <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
-          <ul class="customer-links list-inline">
+          <ul class="customer-links list-inline text-center">
             <li><a href="{{ route('customer.auth.login') }}">{{ __('frontend/default.general.login') }}</a></li>
             <li><a href="{{ route('customer.auth.signup.form') }}">{{ __('frontend/default.general.register') }}</a>
             </li>

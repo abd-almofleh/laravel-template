@@ -24,7 +24,7 @@
 
           <x-frontend.blogs.recent-blogs />
 
-          <x-frontend.trending-horses />
+          {{-- <x-frontend.trending-horses /> --}}
         </div>
       </div>
       <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">

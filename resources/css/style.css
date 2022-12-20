@@ -2454,12 +2454,22 @@ a.quick-view {
     font-weight: bold;
 }
 
-.filter-widget .widget-title:after {
+:dir(ltr) .filter-widget .widget-title:after {
     content: "\eb69";
     font-family: "annimex-icons";
     display: inline-block;
     position: absolute;
     right: 0;
+    top: -1px;
+    font-size: 17px;
+}
+
+:dir(rtl) .filter-widget .widget-title:after {
+    content: "\eb69";
+    font-family: "annimex-icons";
+    display: inline-block;
+    position: absolute;
+    left: 0;
     top: -1px;
     font-size: 17px;
 }
@@ -2655,16 +2665,23 @@ a.quick-view {
     clear: both;
     display: block;
 }
-.mini-list-item .mini-view_image {
+:dir(ltr) .mini-list-item .mini-view_image {
     float: left;
+    width: 25%;
+}
+:dir(rtl) .mini-list-item .mini-view_image {
+    float: right;
     width: 25%;
 }
 .mini-list-item .mini-view_image img {
     width: 100%;
     max-width: 70px;
 }
-.mini-list-item .details {
+:dir(ltr) .mini-list-item .details {
     margin-left: 30%;
+}
+:dir(rtl) .mini-list-item .details {
+    margin-right: 30%;
 }
 .product-tags li {
     border-radius: 18px;
@@ -3990,8 +4007,11 @@ table {
     color: #000 !important;
     font-size: 18px;
 }
-.page-template .addressFooter li p {
+:dir(ltr) .page-template .addressFooter li p {
     padding-left: 30px;
+}
+:dir(rtl) .page-template .addressFooter li p {
+    padding-right: 30px;
 }
 
 .contact-template .section-header {
@@ -5363,9 +5383,15 @@ input.checkbox {
 .footer-bottom {
     color: #ffffff;
 }
-.addressFooter .icon {
+:dir(ltr).addressFooter .icon {
     color: #ffffff !important;
     float: left;
+    font-size: 14px;
+    margin-top: 2px;
+}
+:dir(rtl) .addressFooter .icon {
+    color: #ffffff !important;
+    float: right;
     font-size: 14px;
     margin-top: 2px;
 }
@@ -5395,13 +5421,33 @@ input.checkbox {
     font-size: 25px;
 }
 
-#site-scroll {
+:dir(ltr) #site-scroll {
     color: #fff;
     line-height: 38px;
     cursor: pointer;
     font-size: 20px;
     height: 40px;
     right: 30px;
+    position: fixed;
+    border-radius: 3px;
+    text-align: center;
+    transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -webkit-transition: all 0.3s ease 0s;
+    width: 40px;
+    bottom: 50px;
+    z-index: 444;
+    display: none;
+    background: #000;
+}
+
+:dir(rtl) #site-scroll {
+    color: #fff;
+    line-height: 38px;
+    cursor: pointer;
+    font-size: 20px;
+    height: 40px;
+    left: 30px;
     position: fixed;
     border-radius: 3px;
     text-align: center;

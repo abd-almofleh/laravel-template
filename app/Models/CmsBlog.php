@@ -93,7 +93,8 @@ class CmsBlog extends Model implements HasMedia
    */
   public function getRouteKeyName()
   {
-    switch(app()->getLocale()) {
+    $locale = request()->header('HTTP_ACCEPT_LANGUAGE', request()->session()->get('locale', app()->getLocale()));
+    switch($locale) {
       case 'en':
         return 'slug_en';
         break;

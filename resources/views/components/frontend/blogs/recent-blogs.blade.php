@@ -3,7 +3,7 @@
 @endphp
 <div class="sidebar_widget">
   <div class="widget-title">
-    <h2>Recent Blogs</h2>
+    <h2>{{ __('frontend/default.general.recent_blogs') }}</h2>
   </div>
   <div class="widget-content">
     <div class="list list-sidebar-products">

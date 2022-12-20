@@ -433,6 +433,7 @@
         @endif
       },
       error: function(file, response) {
+        console.log(response)
         if ($.type(response) === 'string') {
           var message = response //dropzone sends it's own error messages in string
         } else {

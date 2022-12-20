@@ -4,13 +4,13 @@
       {{-- Previous Page Link --}}
       @if ($paginator->onFirstPage())
         <li class="disabled" aria-disabled="true" aria-label="{{ __('pagination.previous') }}"><a href="#">
-            <i class="fa fa-caret-left" aria-hidden="true"></i>
+            <i class="fa fa-caret-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}" aria-hidden="true"></i>
           </a>
         </li>
       @else
         <li>
           <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="{{ __('pagination.previous') }}">
-            <i class="fa fa-caret-left" aria-hidden="true"></i>
+            <i class="fa fa-caret-{{ app()->getLocale() == 'ar' ? 'right' : 'left' }}" aria-hidden="true"></i>
           </a>
         </li>
       @endif
@@ -42,12 +42,12 @@
       @if ($paginator->hasMorePages())
         <li>
           <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">
-            <i class="fa fa-caret-right" aria-hidden="true"></i>
+            <i class="fa fa-caret-{{ app()->getLocale() == 'ar' ? 'left' : 'right' }}" aria-hidden="true"></i>
           </a>
         </li>
       @else
         <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
-          <i class="fa fa-caret-right" aria-hidden="true"></i>
+          <i class="fa fa-caret-{{ app()->getLocale() == 'ar' ? 'left' : 'right' }}" aria-hidden="true"></i>
         </li>
       @endif
     </ul>

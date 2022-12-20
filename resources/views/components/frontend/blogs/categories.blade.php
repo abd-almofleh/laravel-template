@@ -3,7 +3,7 @@
 @endphp
 <div class="sidebar_widget categories">
   <div class="widget-title">
-    <h2>Categories</h2>
+    <h2>{{ __('frontend/default.general.categories') }}</h2>
   </div>
   <div class="widget-content">
     <ul class="sidebar_categories">

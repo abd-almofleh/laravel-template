@@ -68,7 +68,6 @@ class HorseType extends Model implements HasMedia
   public function getPhotoAttribute(): ?object
   {
     $file = $this->getMedia('photos')->first();
-    error_log('ok');
     if ($file) {
       $file->url = $file->getUrl();
       $file->fullUrl = $file->getFullUrl();
@@ -115,7 +114,7 @@ class HorseType extends Model implements HasMedia
    *
    * @return string A string
    */
-  public function buildUrl(array $query): string
+  public function buildUrl(array $query = []): string
   {
     $query['type'] = $this->id;
     return route('listed_horses.list', $query);

@@ -2,8 +2,8 @@
   <form onsubmit="handelQuerySubmit(event)" class="input-group search-header search" role="search"
         style="position: relative;">
     <input class="search-header__input search__input input-group__field" value="{{ request()->query('query') }}"
-           type="search" id="search-listed-horses" name="query" placeholder="Search" aria-label="Search"
-           autocomplete="off">
+           type="search" id="search-listed-horses" name="query" placeholder="{{ __('frontend/default.form.search') }}"
+           aria-label="Search" autocomplete="off">
     <span class="input-group__btn">
       <button class="btnSearch" type="submit">
         <i class="icon fa-solid fa-magnifying-glass"></i>
