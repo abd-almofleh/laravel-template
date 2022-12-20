@@ -5,11 +5,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>
-    @yield('title')
     @sectionMissing('title')
-      {{ __('frontend/default.general.title') }}
+      {{ config('app.name') }}
+    @else
+      @yield('title') | {{ config('app.name') }}
     @endif
-    | {{ config('app.name') }}
+
   </title>
   <meta name="description" content="description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
