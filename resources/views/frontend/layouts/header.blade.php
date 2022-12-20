@@ -52,6 +52,11 @@
                 {{ __('frontend/default.general.register') }}
               </a>
             </li>
+            <li>
+              <a href="{{ route('setlocale', ['locale' => app()->getLocale() == 'en' ? 'ar' : 'en']) }}">
+                {{ __('frontend/default.general.language') }}
+              </a>
+            </li>
           </ul>
         @else
           <div class="nav-item me-3 me-lg-0 dropdown profile-dropdown-container">

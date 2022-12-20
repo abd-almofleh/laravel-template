@@ -5,7 +5,7 @@
   <div class="home-default">
     <!--Home slider-->
     <div class="slideshow slideshow-wrapper pb-section">
-      <div class="home-slideshow">
+      <div class="home-slideshow" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
         <div class="slide">
           <div class="blur-up lazyload">
             <img class="blur-up lazyload" data-src="{{ asset('images/slideshow-banners/home2-default-banner1.jpg') }}"
@@ -80,7 +80,7 @@
     <div class="section">
       <div class="hero hero--large hero__overlay bg-size">
         <img class="bg-img" src="{{ asset('images/parallax-banner.jpg') }}" alt="" />
-        <div class="hero__inner">
+        <div class="hero__inner" dir="ltr">
           <div class="container">
             <div class="wrap-text left text-small font-bold">
               <h2 class="h2 mega-title">{{ config('app.name') }} <br>
