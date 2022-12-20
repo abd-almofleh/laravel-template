@@ -20,9 +20,7 @@
             <i class="anm anm-bars-r"></i>
           </button>
         </div>
-        <!--Desktop Menu-->
         <nav class="grid__item" id="AccessibleNav">
-          <!-- for mobile -->
           <ul id="siteNav" class="site-nav medium center hidearrow">
             <li><a href="{{ route('home') }}">{{ __('frontend/navigation.home') }}</a></li>
             <li><a href="{{ route('listed_horses.list') }}">{{ __('frontend/navigation.horses') }}</a></li>
@@ -31,12 +29,11 @@
             <li><a href="#">{{ __('frontend/navigation.contact_us') }}</a></li> --}}
           </ul>
         </nav>
-        <!--End Desktop Menu-->
       </div>
-      <div class="col-6 col-sm-6 col-md-6 col-lg-3 d-block d-lg-none mobile-logo">
-        <div class="logo">
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 d-block d-lg-none mobile-logo py-0">
+        <div class="logo py-0">
           <a href="{{ route('home') }}">
-            <img src="{{ asset('images/logo.png') }}" />
+            <img width="70" src="{{ asset('images/logo.png') }}" />
           </a>
         </div>
       </div>
@@ -45,8 +42,15 @@
         @guest('customer_frontend')
           <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
           <ul class="customer-links list-inline text-center">
-            <li><a href="{{ route('customer.auth.login') }}">{{ __('frontend/default.general.login') }}</a></li>
-            <li><a href="{{ route('customer.auth.signup.form') }}">{{ __('frontend/default.general.register') }}</a>
+            <li>
+              <a href="{{ route('customer.auth.login') }}">
+                {{ __('frontend/default.general.login') }}
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('customer.auth.signup.form') }}">
+                {{ __('frontend/default.general.register') }}
+              </a>
             </li>
           </ul>
         @else

@@ -9,7 +9,7 @@
         <div class="slide">
           <div class="blur-up lazyload">
             <img class="blur-up lazyload" data-src="{{ asset('images/slideshow-banners/home2-default-banner1.jpg') }}"
-                 src="{{ asset('pimages/slideshow-banners/home2-default-banner1.jpg') }}" alt="Shop Our New Collection"
+                 src="{{ asset('images/slideshow-banners/home2-default-banner1.jpg') }}" alt="Shop Our New Collection"
                  title="Shop Our New Collection" />
             <div class="slideshow__text-wrap slideshow__overlay classic middle">
               <div class="slideshow__text-content middle">
@@ -123,6 +123,7 @@
         </div>
       </div>
     </div>
+    <hr style="border-bottom: 2px solid #ffbe5c;" />
 
     <div class="product-rows section">
       <div class="container">

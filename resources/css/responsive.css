@@ -132,7 +132,6 @@
         top: 5px;
     }
     .variants.add {
-        bottom: 0px;
         margin-top: 10px;
         position: absolute;
         left: 0;
@@ -141,7 +140,6 @@
     .variants.add .btn {
         padding: 5px 12px;
         font-size: 10px;
-        background-color: #f7f7f7;
     }
 
     .saleTime.desktop {
