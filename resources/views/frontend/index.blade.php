@@ -2,21 +2,56 @@
 
 
 @section('content')
-  <div class="home-parallax">
-
-    <div class="slideshow slideshow-wrapper">
+  <div class="home-default">
+    <!--Home slider-->
+    <div class="slideshow slideshow-wrapper pb-section">
       <div class="home-slideshow">
         <div class="slide">
           <div class="blur-up lazyload">
-            <img class="blur-up lazyload" data-src="{{ asset('images/parallax/banner.jpg') }}"
-                 src="assets/images/slideshow-banners/home9-banner1.jpg" alt="Gift For her" title="Gift For her" />
-            <div class="slideshow__text-wrap slideshow__overlay classic bottom">
-              <div class="slideshow__text-content left">
+            <img class="blur-up lazyload" data-src="{{ asset('images/slideshow-banners/home2-default-banner1.jpg') }}"
+                 src="{{ asset('pimages/slideshow-banners/home2-default-banner1.jpg') }}" alt="Shop Our New Collection"
+                 title="Shop Our New Collection" />
+            <div class="slideshow__text-wrap slideshow__overlay classic middle">
+              <div class="slideshow__text-content middle">
                 <div class="container">
-                  <div class="wrap-caption left">
-                    <h2 class="h1 mega-title slideshow__title">Gift For her</h2>
-                    <span class="mega-subtitle slideshow__subtitle">The latest collection from italian brands</span>
-                    <span class="btn">Shop now</span>
+                  <div class="wrap-caption right" style="max-width: min-content;">
+                    <h2 class="h1 mega-title slideshow__title">{{ __('frontend/default.general.download_our_app') }}</h2>
+                    <div class="mega-subtitle slideshow__subtitle">
+                      {{ __('frontend/default.general.available_on') }}
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <a class="mx-1" href="https://play.google.com/store/apps/details?id=com.drm.aladham"
+                         target="blank">
+                        <img class="w-100" src="{{ asset('images/google-play-en.png') }}" alt="">
+                      </a>
+                      <a class="mx-1" href="https://apps.apple.com/us/app/al-adham/id6444677808" target="blank">
+                        <img class="w-100" src="{{ asset('images/app-store-en.png') }}" alt="">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="blur-up lazyload">
+            <img class="blur-up lazyload" data-src="{{ asset('images/slideshow-banners/home2-default-banner2.jpg') }}"
+                 src="{{ asset('images/slideshow-banners/home2-default-banner2.jpg') }}" alt="Summer Bikini Collection"
+                 title="Summer Bikini Collection" />
+            <div class="slideshow__text-wrap slideshow__overlay classic middle">
+              <div class="slideshow__text-content middle">
+                <div class="container">
+                  <div class="wrap-caption center">
+                    <h2 class="h1 mega-title slideshow__title" style="color: white;">
+                      {{ __('frontend/default.pages_titles.browse_horses') }}
+                    </h2>
+                    <span class="mega-subtitle slideshow__subtitle" style="color: white;">
+                      {{ __('frontend/default.general.best_horses') }}
+                    </span>
+                    <a href="{{ route('listed_horses.list') }}">
+                      <span class="btn">{{ __('frontend/default.general.browse_now') }}</span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -25,53 +60,92 @@
         </div>
       </div>
     </div>
-    <!--End Home slider-->
-
-    <!--Hero Parallax Section1-->
     <div class="section">
-      <div class="hero hero--large hero__overlay bg-size">
-        <img class="bg-img blur-up" src="{{ asset('images/parallax/parallax-banner1.jpg') }}" alt="" />
-        <div class="hero__inner">
-          <div class="container">
-            <div class="wrap-text right text-medium font-bold">
-              <h2 class="h2 mega-title">Kids Collection</h2>
-              <div class="rte-setting mega-subtitle">Plenty of options for your kids. Be the first to buy</div>
-              <a href="#" class="btn">Shop Kids</a>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="section-header text-center">
+              <h2 class="h2">{{ __('frontend/default.general.browse_by_type') }}</h2>
+              <p>{{ __('frontend/default.general.best_horses_in_types') }}</p>
+            </div>
+            <div class="productSlider grid-products">
+              @foreach ($types as $type)
+                <x-frontend.home.type-item :type="$type" />
+              @endforeach
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="section">
       <div class="hero hero--large hero__overlay bg-size">
-        <img class="bg-img" src="{{ asset('images/parallax/parallax-banner2.jpg') }}" alt="" />
+        <img class="bg-img" src="{{ asset('images/parallax-banner.jpg') }}" alt="" />
         <div class="hero__inner">
           <div class="container">
-            <div class="wrap-text left text-large font-bold">
-              <h2 class="h2 mega-title">The mid season SALE.<br>UP TO 50% OFF</h2>
-              <div class="rte-setting mega-subtitle">Live life Comfortable.<br>This flip flops switch, flip &amp; reverse
-                to
-                make up to 246 combos!<p><b>FREE SHIPPING on all orders over $199</b></p>
+            <div class="wrap-text left text-small font-bold">
+              <h2 class="h2 mega-title">{{ config('app.name') }} <br>
+                {{ __('frontend/default.general.who_are_we_title') }}
+              </h2>
+              <div class="rte-setting mega-subtitle">
+                {{ __('frontend/default.general.who_are_we') }}
               </div>
-              <a href="#" class="btn">Shop Now</a>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="section">
-      <div class="hero hero--large hero__overlay bg-size">
-        <img class="bg-img" src="{{ asset('images/parallax/parallax-banner3.jpg') }}" alt="" />
-        <div class="hero__inner">
-          <div class="container">
-            <div class="wrap-text center text-medium font-bold">
-              <h2 class="h2 mega-title">Women Wallets</h2>
-              <div class="rte-setting mega-subtitle">Carry this stylist wallets for party</div>
-              <a href="#" class="btn">Explore more</a>
+    <div class="product-rows section">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="section-header text-center">
+              <h2 class="h2">{{ __('listedHorses.index.title') }}</h2>
+              <p>{{ __('frontend/default.general.best_horses') }}</p>
             </div>
           </div>
+        </div>
+        <div class="grid-products grid--view-items">
+          <div class="row">
+            @foreach ($listedHorses as $listedHorse)
+              <div class="col-6 col-sm-2 col-md-4 col-lg-4 item">
+                <x-frontend.listed-horses.listed-horse-item :horse="$listedHorse" />
+              </div>
+            @endforeach
+
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+              <a href="{{ route('listed_horses.list') }}"
+                 class="btn">{{ __('frontend/default.general.view_all') }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-rows section">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="section-header text-center">
+              <h2 class="h2">{{ __('frontend/default.general.recent_blogs') }}</h2>
+              <p>{{ __('frontend/default.general.blogs_about_horses') }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="blog--list-view">
+          <div class="row">
+            @foreach ($blogs as $blog)
+              <x-frontend.blogs.grid-item :blog="$blog" class="col-12 col-sm-12 col-md-4 col-lg-4" />
+            @endforeach
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+              <a href="{{ route('blogs.list') }}" class="btn">{{ __('frontend/default.general.view_all') }}</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

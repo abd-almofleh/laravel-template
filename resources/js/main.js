@@ -232,4 +232,61 @@
 		});
 	}
 	product_zoom();
+
+  function home_slider(){
+    $('.home-slideshow').slick({
+     dots: false,
+     infinite: true,
+     slidesToShow: 1,
+     slidesToScroll: 1,
+     fade: true,
+     arrows: true,
+     autoplay: true,
+     autoplaySpeed: 4000,
+     lazyLoad: 'ondemand'
+     });
+   }
+   home_slider();
+
+ // Full Size Banner on the Any Screen
+ $(window).on('resize',function() {
+   var bodyheight = $(this).height() - 20;
+   $(".sliderFull .bg-size").height(bodyheight);
+ })
+
+ function product_slider(){
+  $('.productSlider').slick({
+   dots: false,
+   infinite: true,
+   slidesToShow: 4,
+   slidesToScroll: 1,
+   arrows: true,
+   responsive: [
+   {
+     breakpoint: 1024,
+     settings: {
+     slidesToShow: 3,
+     slidesToScroll: 1
+     }
+   },
+   {
+     breakpoint: 600,
+     settings: {
+     slidesToShow: 2,
+     slidesToScroll: 1
+     }
+   },
+   {
+     breakpoint: 480,
+     settings: {
+     slidesToShow: 1,
+     slidesToScroll: 1
+     }
+   }
+   ]
+
+   });
+ }
+ product_slider();
+
 })($);

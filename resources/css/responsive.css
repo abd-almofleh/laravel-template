@@ -2,10 +2,10 @@
     .slideshow .slideshow__title {
         font-size: 55px;
     }
-    .home2-default .slideshow .slideshow__title {
+    .home-default .slideshow .slideshow__title {
         font-size: 50px;
     }
-    .home2-default .slideshow .slideshow__subtitle {
+    .home-default .slideshow .slideshow__subtitle {
         font-size: 22px;
     }
     .slideshow__text-content.bottom {
@@ -42,10 +42,10 @@
         margin-left: 0;
     }
 
-    .home2-default .slideshow .slideshow__title {
+    .home-default .slideshow .slideshow__title {
         font-size: 40px;
     }
-    .home2-default .slideshow .slideshow__subtitle {
+    .home-default .slideshow .slideshow__subtitle {
         font-size: 18px;
     }
 
@@ -448,7 +448,7 @@
     .slideshow__text-content.bottom {
         bottom: 1%;
     }
-    .home2-default .slideshow .slideshow__title {
+    .home-default .slideshow .slideshow__title {
         font-size: 35px;
     }
 
@@ -704,17 +704,17 @@
     .slideshow .slideshow__subtitle {
         font-size: 14px;
     }
-    .home2-default .home-slideshow {
+    .home-default .home-slideshow {
         padding-top: 0;
     }
-    .home2-default .slideshow .slideshow__title {
+    .home-default .slideshow .slideshow__title {
         font-size: 26px;
     }
-    .home2-default .slideshow .slideshow__text-content.middle {
+    .home-default .slideshow .slideshow__text-content.middle {
         top: 25%;
     }
-    .home2-default .slideshow .slick-prev,
-    .home2-default .slideshow .slick-next {
+    .home-default .slideshow .slick-prev,
+    .home-default .slideshow .slick-next {
         top: 50%;
     }
     .slideshow__text-content.bottom {
@@ -790,8 +790,8 @@
 
     h2,
     .h2,
-    .home2-default .section-header h2,
-    .home2-default .section-header .h2 {
+    .home-default .section-header h2,
+    .home-default .section-header .h2 {
         font-size: 18px;
     }
 
@@ -976,7 +976,7 @@
         border-bottom-color: #4da4a4;
     }
 
-    .home2-default .footer-links .h4 {
+    .home-default .footer-links .h4 {
         border-color: #e8e8e8;
     }
 
@@ -1525,7 +1525,7 @@
         clear: left;
     }
 
-    .home2-default .slideshow .slideshow__title {
+    .home-default .slideshow .slideshow__title {
         font-size: 18px;
     }
 

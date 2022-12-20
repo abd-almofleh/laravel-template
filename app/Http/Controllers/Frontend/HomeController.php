@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\CmsBlog;
+use App\Models\HorseType;
+use App\Models\ListedHorse;
 
 class HomeController extends Controller
 {
@@ -13,6 +16,10 @@ class HomeController extends Controller
 
   public function index()
   {
-    return view('frontend.index');
+    $types = HorseType::all();
+    $listedHorses = ListedHorse::latest()->limit(6)->get();
+    $blogs = CmsBlog::latest()->limit(3)->get();
+
+    return view('frontend.index', compact('types', 'listedHorses', 'blogs'));
   }
 }

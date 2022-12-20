@@ -1,4 +1,4 @@
-<div class="col-12 col-sm-12 col-md-6 col-lg-6 item">
+<div>
   <div class="product-image">
     <a href="{{ $horse->pageUrl }}" style="max-height: 300px" class="d-flex align-items-center">
       <img class="{{ count($horse->photos) > 1 ? 'primary' : '' }} blur-up lazyload h-100" style="vertical-align: center;"
