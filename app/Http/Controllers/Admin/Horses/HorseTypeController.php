@@ -11,8 +11,8 @@ use Illuminate\Http\Request;
 use DataTables;
 use Exception;
 use Toastr;
-use App\http\Requests\Admin\Horses\Types\UpdateHorseTypeStatusRequest;
-use App\http\Requests\Admin\Horses\Types\UpdateHorseTypeRequest;
+use App\Http\Requests\Admin\Horses\Types\UpdateHorseTypeStatusRequest;
+use App\Http\Requests\Admin\Horses\Types\UpdateHorseTypeRequest;
 
 class HorseTypeController extends Controller
 {
