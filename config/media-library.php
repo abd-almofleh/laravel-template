@@ -12,7 +12,7 @@ return [
      * The maximum file size of an item in bytes.
      * Adding a larger file will result in an exception.
      */
-  'max_file_size' => 1024 * 1024 * 10, // 10MB
+  'max_file_size' => 1024 * 1024 * 128, // 10MB
 
   /*
      * This queue will be used to generate derived and responsive images.
@@ -140,7 +140,7 @@ return [
      * thumbnails and have installed the php-ffmpeg/php-ffmpeg composer
      * dependency.
      */
-  'ffmpeg_path' => env('FFMPEG_PATH', '/usr/bin/ffmpeg'),
+  'ffmpeg_path'  => env('FFMPEG_PATH', '/usr/bin/ffmpeg'),
   'ffprobe_path' => env('FFPROBE_PATH', '/usr/bin/ffprobe'),
 
   /*
@@ -148,7 +148,7 @@ return [
      * your custom jobs extend the ones provided by the package.
      */
   'jobs' => [
-    'perform_conversions' => Spatie\MediaLibrary\Conversions\Jobs\PerformConversionsJob::class,
+    'perform_conversions'        => Spatie\MediaLibrary\Conversions\Jobs\PerformConversionsJob::class,
     'generate_responsive_images' => Spatie\MediaLibrary\ResponsiveImages\Jobs\GenerateResponsiveImagesJob::class,
   ],
 
