@@ -1,5 +1,5 @@
 <div class="card rounded">
-  <div class="product-image card-img">
+  <div class="product-image card-img-top">
     <a href="{{ $horse->pageUrl }}" style="max-height: 300px" class="d-flex align-items-center">
       <img class="{{ count($horse->photos) > 1 ? 'primary' : '' }} blur-up lazyload h-100" style="vertical-align: center;"
            data-src="{{ $horse->photos[0]->fullUrl }}" src="{{ $horse->photos[0]->fullUrl }}" alt="image"

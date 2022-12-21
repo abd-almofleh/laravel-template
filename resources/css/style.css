@@ -4350,7 +4350,6 @@ table {
 }
 .article_featured-image img {
     margin-bottom: 20px;
-    border-radius: var(--app-border-radius);
 }
 .publish-detail {
     margin: 0 0 10px 0;
