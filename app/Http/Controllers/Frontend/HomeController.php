@@ -22,4 +22,9 @@ class HomeController extends Controller
 
     return view('frontend.index', compact('types', 'listedHorses', 'blogs'));
   }
+
+  public function aboutUs()
+  {
+    return view('frontend.about-us');
+  }
 }

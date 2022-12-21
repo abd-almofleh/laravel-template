@@ -25,8 +25,8 @@
             <li><a href="{{ route('home') }}">{{ __('frontend/navigation.home') }}</a></li>
             <li><a href="{{ route('listed_horses.list') }}">{{ __('frontend/navigation.horses') }}</a></li>
             <li><a href="{{ route('blogs.list') }}">{{ __('frontend/navigation.blogs') }}</a></li>
-            {{-- <li><a href="#">{{ __('frontend/navigation.about_us') }}</a></li>
-            <li><a href="#">{{ __('frontend/navigation.contact_us') }}</a></li> --}}
+            <li><a href="{{ route('about_us') }}">{{ __('frontend/navigation.about_us') }}</a></li>
+            {{-- <li><a href="#">{{ __('frontend/navigation.contact_us') }}</a></li> --}}
           </ul>
         </nav>
       </div>
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="col-4 col-sm-3 col-md-3 col-lg-2 text-right">
+      <div class="col-4 col-sm-3 col-md-3 col-lg-2 {{ app()->getLocale() == 'ar' ? 'text-left' : 'text-right' }}">
         @guest('customer_frontend')
           <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
           <ul class="customer-links list-inline text-center">

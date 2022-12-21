@@ -120,6 +120,7 @@ Route::group(['middleware' => 'language'], function () {
   /* -------------------------------------------------------------------------- */
   Route::middleware([CheckValidatePhoneNumberUsingOTP::class])->group(function () {
     Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
+    Route::get('about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about_us');
 
     // * Customer Routes
     Route::prefix('customer')->name('customer.')->group(function () {

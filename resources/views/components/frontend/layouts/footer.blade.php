@@ -71,15 +71,16 @@
               @endforeach
             </ul>
           </div>
-          {{-- <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
+          <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
             <h4 class="h4">{{ __('frontend/navigation.footer_list.information') }}</h4>
             <ul>
-              <li><a href="#">{{ __('frontend/navigation.about_us') }}</a></li>
-              <li><a href="#">{{ __('frontend/navigation.contact_us') }}</a></li>
-              <li><a href="#">{{ __('frontend/navigation.privacy_policy') }}</a></li>
-              <li><a href="#">{{ __('frontend/navigation.terms_condition') }}</a></li>
+              <li><a href="{{ route('home') }}">{{ __('frontend/navigation.home') }}</a></li>
+              <li><a href="{{ route('about_us') }}">{{ __('frontend/navigation.about_us') }}</a></li>
+              {{-- <li><a href="#">{{ __('frontend/navigation.contact_us') }}</a></li> --}}
+              {{-- <li><a href="#">{{ __('frontend/navigation.privacy_policy') }}</a></li> --}}
+              {{-- <li><a href="#">{{ __('frontend/navigation.terms_condition') }}</a></li> --}}
             </ul>
-          </div> --}}
+          </div>
           <div class="col-12 col-sm-12 col-md-3 col-lg-3 contact-box ms-auto">
             <h4 class="h4">{{ __('frontend/navigation.footer_list.contact_us') }}</h4>
             <ul class="addressFooter">

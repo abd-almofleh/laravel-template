@@ -7,7 +7,6 @@
            src="{{ $type->photo->fullUrl }}" alt="image" title="product">
     </a>
     <div class="product-details card-body text-center">
-      <!-- product name -->
       <div class="product-name">
         <a href="{{ $type->buildUrl() }}">{{ $type->name }}</a>
       </div>

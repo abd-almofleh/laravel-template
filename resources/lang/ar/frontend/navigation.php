@@ -5,7 +5,7 @@ return [
   'home'             => 'الصفحة الرئيسية',
   'horses'           => 'الأحصنة المعروضة',
   'blogs'            => 'المقالات',
-  'about_us'         => 'عنا',
+  'about_us'         => 'من نحن',
   'contact_us'       => 'تواصل معنا',
   'privacy_policy'   => 'سياسة الخصوصية',
   'terms_condition'  => 'بنود الاستخدام',

@@ -108,7 +108,7 @@
         <div class="grid-products grid--view-items">
           <div class="row">
             @foreach ($listedHorses as $listedHorse)
-              <div class="col-6 col-sm-2 col-md-4 col-lg-4 item">
+              <div class="col-6 col-md-4 col-lg-4 item">
                 <x-frontend.listed-horses.listed-horse-item :horse="$listedHorse" />
               </div>
             @endforeach

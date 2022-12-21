@@ -78,6 +78,7 @@ return [
     'who_are_we'               => 'Al-Adham will run you at the speed of the wind, starting from the starting line and crossing all the stations, so that you can choose the distinguished and unique horse, and get appropriate training for him to participate in endurance and endurance races, and a brave knight who leads him to the finish line crowned with victories.',
     'view_all'                 => 'View all',
     'blogs_about_horses'       => 'All about horses',
+    'close_menu'               => 'Close Menu',
 
     'unauthorized_redirected'   => 'You are not authorized to access this route, redirecting to home',
   ],
@@ -100,6 +101,7 @@ return [
     'forget_password'         => 'Reset Your Password',
     'signup'                  => 'Signup',
     'browse_horses'           => 'Browse Our Listed horses collection',
+    'about_us'                => 'About Us',
     'blogs'                   => [
       'list' => 'Blogs',
       'show' => 'Blog Article',
