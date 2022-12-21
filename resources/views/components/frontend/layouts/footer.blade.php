@@ -76,7 +76,7 @@
             <ul>
               <li><a href="{{ route('home') }}">{{ __('frontend/navigation.home') }}</a></li>
               <li><a href="{{ route('about_us') }}">{{ __('frontend/navigation.about_us') }}</a></li>
-              {{-- <li><a href="#">{{ __('frontend/navigation.contact_us') }}</a></li> --}}
+              <li><a href="{{ route('contact_us') }}">{{ __('frontend/navigation.contact_us') }}</a></li>
               {{-- <li><a href="#">{{ __('frontend/navigation.privacy_policy') }}</a></li> --}}
               {{-- <li><a href="#">{{ __('frontend/navigation.terms_condition') }}</a></li> --}}
             </ul>

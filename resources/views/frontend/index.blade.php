@@ -146,7 +146,6 @@
               <a href="{{ route('blogs.list') }}" class="btn">{{ __('frontend/default.general.view_all') }}</a>
             </div>
           </div>
-
         </div>
       </div>
     </div>
