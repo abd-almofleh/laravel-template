@@ -7,7 +7,7 @@
   </div>
   <div class="widget-content">
     <ul class="sidebar_categories">
-      <li class="lvl-1 @if (request()->get('type') === null) active @endif"><a href="{{ route('blogs.list') }}"
+      <li class="lvl-1 @if (request()->get('type') === null) active @endif"><a href="{{ route('listed_horses.list') }}"
            class="site-nav lvl-1">{{ __('frontend/default.general.all') }}</a></li>
       @foreach ($types as $type)
         <li class="lvl-1 @if ($type->id == request()->get('type')) active @endif"><a

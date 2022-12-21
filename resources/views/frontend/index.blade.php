@@ -68,7 +68,7 @@
               <h2 class="h2">{{ __('frontend/default.general.browse_by_type') }}</h2>
               <p>{{ __('frontend/default.general.best_horses_in_types') }}</p>
             </div>
-            <div class="productSlider grid-products">
+            <div class="productSlider grid-products p-5">
               @foreach ($types as $type)
                 <x-frontend.home.type-item :type="$type" />
               @endforeach
