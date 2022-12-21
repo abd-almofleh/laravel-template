@@ -29,7 +29,7 @@ class StoreListedHorseRequest extends FormRequest
       'sex'              => 'required|boolean',
       'type_id'          => 'required|exists:horse_types,id',
       'race'             => 'required|string',
-      'birth_year'       => 'required|numeric',
+      'birth_year'       => 'required|numeric|min:2000',
       'passport_type_id' => 'required|exists:horse_passports,id',
       'height'           => 'required|numeric',
       'color'            => 'required|string',
