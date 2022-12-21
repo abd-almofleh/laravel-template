@@ -28,7 +28,7 @@ class SignupRequest extends FormRequest
       'name'         => 'required|string',
       'password'     => 'required|min:6|confirmed',
       'email'        => ['required', 'string', 'email', Rule::unique('customers', 'email')->where('deleted_at', null)],
-      'phone_number' => 'required|string',
+      'phone_number' => 'required|string|regex:/^(9715)\d{8}$/i',
       'birth_date'   => 'required|date_format:Y-m-d|date',
     ];
   }

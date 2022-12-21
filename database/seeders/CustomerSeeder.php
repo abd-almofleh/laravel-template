@@ -16,7 +16,7 @@ class CustomerSeeder extends Seeder
       'name'           => 'Abdullah Almofleh (customer)',
       'password'       => 'password',
       'email'          => 'customer@temp.com',
-      'phone_number'   => '9876536748',
+      'phone_number'   => '971505108253',
       'is_otp_enabled' => false,
     ]);
     $customer->assignRole('customer');

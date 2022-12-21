@@ -24,7 +24,7 @@ class UpdatePhoneNumberRequest extends FormRequest
   public function rules()
   {
     return [
-      'phone_number' => 'required|string',
+      'phone_number' => 'required|string|regex:/^(9715)\d{8}$/i',
     ];
   }
 }

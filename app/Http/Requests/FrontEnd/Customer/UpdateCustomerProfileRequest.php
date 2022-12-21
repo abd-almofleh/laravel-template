@@ -29,7 +29,7 @@ class UpdateCustomerProfileRequest extends FormRequest
       'name'         => 'nullable|string',
       'password'     => 'nullable|min:6',
       'email'        => ['nullable', 'string', 'email', Rule::unique('customers', 'email')->ignore(Auth::user()->id)],
-      'phone_number' => 'nullable|string',
+      'phone_number' => 'nullable|string|regex:/^(9715)\d{8}$/i',
       'birth_date'   => 'required|date_format:Y-m-d|date',
     ];
   }

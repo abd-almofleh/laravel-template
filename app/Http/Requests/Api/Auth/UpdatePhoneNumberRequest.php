@@ -25,7 +25,7 @@ class UpdatePhoneNumberRequest extends FormRequest
   {
     return [
       'email'        => 'required|string|email',
-      'phone_number' => 'required|string',
+      'phone_number' => 'required|string|regex:/^(9715)\d{8}$/i',
     ];
   }
 }
