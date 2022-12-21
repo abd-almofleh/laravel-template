@@ -1,5 +1,5 @@
-<div>
-  <div class="product-image">
+<div class="card rounded">
+  <div class="product-image card-img">
     <a href="{{ $horse->pageUrl }}" style="max-height: 300px" class="d-flex align-items-center">
       <img class="{{ count($horse->photos) > 1 ? 'primary' : '' }} blur-up lazyload h-100" style="vertical-align: center;"
            data-src="{{ $horse->photos[0]->fullUrl }}" src="{{ $horse->photos[0]->fullUrl }}" alt="image"
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="product-details text-center">
+  <div class="product-details card-body text-center">
     <div class="product-name">
       <a href="{{ $horse->pageUrl }}">{{ $horse->name }}</a>
     </div>
