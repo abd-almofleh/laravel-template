@@ -58,11 +58,6 @@
         @yield('content')
         @sectionMissing('content')
           No content
-          @for ($i = 0; $i < 100; $i++)
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere reprehenderit a sapiente obcaecati eaque
-            cumque fuga eum aliquid nulla? Commodi saepe voluptate culpa vitae possimus porro delectus dolores minus
-            eligendi.
-          @endfor
         @endif
       </main>
     </div>
