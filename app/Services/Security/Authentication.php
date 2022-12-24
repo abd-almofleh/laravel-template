@@ -331,17 +331,19 @@ class Authentication
    *
    * @param Customer customer The customer object
    * @param string phoneNumber The phone number to be updated.
+   * @param bool force if true change the phone number even if its a verified account
    *
    * @return string The phone number of the customer used to send the otp to.
    */
-  public function updatePhoneNumber(Customer $customer, string $phoneNumber): string
+  public function updatePhoneNumber(Customer $customer, string $phoneNumber, bool $force = false): string
   {
-    if ($customer->phone_verified_at != null) {
+    if (!$force && $customer->phone_verified_at != null) {
       throw new PhoneAlreadyVerifiedException();
     }
 
     $customer->update([
-      'phone_number' => $phoneNumber,
+      'phone_number'      => $phoneNumber,
+      'phone_verified_at' => null,
     ]);
     return $this->sendOTP($customer, OtpTypesEnum::PhoneNumber, true);
   }

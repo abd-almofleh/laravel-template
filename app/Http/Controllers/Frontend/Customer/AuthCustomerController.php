@@ -11,7 +11,7 @@ use App\Http\Requests\FrontEnd\Customer\LoginRequest;
 use App\Http\Requests\Frontend\Customer\ResetPasswordRequest;
 use App\Http\Requests\FrontEnd\Customer\SignupRequest;
 use App\Http\Requests\Frontend\Customer\UpdatePasswordRequest;
-use App\Http\Requests\FrontEnd\Customer\UpdatePhoneNumberRequest;
+use App\Http\Requests\Global\UpdatePhoneNumberRequest;
 use App\Http\Requests\FrontEnd\Customer\ValidateOtpRequest;
 use App\Models\Customer;
 use App\Models\OtpVerificationCode;

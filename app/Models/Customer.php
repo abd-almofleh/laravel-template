@@ -59,7 +59,7 @@ class Customer extends Authenticatable
     return $this->hasMany(ListedHorsesOrder::class, 'customer_id');
   }
 
-  public static function findByEmail(string $email): ModelsCustomer
+  public static function findByEmail(string $email): ?ModelsCustomer
   {
     return Customer::where('email', 'LIKE', $email)->first();
   }
