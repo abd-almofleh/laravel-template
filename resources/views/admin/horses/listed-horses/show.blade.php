@@ -133,26 +133,6 @@
                               {{ $listedHorse->name }}
                             </td>
                           </tr>
-                          @if ($listedHorse->father_name)
-                            <tr>
-                              <th>
-                                {{ __('default.form.father_name') }}
-                              </th>
-                              <td>
-                                {{ $listedHorse->father_name }}
-                              </td>
-                            </tr>
-                          @endif
-                          @if ($listedHorse->mother_name)
-                            <tr>
-                              <th>
-                                {{ __('default.form.mother_name') }}
-                              </th>
-                              <td>
-                                {{ $listedHorse->mother_name }}
-                              </td>
-                            </tr>
-                          @endif
                           <tr>
                             <th>
                               {{ __('default.form.location') }}

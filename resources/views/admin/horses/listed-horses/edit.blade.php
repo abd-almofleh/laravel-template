@@ -228,26 +228,6 @@
                     @enderror
                   </div>
                   <div class="form-group">
-                    <label for="father_name">{{ __('default.form.father_name') }}:</label>
-                    <input type="text" name="father_name" id="father_name"
-                           class="form-control @error('father_name') form-control-error @enderror"
-                           value="{{ old('father_name', $listedHorse->father_name) }}">
-
-                    @error('father_name')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                  </div>
-                  <div class="form-group">
-                    <label for="mother_name">{{ __('default.form.mother_name') }}:</label>
-                    <input type="text" name="mother_name" id="mother_name"
-                           class="form-control @error('mother_name') form-control-error @enderror"
-                           value="{{ old('mother_name', $listedHorse->mother_name) }}">
-
-                    @error('mother_name')
-                      <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                  </div>
-                  <div class="form-group">
                     <label for="description" class="required">{{ __('default.form.description') }}:</label>
                     <textarea name="description" id="description" rows="10"
                               class="form-control @error('description') form-control-error @enderror">{{ old('description', $listedHorse->description) }}</textarea>

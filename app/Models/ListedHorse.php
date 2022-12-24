@@ -33,8 +33,6 @@ class ListedHorse extends Model implements HasMedia
     'location',
     'description',
     'contact_number',
-    'father_name',
-    'mother_name',
     'type_id',
     'passport_type_id',
     'meta_title',

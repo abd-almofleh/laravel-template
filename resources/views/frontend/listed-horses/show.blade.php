@@ -92,27 +92,6 @@
                     <div class="form-group">
                       <table class="table-bordered table-striped table">
                         <tbody>
-
-                          @if ($listedHorse->father_name)
-                            <tr>
-                              <th>
-                                {{ __('default.form.father_name') }}
-                              </th>
-                              <td>
-                                {{ $listedHorse->father_name }}
-                              </td>
-                            </tr>
-                          @endif
-                          @if ($listedHorse->mother_name)
-                            <tr>
-                              <th>
-                                {{ __('default.form.mother_name') }}
-                              </th>
-                              <td>
-                                {{ $listedHorse->mother_name }}
-                              </td>
-                            </tr>
-                          @endif
                           <tr>
                             <th>
                               {{ __('default.form.location') }}
