@@ -5,6 +5,7 @@ namespace App\Services\Security;
 use App\Enums\OtpTypesEnum;
 use App\Exceptions\ExpiredOTPException;
 use App\Exceptions\PhoneAlreadyVerifiedException;
+use App\Exceptions\PhoneNumberNotVerifiedException;
 use App\Exceptions\WrongOTPException;
 use App\Models\Customer;
 use App\Helpers\Random;
@@ -211,14 +212,8 @@ class Authentication
       ], 404));
     }
     if ($customer->is_otp_enabled && !$this->isCustomerPhoneNumberIfValidated($customer)) {
-      $this->sendOTP($customer, OtpTypesEnum::PhoneNumber);
-      abort(response()->json([
-        'status' => 'Unauthorized',
-        'error'  => [
-          'type'    => 'PHONE_NOT_VERIFIED',
-          'message' => 'Otp has been sent to you phone',
-        ],
-      ], 401));
+      $phoneNumber = $this->requestPhoneNumberVerificationOtp($customer);
+      throw new PhoneNumberNotVerifiedException($phoneNumber);
     }
 
     $accessToken = $this->createApiToken($customer);

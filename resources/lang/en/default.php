@@ -233,6 +233,7 @@ return [
     'password_updated'                       => 'Your password has been updated successfully. You can login to you account now.',
   ],
   'errors' => [
+    'phone_number_is_not_verified'     => 'Phone number is not verified. OTP has been sent to your phone',
     'your_otp_has_been_expired'        => 'Your OTP has been expired',
     'phone_number_is_already_verified' => 'Phone Number is already verified',
     'your_otp_is_not_correct'          => 'Your OTP is not correct',

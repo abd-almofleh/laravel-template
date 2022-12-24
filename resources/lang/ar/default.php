@@ -233,6 +233,7 @@ return [
     'password_updated'                       => 'Your password has been updated successfully. You can login to you account now.',
   ],
   'errors' => [
+    'phone_number_is_not_verified'     => 'لم يتم التحقق من رقم الهاتف. تم ارسال رمز التحقق إلى هاتفك',
     'your_otp_has_been_expired'        => 'الـ OTP الخاص بك قد انتهت صلاحيتها',
     'phone_number_is_already_verified' => 'رقم الهاتف المحمول مؤكد بالفعل',
     'your_otp_is_not_correct'          => 'الـ OTP التي ادخلتها غير صحيحة',
