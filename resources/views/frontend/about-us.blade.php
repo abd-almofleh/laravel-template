@@ -17,36 +17,32 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 mb-4">
-        <h2>{{ __('frontend/default.general.who_are_we_title') }}:</h2>
-        <p class="text-large">{{ __('frontend/default.general.who_are_we') }}</p>
+      <div class="card col-12 mb-4 rounded bg-white p-4">
+        <h2 class="card-title">{{ __('frontend/default.general.who_are_we_title') }}:</h2>
+        <hr style="border: 1px solid rgb(59, 59, 59)" />
+        <p class="card-body text-large">{{ __('frontend/default.general.who_are_we') }}</p>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-12 mb-4">
-        <h2 class="h2">{{ __('frontend/aboutUs.message.title') }}</h2>
-        <div class="rte-setting">
-          <p>
-            {{ __('frontend/aboutUs.message.body') }}
-          </p>
-        </div>
+      <div class="card col-12 mb-4 rounded bg-white p-4">
+        <h2 class="card-title">{{ __('frontend/aboutUs.message.title') }}</h2>
+        <hr style="border: 1px solid rgb(59, 59, 59)" />
+        <p class="card-body text-large"> {{ __('frontend/aboutUs.message.body') }}</p>
       </div>
     </div>
     <div class="row">
-      <div class="col-12 mb-4">
-        <h2 class="h2">{{ __('frontend/aboutUs.vision.title') }}:</h2>
-        <div class="rte-setting">
-          <p>
-            {{ __('frontend/aboutUs.vision.body') }}
-          </p>
-        </div>
+      <div class="card col-12 mb-4 rounded bg-white p-4">
+        <h2 class="card-title">{{ __('frontend/aboutUs.vision.title') }}:</h2>
+        <hr style="border: 1px solid rgb(59, 59, 59)" />
+        <p class="card-body text-large"> {{ __('frontend/aboutUs.vision.body') }} </p>
       </div>
     </div>
     <div class="row">
-      <div class="col-12 mb-4">
-        <h2 class="h2">{{ __('frontend/aboutUs.race.title') }}: </h2>
-        <ul class="rte-setting">
+      <div class="card col-12 mb-4 rounded bg-white p-4">
+        <h2 class="card-title">{{ __('frontend/aboutUs.race.title') }}: </h2>
+        <hr style="border: 1px solid rgb(59, 59, 59)" />
+        <ul class="card-body text-large">
           <li>{{ __('frontend/aboutUs.race.body.0') }}</li>
           <li>{{ __('frontend/aboutUs.race.body.1') }}</li>
           <li>{{ __('frontend/aboutUs.race.body.2') }}</li>
