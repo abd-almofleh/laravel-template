@@ -231,6 +231,8 @@ return [
     'phone_number_changed'                   => 'Phone Number has been changed and an otp has been sent to your phone',
     'phone_number_changed_with_phone_number' => 'Phone Number has been changed to ":new_phone_number" and an otp has been sent to your phone',
     'password_updated'                       => 'Your password has been updated successfully. You can login to you account now.',
+    'view_details'                           => 'View Details',
+    'no_preview_images'                      => 'No Preview Images',
   ],
   'errors' => [
     'phone_number_is_not_verified'     => 'Phone number is not verified. OTP has been sent to your phone',

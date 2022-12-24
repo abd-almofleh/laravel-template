@@ -231,6 +231,8 @@ return [
     'phone_number_changed'                   => 'رقم الهاتف قد تم تغييره و رمز التحقق قد تم ارساله إلى هاتفك',
     'phone_number_changed_with_phone_number' => 'Phone Number has been changed to ":new_phone_number" and an otp has been sent to your phone',
     'password_updated'                       => 'Your password has been updated successfully. You can login to you account now.',
+    'view_details'                           => 'رؤية التفاصيل',
+    'no_preview_images'                      => 'لا يوجد صور',
   ],
   'errors' => [
     'phone_number_is_not_verified'     => 'لم يتم التحقق من رقم الهاتف. تم ارسال رمز التحقق إلى هاتفك',

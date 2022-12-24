@@ -74,6 +74,12 @@
                 <li class="item">
                   <a class="list-title" href="{{ route('customer.profile') }}">{{ __('setting.profile.title') }}</a>
                 </li>
+                <li class="item">
+                  <a class="list-title"
+                     href="{{ route('setlocale', ['locale' => app()->getLocale() == 'en' ? 'ar' : 'en']) }}">
+                    {{ __('frontend/default.general.language') }}
+                  </a>
+                </li>
               </ul>
               <div class="action text-center">
                 <form action="{{ route('customer.auth.logout') }}" method="post">
@@ -82,7 +88,6 @@
                     {{ __('frontend/default.general.logout') }}
                   </button>
                 </form>
-
               </div>
             </div>
           </div>
