@@ -7,7 +7,7 @@
 @section('title', __('frontend/default.pages_titles.profile'))
 
 @section('content')
-  <div class="container">
+  <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-12 col-lg-6 col-d-6 col-sm-12 sm-margin-30px-bottom">
         <div class="create-ac-content bg-light-gray padding-20px-all">
@@ -48,7 +48,8 @@
               <div class="form-group col-12 required">
                 <label for="birth_date">{{ __('frontend/default.form.birth_date') }} <span
                         class="required-f">*</span></label>
-                <input name="birth_date" value="{{ $user->birth_date->format('Y-m-d') }}" id="birth_date" type="date">
+                <input name="birth_date" value="{{ $user->birth_date ? $user->birth_date->format('Y-m-d') : null }}"
+                       id="birth_date" type="date">
                 @error('birth_date')
                   <span class="text-danger">{{ $message }}</span>
                 @enderror
