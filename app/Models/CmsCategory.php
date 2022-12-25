@@ -35,6 +35,10 @@ class CmsCategory extends Model
     'status',
   ];
 
+  protected $appends = [
+    'name',
+  ];
+
   public function getNameAttribute(): string
   {
     $name = null;

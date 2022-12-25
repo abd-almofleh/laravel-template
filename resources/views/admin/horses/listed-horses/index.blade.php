@@ -51,7 +51,7 @@
                 <th class="">{{ __('default.table.id') }}</th>
                 <th class="">{{ __('default.table.is_deleted') }}</th>
                 <th class="">{{ __('default.table.name') }}</th>
-                <th class="">{{ __('default.table.sex') }}</th>
+                <th class="">{{ __('default.table.gender') }}</th>
                 <th class="">{{ __('default.table.type') }}</th>
                 <th class="">{{ __('default.table.contact_number') }}</th>
                 @if (Auth::user()->can('listedHorses:edit'))
@@ -100,8 +100,8 @@
             name: 'name'
           },
           {
-            data: 'sex_text',
-            name: 'sex'
+            data: 'gender_text',
+            name: 'gender'
           },
           {
             data: 'type',

@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Admin\Horses\ListedHorses;
 
+use App\Enums\HorseGender;
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateListedHorseRequest extends FormRequest
 {
@@ -26,7 +28,7 @@ class UpdateListedHorseRequest extends FormRequest
   {
     return [
       'name'             => 'string',
-      'sex'              => 'boolean',
+      'gender'           => ['nullable', 'boolean', Rule::in(HorseGender::values())],
       'type_id'          => 'exists:horse_types,id',
       'race'             => 'string',
       'birth_year'       => 'numeric',
@@ -36,8 +38,6 @@ class UpdateListedHorseRequest extends FormRequest
       'health'           => 'string',
       'contact_number'   => 'string|regex:/^(9715)\d{8}$/i',
       'location'         => 'string',
-      'father_name'      => 'string',
-      'mother_name'      => 'string',
       'description'      => 'string',
       'meta_title'       => 'string',
       'meta_description' => 'string',

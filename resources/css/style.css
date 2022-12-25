@@ -947,7 +947,7 @@ textarea:-ms-input-placeholder {
 
     #siteNav > li > a:hover:hover,
     #siteNav > li > a:hover {
-        color: #339498;
+        color: var(--app-primary);
     }
 
     #siteNav > li .megamenu {
@@ -4350,6 +4350,8 @@ table {
 }
 .article_featured-image img {
     margin-bottom: 20px;
+    width: 100%;
+    max-height: 600px;
 }
 .publish-detail {
     margin: 0 0 10px 0;

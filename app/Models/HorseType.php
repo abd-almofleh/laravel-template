@@ -25,6 +25,9 @@ class HorseType extends Model implements HasMedia
   /* Telling Laravel to not include the `media` attribute when the model is converted to an array or
   JSON. */
   protected $hidden = [
+    'created_at',
+    'updated_at',
+    'status',
     'media',
   ];
 

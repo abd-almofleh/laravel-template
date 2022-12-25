@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Admin\Horses\ListedHorses;
 
+use App\Enums\HorseGender;
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreListedHorseRequest extends FormRequest
 {
@@ -26,7 +28,7 @@ class StoreListedHorseRequest extends FormRequest
   {
     return [
       'name'             => 'required|string',
-      'sex'              => 'required|boolean',
+      'gender'           => ['required', 'boolean', Rule::in(HorseGender::values())],
       'type_id'          => 'required|exists:horse_types,id',
       'race'             => 'required|string',
       'birth_year'       => 'required|numeric|min:2000',
@@ -36,8 +38,6 @@ class StoreListedHorseRequest extends FormRequest
       'health'           => 'required|string',
       'location'         => 'required|string',
       'contact_number'   => 'required|string|regex:/^(9715)\d{8}$/i',
-      'father_name'      => 'string',
-      'mother_name'      => 'string',
       'description'      => 'required|string',
       'meta_title'       => 'required|string',
       'meta_description' => 'required|string',
@@ -54,7 +54,6 @@ class StoreListedHorseRequest extends FormRequest
   // {
   //   return [
   //     'name.required' => __('default.form.validation.name.required'),
-  //     'sex' => 'required|boolean',
   //     'type_id' => 'required|exists:horse_types,id',
   //     'race' => 'required|string',
   //     'birth_year' => 'required|numeric',

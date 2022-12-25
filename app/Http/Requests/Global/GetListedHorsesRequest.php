@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Global;
 
+use App\Enums\HorseGender;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class GetListedHorsesRequest extends FormRequest
 {
@@ -25,7 +27,7 @@ class GetListedHorsesRequest extends FormRequest
   {
     return [
       'query'          => 'nullable|string',
-      'sex'            => 'nullable|boolean',
+      'gender'         => ['nullable', 'boolean', Rule::in(HorseGender::values())],
       'min_birth_year' => 'nullable|numeric',
       'max_birth_year' => 'nullable|numeric',
       'min_height'     => 'nullable|numeric|min:0',

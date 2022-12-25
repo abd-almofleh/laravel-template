@@ -23,7 +23,7 @@ class ListedHorse extends Model implements HasMedia
   /* It's telling Laravel which attributes can be mass assigned. */
   protected $fillable = [
     'name',
-    'sex',
+    'gender',
     'bread',
     'birth_year',
     'race',
@@ -53,6 +53,8 @@ class ListedHorse extends Model implements HasMedia
     'meta_keywords',
     'meta_description',
     'model_type.model_type',
+    'gender',
+    'sex',
   ];
 
   /* It's telling Laravel to cast the `created_at`, `updated_at`, and `deleted_at` attributes to
@@ -67,6 +69,7 @@ class ListedHorse extends Model implements HasMedia
   protected $appends = [
     'photos',
     'videos',
+    'genderType',
   ];
   /* Eager loading the `type` and `passport` relationships. */
   protected $with = [
@@ -226,5 +229,15 @@ class ListedHorse extends Model implements HasMedia
   public function getPageUrlAttribute(): string
   {
     return route('listed_horses.show', $this->id);
+  }
+
+  /**
+   * It returns the gender type of the user.
+   *
+   * @return string The gender type attribute is being returned.
+   */
+  public function getGenderTypeAttribute(): string
+  {
+    return $this->gender ? __("default.gender.$this->gender") : __('default.gender.no_gender');
   }
 }

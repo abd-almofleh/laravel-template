@@ -22,7 +22,7 @@ return [
     'status'                => 'Status',
     'edit'                  => 'Edit',
     'delete'                => 'Delete',
-    'sex'                   => 'Sex',
+    'gender'                => 'Gender',
     'is_deleted'            => 'Is Deleted',
     'id'                    => 'ID',
     'type'                  => 'Type',
@@ -34,9 +34,9 @@ return [
   ],
 
   'form' => [
-    'id'  => 'ID',
-    'nid' => 'NID',
-    'sex' => 'Sex',
+    'id'     => 'ID',
+    'nid'    => 'NID',
+    'gender' => 'Gender',
 
     'officer_id'               => 'Officer ID',
     'confirm-password'         => 'Confirm Password',
@@ -212,9 +212,12 @@ return [
     ],
   ],
 
-  'sex' => [
-    'male'   => 'Male',
-    'female' => 'Female',
+  'gender'=> [
+    'stallion'  => 'Stallion',
+    'gelding'   => 'Gelding',
+    'mare'      => 'Mare',
+    'no_gender' => 'No gender',
+
   ],
 
   'general' => [

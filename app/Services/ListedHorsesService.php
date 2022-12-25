@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\HorseGender;
 use App\Models\Customer;
 use App\Models\HorsePassport;
 use App\Models\HorseType;
@@ -31,8 +32,8 @@ class ListedHorsesService
       });
     }
 
-    if ($filters['sex'] !== null && $filters['sex'] !== false) {
-      $query->where('sex', $filters['sex']);
+    if ($filters['gender'] !== null && $filters['gender'] !== false) {
+      $query->where('gender', $filters['gender']);
     }
 
     if ($filters['max_birth_year'] !== null && $filters['max_birth_year'] !== false) {
@@ -87,9 +88,21 @@ class ListedHorsesService
   public function get_filter_options()
   {
     $options = [];
-    $options['horsesCategories'] = HorseType::select(['id', 'name_en', 'name_ar'])->active()->get();
-    $options['horsesPassports'] = HorsePassport::select(['id', 'name_en', 'name_ar'])->active()->get();
-    $options['sex'] = ['male'=>1, 'female'=> 0];
+    $options['horsesCategories'] = HorseType::active()->get();
+
+    foreach ($options['horsesCategories'] as $value) {
+      $value->makeHidden(['name_ar', 'name_en', 'photo']);
+    }
+
+    $options['horsesPassports'] = HorsePassport::active()->get();
+    foreach ($options['horsesPassports'] as $value) {
+      $value->makeHidden(['name_ar', 'name_en']);
+    }
+
+    $options['gender'] = [];
+    foreach (HorseGender::values() as $value) {
+      $options['gender'][$value] = __("default.gender.$value");
+    }
 
     return $options;
   }
