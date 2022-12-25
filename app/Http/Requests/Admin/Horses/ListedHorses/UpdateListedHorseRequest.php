@@ -28,7 +28,7 @@ class UpdateListedHorseRequest extends FormRequest
   {
     return [
       'name'             => 'string',
-      'gender'           => ['nullable', 'boolean', Rule::in(HorseGender::values())],
+      'gender'           => ['nullable', 'string', Rule::in(HorseGender::values())],
       'type_id'          => 'exists:horse_types,id',
       'race'             => 'string',
       'birth_year'       => 'numeric',

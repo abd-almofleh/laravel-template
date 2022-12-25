@@ -27,7 +27,7 @@ class GetListedHorsesRequest extends FormRequest
   {
     return [
       'query'          => 'nullable|string',
-      'gender'         => ['nullable', 'boolean', Rule::in(HorseGender::values())],
+      'gender'         => ['nullable', 'string', Rule::in(HorseGender::values())],
       'min_birth_year' => 'nullable|numeric',
       'max_birth_year' => 'nullable|numeric',
       'min_height'     => 'nullable|numeric|min:0',

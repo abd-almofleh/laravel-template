@@ -28,7 +28,7 @@ class StoreListedHorseRequest extends FormRequest
   {
     return [
       'name'             => 'required|string',
-      'gender'           => ['required', 'boolean', Rule::in(HorseGender::values())],
+      'gender'           => ['required', 'string', Rule::in(HorseGender::values())],
       'type_id'          => 'required|exists:horse_types,id',
       'race'             => 'required|string',
       'birth_year'       => 'required|numeric|min:2000',
