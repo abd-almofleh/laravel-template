@@ -54,7 +54,11 @@ class CmsBlog extends Model implements HasMedia
   /* It's telling Laravel that the `photo` attribute should be appended to the model's JSON
   representation. */
   protected $appends = [
+    'slug',
+    'title',
+    'description',
     'photo',
+    'media',
   ];
 
   /* It's telling Laravel to hide these attributes when the model is converted to JSON or array. */
@@ -72,6 +76,12 @@ class CmsBlog extends Model implements HasMedia
     'cms_category_id',
     'media',
     'id',
+    'title_ar',
+    'title_en',
+    'description_ar',
+    'description_en',
+    'slug_ar',
+    'slug_en',
   ];
 
   /**

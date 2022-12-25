@@ -54,6 +54,7 @@ class ListedHorse extends Model implements HasMedia
     'meta_description',
     'model_type.model_type',
     'gender',
+    'sex',
   ];
 
   /* It's telling Laravel to cast the `created_at`, `updated_at`, and `deleted_at` attributes to
