@@ -84,19 +84,19 @@
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                   </div>
-                  <div class="form-group">
-                    <label for="sex" class="required">{{ __('default.form.sex') }}:</label>
 
-                    <select type="text" name="sex" id="sex"
-                            class="form-control @error('sex') form-control-error @enderror" required="required">
-                      <option value="1" @if (old('sex', $listedHorse->sex) == 1) selected @endif>
-                        {{ __('default.sex.male') }}</option>
-                      <option value="0" @if (old('sex', $listedHorse->sex) == 0) selected @endif>
-                        {{ __('default.sex.female') }}
-                      </option>
+                  <div class="form-group">
+                    <label for="gender" class="required">{{ __('default.form.gender') }}:</label>
+                    <select type="text" name="gender" id="gender"
+                            class="form-control @error('gender') form-control-error @enderror" required="required">
+                      @foreach (\App\Enums\HorseGender::values() as $gender)
+                        <option value="{{ $gender }}" @if (old('gender', $listedHorse->gender) == $gender) selected @endif>
+                          {{ __("default.gender.$gender") }}
+                        </option>
+                      @endforeach
                     </select>
 
-                    @error('sex')
+                    @error('gender')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                   </div>

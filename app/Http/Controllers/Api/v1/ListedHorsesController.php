@@ -23,7 +23,7 @@ class ListedHorsesController extends Controller
   {
     $filters = [];
     $filters['query'] = $request->input('query', false) ;
-    $filters['sex'] = $request->input('sex', false) ;
+    $filters['gender'] = $request->input('gender', false) ;
     $filters['min_birth_year'] = $request->input('min_birth_year', false);
     $filters['max_birth_year'] = $request->input('max_birth_year', false);
     $filters['min_height'] = $request->input('min_height', false) ;

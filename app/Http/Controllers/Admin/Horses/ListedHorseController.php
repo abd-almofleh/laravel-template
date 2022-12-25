@@ -73,9 +73,7 @@ class ListedHorseController extends Controller
               return  $row->deleted_at === null ? __('default.no') : __('default.yes');
             })
 
-            ->addColumn('sex_text', function ($row) {
-              return $row->sex == config('constants.sex.male') ? __('default.sex.male') : __('default.sex.female');
-            })
+            ->addColumn('gender_text', fn ($row) => $row->genderType)
             ->editColumn('created_at', fn ($row) => "{{date('jS M Y', strtotime($row->created_at))}}")
             ->editColumn('updated_at', fn ($row) => "{{date('jS M Y', strtotime($row->updated_at))}}")
             ->escapeColumns([])

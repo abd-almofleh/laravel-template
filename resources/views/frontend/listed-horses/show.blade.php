@@ -106,10 +106,10 @@
                           <tr>
                           <tr>
                             <th>
-                              {{ __('default.form.sex') }}
+                              {{ __('default.form.gender') }}
                             </th>
                             <td>
-                              {{ $listedHorse->sex == 1 ? __('default.sex.male') : __('default.sex.female') }}
+                              {{ $listedHorse->genderType }}
                             </td>
                           </tr>
                           <tr>
