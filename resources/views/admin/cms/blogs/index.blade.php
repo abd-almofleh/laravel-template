@@ -90,7 +90,7 @@
             name: 'DT_RowIndex'
           },
           {
-            data: 'title_en',
+            data: 'title',
             name: 'title'
           },
           {
@@ -153,7 +153,7 @@
     });
   </script>
 
-  {{-- 
+  {{--
   <script type="text/javascript">
     function changeCmsBlogStatus(_this, id) {
       var status = $(_this).prop('checked') == true ? 1 : 0;
