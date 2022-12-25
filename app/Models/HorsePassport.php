@@ -17,8 +17,14 @@ class HorsePassport extends Model
   ];
 
   /* Appending the name attribute to the model. */
-  protected $append = [
+  protected $appends = [
     'name',
+  ];
+
+  protected $hidden = [
+    'status',
+    'created_at',
+    'updated_at',
   ];
 
   public function horses()

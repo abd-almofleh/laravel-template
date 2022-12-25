@@ -88,8 +88,17 @@ class ListedHorsesService
   public function get_filter_options()
   {
     $options = [];
-    $options['horsesCategories'] = HorseType::select(['id', 'name_en', 'name_ar'])->active()->get();
-    $options['horsesPassports'] = HorsePassport::select(['id', 'name_en', 'name_ar'])->active()->get();
+    $options['horsesCategories'] = HorseType::active()->get();
+
+    foreach ($options['horsesCategories'] as $value) {
+      $value->makeHidden(['name_ar', 'name_en', 'photo']);
+    }
+
+    $options['horsesPassports'] = HorsePassport::active()->get();
+    foreach ($options['horsesPassports'] as $value) {
+      $value->makeHidden(['name_ar', 'name_en']);
+    }
+
     $options['gender'] = [];
     foreach (HorseGender::values() as $value) {
       $options['gender'][$value] = __("default.gender.$value");
