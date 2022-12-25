@@ -12,7 +12,6 @@
   </a>
   <span aria-hidden="true">›</span>
   <span>{{ __('frontend/default.pages_titles.horses.show') }}</span>
-
 @endsection
 
 @push('styles')
@@ -66,8 +65,12 @@
           <div class="product-details-img product-single__photos bottom">
             <div class="zoompro-wrap product-zoom-right pl-20">
               <div class="zoompro-span">
-                <img class="blur-up lazyload zoompro" data-zoom-image="{{ $listedHorse->photos[0]->preview }}"
-                     alt="{{ $listedHorse->name }}" src="{{ $listedHorse->photos[0]->fullUrl }}" />
+                @if (count($listedHorse->photos) > 0)
+                  <img class="blur-up lazyload zoompro w-100" data-zoom-image="{{ $listedHorse->photos[0]->preview }}"
+                       alt="{{ $listedHorse->name }}" src="{{ $listedHorse->photos[0]->fullUrl }}" />
+                @else
+                  <div class="w-100 h-100">{{ __('default.general.no_preview_images') }}</div>
+                @endif
               </div>
             </div>
             <div class="product-thumb product-thumb-1">
@@ -216,21 +219,22 @@
         @endif
       </div>
     </div>
-  @endsection
+  </div>
+@endsection
 
-  @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script>
-      const swiper = new Swiper(".videosSwiper", {
-        navigation: {
-          nextEl: ".videosSwiper .swiper-button-next",
-          prevEl: ".videosSwiper .swiper-button-prev",
-        },
-        pagination: {
-          el: '.videosSwiper .swiper-pagination',
-          type: 'bullets',
-        },
-        loop: true
-      });
-    </script>
-  @endpush
+@push('scripts')
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".videosSwiper", {
+      navigation: {
+        nextEl: ".videosSwiper .swiper-button-next",
+        prevEl: ".videosSwiper .swiper-button-prev",
+      },
+      pagination: {
+        el: '.videosSwiper .swiper-pagination',
+        type: 'bullets',
+      },
+      loop: true
+    });
+  </script>
+@endpush
