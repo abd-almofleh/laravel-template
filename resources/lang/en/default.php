@@ -46,7 +46,7 @@ return [
     'title_en'                 => 'Title (English)',
     'title_ar'                 => 'Title (Arabic)',
     'category'                 => 'Category',
-    'description'              => 'Description',
+    'description'              => 'Description & Accomplishments',
     'description_en'           => 'Description (English)',
     'description_ar'           => 'Description (Arabic)',
     'upload_image'             => 'Upload Image',
