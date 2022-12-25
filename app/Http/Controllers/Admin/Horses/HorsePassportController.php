@@ -28,10 +28,10 @@ class HorsePassportController extends Controller
   }
 
   /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
   public function index(Request $request)
   {
     if ($request->ajax()) {
@@ -59,9 +59,6 @@ class HorsePassportController extends Controller
                               <label for='status_$row->id' class='checktoggle'>checkbox</label>";
             return $status;
           })
-
-          ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
-          ->editColumn('updated_at', '{{date("jS M Y", strtotime($updated_at))}}')
           ->escapeColumns([])
           ->make(true);
     }
@@ -100,7 +97,7 @@ class HorsePassportController extends Controller
   /**
    * Show the form for editing the specified resource.
    *
-   * @param  \App\Models\HorsePassport  $passport
+   * @param  \App\Models\HorsePassport $passport
    * @return \Illuminate\Http\Response
    */
   public function edit(HorsePassport $passport)
@@ -109,12 +106,12 @@ class HorsePassportController extends Controller
   }
 
   /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\HorsePassport  $horsePassport
-     * @return \Illuminate\Http\Response
-     */
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Models\HorsePassport $horsePassport
+   * @return \Illuminate\Http\Response
+   */
   public function update(UpdateHorsePassportRequest $request, HorsePassport $passport)
   {
     $input = $request->validated();

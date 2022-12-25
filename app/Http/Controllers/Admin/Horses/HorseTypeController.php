@@ -67,9 +67,6 @@ class HorseTypeController extends Controller
             }
             return $image;
           })
-
-          ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
-          ->editColumn('updated_at', '{{date("jS M Y", strtotime($updated_at))}}')
           ->escapeColumns([])
           ->make(true);
     }
