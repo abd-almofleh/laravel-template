@@ -201,11 +201,11 @@
         @if (count($listedHorse->videos))
           <div class="col-12">
             <!-- Swiper -->
-            <div class="swiper videosSwiper" style="max-height: fit-content !important;">
+            <div class="swiper videosSwiper" style="max-height: 600px !important;">
               <div class="swiper-wrapper">
                 @foreach ($listedHorse->videos as $video)
                   <div class="swiper-slide">
-                    <video controls>
+                    <video controls style="max-height: 600px">
                       <source src="{{ $video->url }}" type="{{ $video->mime_type }}">
                     </video>
                   </div>
