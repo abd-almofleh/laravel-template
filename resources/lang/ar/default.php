@@ -100,7 +100,7 @@ return [
     'father_name'              => 'اسم الأب',
     'mother_name'              => 'اسم الأم',
     'comma_suppurated'         => 'مفصولين ب فاصلة',
-    'meter'                    => 'متر',
+    'meter'                    => 'ساتنيمتر',
     'kg'                       => 'كليو غرام',
     'slug_ar'                  => 'عربي Slug',
     'slug_en'                  => 'انكليزي Slug',

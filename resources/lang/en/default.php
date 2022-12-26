@@ -100,7 +100,7 @@ return [
     'father_name'              => 'Father Name',
     'mother_name'              => 'Mother Name',
     'comma_suppurated'         => 'Comma Suppurated',
-    'meter'                    => 'Meter',
+    'meter'                    => 'Centimeter',
     'kg'                       => 'KG',
     'slug_ar'                  => 'Arabic Slug',
     'slug_en'                  => 'English Slug',
