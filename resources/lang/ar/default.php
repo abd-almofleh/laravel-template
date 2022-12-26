@@ -89,7 +89,7 @@ return [
     'choose_horse_type'        => 'Choose Horse Type',
     'choose_birth_year'        => 'Choose Birth Year',
     'choose_horse_passport'    => 'Choose Horse Passport',
-    'race'                     => 'السلاسة',
+    'race'                     => 'السلالة',
     'birth_year'               => 'تاريخ الميلاد',
     'passport'                 => 'جواز السفر',
     'height'                   => 'الطول',
