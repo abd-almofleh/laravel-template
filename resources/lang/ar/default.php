@@ -30,6 +30,7 @@ return [
     'no_category'              => 'لا نوع',
     'can_publish'              => 'يمكن نشرها؟',
     'author'                   => 'المؤلف',
+    'phone_number'             => 'رقم الهاتف',
 
   ],
 
@@ -38,6 +39,7 @@ return [
     'nid'    => 'NID',
     'gender' => 'الحنس',
 
+    'birth_date'               => 'تاريخ الميلاد',
     'officer_id'               => 'Officer ID',
     'confirm-password'         => 'Confirm Password',
     'image'                    => 'Image',
@@ -51,6 +53,7 @@ return [
     'description_ar'           => 'التفاصيل (Arabic)',
     'upload_image'             => 'Upload Image',
     'change_image'             => 'Change Image',
+    'phone_number'             => 'رقم الهاتف',
     'name'                     => 'Name',
     'name_ar'                  => 'Arabic Name',
     'name_en'                  => 'English Name',
@@ -86,9 +89,9 @@ return [
     'draft'                    => 'Draft',
     'published'                => 'Published',
     'type'                     => 'النوع',
-    'choose_horse_type'        => 'Choose Horse Type',
-    'choose_birth_year'        => 'Choose Birth Year',
-    'choose_horse_passport'    => 'Choose Horse Passport',
+    'choose_horse_type'        => 'اختر نوع الحصان',
+    'choose_birth_year'        => 'اختر عام الميلاد',
+    'choose_horse_passport'    => 'اختر جواز سفر الحصان',
     'race'                     => 'السلالة',
     'birth_year'               => 'تاريخ الميلاد',
     'passport'                 => 'جواز السفر',
