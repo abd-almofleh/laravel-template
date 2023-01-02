@@ -38,13 +38,13 @@ class ListedHorseController extends Controller
     public function index(Request $request)
     {
       if ($request->ajax()) {
-        $data = ListedHorse::withTrashed()->get()->makeVisible('created_at');
+        $data = ListedHorse::get()->makeVisible('created_at');
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
               if (Auth::user()->can('horses-show')) {
                 $view = '<a href="' . route('horses.listed-horses.show', $row->id) . '" class="custom-view-btn mr-1">
-                                    <i class="fe fe-eye"></i> ' . __('default.form.view-button') . '
+                                  <i class="fe fe-eye"></i> ' . __('default.form.view-button') . '
                                 </a>';
               } else {
                 $view = '';
