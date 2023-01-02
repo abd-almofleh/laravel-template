@@ -8,6 +8,8 @@ return [
   'user-activity' => 'User Activity',
   'users'         => 'Users',
 
+  'customers'     => 'Customers',
+
   'role'  => 'Role',
   'roles' => 'Roles',
 

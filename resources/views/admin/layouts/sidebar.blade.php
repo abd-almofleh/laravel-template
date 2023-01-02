@@ -115,6 +115,12 @@
                   </a>
                 </li>
               @endcan
+              <li>
+                <a href="{{ route('admin.customers.index') }}" title="{{ __('sidebar.customers') }}"
+                   class="sidebar-link {{ request()->is('admin/customers*') ? 'active' : '' }}">
+                  <span class="hide-menu">{{ __('sidebar.customers') }}</span>
+                </a>
+              </li>
 
               @can('role-list')
                 <li>

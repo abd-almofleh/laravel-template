@@ -1,6 +1,5 @@
 <?php
 
-use CheckValidatePhoneNumberUsingOTP;
 use Illuminate\Support\Facades\Route;
 
 Route::get('setlocale/{locale}', function ($lang) {
