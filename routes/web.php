@@ -1,18 +1,7 @@
 <?php
 
-use App\Http\Middleware\CheckValidatePhoneNumberUsingOTP;
+use CheckValidatePhoneNumberUsingOTP;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('setlocale/{locale}', function ($lang) {
   \Session::put('locale', $lang);
@@ -20,7 +9,9 @@ Route::get('setlocale/{locale}', function ($lang) {
 })->name('setlocale');
 
 Route::group(['middleware' => 'language'], function () {
-  // * Admin Routes
+  //!/* -------------------------------------------------------------------------- */
+  //!/*                                Admin Routes                                */
+  //!/* -------------------------------------------------------------------------- */
   Route::prefix('admin')->group(function () {
     Route::redirect('/', url('admin/dashboard'));
     Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
@@ -33,15 +24,15 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('reset-password/{token}', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
     Route::post('reset-password', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-    // Admin Authenticated Routes
+    //!/* ----------------------- Admin Authenticated Routes ----------------------- */
     Route::group(['middleware' => ['auth:admin']], function () {
       Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'dashboard'])->name('dashboard');
 
-      // Profile
+      //!/* ------------------------------ Profile ------------------------------ */
       Route::get('/profile', [App\Http\Controllers\Admin\UserController::class, 'profile'])->name('profile');
       Route::post('/profile/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'profile_update'])->name('profile.update');
 
-      // User
+      //!/* ---------------------------------- User ---------------------------------- */
       Route::prefix('users')->group(function () {
         Route::get('/index', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
         Route::get('/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
@@ -51,8 +42,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/destroy', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
         Route::get('/status_update', [App\Http\Controllers\Admin\UserController::class, 'status_update'])->name('users.status_update');
       });
+      //!/* -------------------------------- Customers ------------------------------- */
+      Route::prefix('customers')->name('admin.customers.')->controller(App\Http\Controllers\Admin\CustomersController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/{customer}', 'edit')->name('edit');
+        Route::put('/{customer}', 'update')->name('update');
+        Route::delete('/{customer}', 'destroy')->name('destroy');
+      });
 
-      // Role
+      //!/* ---------------------------------- Role ---------------------------------- */
       Route::prefix('roles')->group(function () {
         Route::get('/index', [App\Http\Controllers\Admin\RoleController::class, 'index'])->name('roles.index');
         Route::get('/create', [App\Http\Controllers\Admin\RoleController::class, 'create'])->name('roles.create');
@@ -62,7 +60,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/destroy', [App\Http\Controllers\Admin\RoleController::class, 'destroy'])->name('roles.destroy');
       });
 
-      // Permission
+      //!/* ------------------------------- Permission ------------------------------- */
       Route::prefix('permissions')->group(function () {
         Route::get('/index', [App\Http\Controllers\Admin\PermissionController::class, 'index'])->name('permissions.index');
         Route::get('/create', [App\Http\Controllers\Admin\PermissionController::class, 'create'])->name('permissions.create');
@@ -72,7 +70,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/destroy', [App\Http\Controllers\Admin\PermissionController::class, 'destroy'])->name('permissions.destroy');
       });
 
-      // Currency
+      //!/* -------------------------------- Currency -------------------------------- */
       Route::prefix('currencies')->group(function () {
         Route::get('/index', [App\Http\Controllers\Admin\CurrencyController::class, 'index'])->name('currencies.index');
         Route::get('/create', [App\Http\Controllers\Admin\CurrencyController::class, 'create'])->name('currencies.create');
@@ -83,13 +81,13 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/status_update', [App\Http\Controllers\Admin\CurrencyController::class, 'status_update'])->name('currencies.status_update');
       });
 
-      // Setting
+      //!/* --------------------------------- Setting -------------------------------- */
       Route::prefix('setting')->group(function () {
         Route::get('/file-manager/index', [App\Http\Controllers\Admin\FileManagerController::class, 'index'])->name('filemanager.index');
         Route::get('/website-setting/edit', [App\Http\Controllers\Admin\SettingController::class, 'edit'])->name('website-setting.edit');
         Route::post('/website-setting/update/{id}', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('website-setting.update');
       });
-      // CMS
+      //!/* ----------------------------------- CMS ---------------------------------- */
       Route::prefix('cms')->name('cms.')->group(function () {
         Route::patch('/categories/update-status/{category}', [App\Http\Controllers\Admin\Cms\CMSCategoryController::class, 'update_status'])->name('categories.update_status');
         Route::resource('categories', App\Http\Controllers\Admin\Cms\CMSCategoryController::class)->except(['show', 'destroy']);
@@ -100,7 +98,7 @@ Route::group(['middleware' => 'language'], function () {
         ]);
       });
 
-      // horses
+      //!/* --------------------------------- horses --------------------------------- */
       Route::prefix('horses')->name('horses.')->group(function () {
         Route::post('listed-horses/media', [App\Http\Controllers\Admin\Horses\ListedHorseController::class, 'storeMedia'])->name('listed-horses.storeMedia');
         Route::resource('listed-horses', App\Http\Controllers\Admin\Horses\ListedHorseController::class);
@@ -115,15 +113,17 @@ Route::group(['middleware' => 'language'], function () {
     });
   });
 
-  /* -------------------------------------------------------------------------- */
-  /*                               Frontend Routes                              */
-  /* -------------------------------------------------------------------------- */
-  Route::middleware([CheckValidatePhoneNumberUsingOTP::class])->group(function () {
+  //!/* -------------------------------------------------------------------------- */
+  //!/*                               Frontend Routes                              */
+  //!/* -------------------------------------------------------------------------- */
+  Route::middleware([App\Http\Middleware\CheckValidatePhoneNumberUsingOTP::class])->group(function () {
     Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
     Route::get('about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about_us');
     Route::get('contact-us', [App\Http\Controllers\Frontend\HomeController::class, 'contactUs'])->name('contact_us');
 
-    // * Customer Routes
+    //!/* -------------------------------------------------------------------------- */
+    //!/*                               Customer Routes                              */
+    //!/* -------------------------------------------------------------------------- */
     Route::prefix('customer')->name('customer.')->group(function () {
       Route::name('auth.')->controller(App\Http\Controllers\Frontend\Customer\AuthCustomerController::class)->group(function () {
         Route::get('login', 'loginView')->name('login');
@@ -158,21 +158,21 @@ Route::group(['middleware' => 'language'], function () {
         });
       });
 
-      // Customer Authenticated Routes
+      //!/* ---------------------- Customer Authenticated Routes --------------------- */
       Route::group(['middleware' => ['auth:customer_frontend']], function () {
-        // Profile
+        //!/* --------------------------------- Profile -------------------------------- */
         Route::get('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'index'])->name('profile');
         Route::put('/profile', [App\Http\Controllers\Frontend\Customer\ProfileController::class, 'update'])->name('profile.update');
       });
     });
 
-    // * Blogs Routes
+    //!/* ------------------------------ Blogs Routes ------------------------------ */
     Route::prefix('blogs')->name('blogs.')->group(function () {
       Route::get('/', [App\Http\Controllers\Frontend\BlogsController::class, 'index'])->name('list');
       Route::get('/{blog}', [App\Http\Controllers\Frontend\BlogsController::class, 'show'])->name('show');
     });
 
-    // * Listed horses Routes
+    //!/* -------------------------- Listed horses Routes -------------------------- */
     Route::prefix('listed-horses')->name('listed_horses.')->group(function () {
       Route::get('/', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'index'])->name('list');
       Route::get('/{listedHorse}', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'show'])->name('show');

@@ -36,8 +36,10 @@
             </div>
             <div class="row">
               <div class="form-group col-12 required">
-                <label for="phone_number">{{ __('frontend/default.form.phone_number') }} <span
-                        class="required-f">*</span></label>
+                <label for="phone_number">
+                  {{ __('frontend/default.form.phone_number') }}
+                  <span class="required-f">*</span>
+                </label>
                 <input name="phone_number" value="{{ $user->phone_number }}" id="phone_number" type="tel">
                 @error('phone_number')
                   <span class="text-danger">{{ $message }}</span>
