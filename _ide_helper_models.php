@@ -262,7 +262,6 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property int $sex
  * @property string $race
  * @property int $birth_year
  * @property float $height
@@ -281,6 +280,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $gender
+ * @property-read string $gender_type
  * @property-read string $page_url
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection $photos
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection $videos
@@ -303,6 +304,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereFatherName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereGender($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereHealth($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereHeight($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereId($value)
@@ -314,7 +316,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse wherePassportTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereRace($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereSex($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ListedHorse whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|ListedHorse withTrashed()

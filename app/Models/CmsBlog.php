@@ -5,6 +5,7 @@ namespace App\Models;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
@@ -207,13 +208,42 @@ class CmsBlog extends Model implements HasMedia
   {
     switch(app()->getLocale()) {
       case 'en':
-        return $this->slug_en;
+        return $this->slug_en ?? '';
         break;
       case 'ar':
-        return $this->slug_ar;
+        return $this->slug_ar ?? '';
         break;
       default:
-        return $this->slug_en;
+        return $this->slug_ar ?? '';
+    }
+  }
+  //* -------------------------------------------------------------------------- */
+  //*                                   Scopes                                   */
+  //* -------------------------------------------------------------------------- */
+
+  /**
+   * It returns a query builder that filters the results to only include records that have a non-empty
+   * slug in the current language
+   *
+   * @param Builder query The query builder instance.
+   *
+   * @return Builder A query builder object.
+   */
+  public function withLanguageScope(Builder $query): Builder
+  {
+    switch(app()->getLocale()) {
+      case 'en':
+        return $query->where(function ($q) {
+          $q->whereNotNull('slug_en')->where('slug_en', '<>', '');
+        });
+      case 'ar':
+        return $query->where(function ($q) {
+          $q->whereNotNull('slug_ar')->where('slug_ar', '<>', '');
+        });
+      default:
+        return $query->where(function ($q) {
+          $q->whereNotNull('slug_ar')->where('slug_ar', '<>', '');
+        });
     }
   }
 
