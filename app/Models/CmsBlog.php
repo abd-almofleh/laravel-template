@@ -161,7 +161,14 @@ class CmsBlog extends Model implements HasMedia
    */
   public function getTitleAttribute(): string
   {
-    return app()->getLocale() === 'en' ? $this->title_en : $this->title_ar;
+    switch(app()->getLocale()) {
+      case 'en':
+        return $this->title_en ?? '';
+      case 'ar':
+        return $this->title_ar ?? '';
+      default:
+        return $this->title_ar ?? '';
+    }
   }
 
   /**
