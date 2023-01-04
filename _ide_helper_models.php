@@ -63,6 +63,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog whereTitleAr($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog whereTitleEn($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CmsBlog withLanguage()
  */
 	class CmsBlog extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
 }

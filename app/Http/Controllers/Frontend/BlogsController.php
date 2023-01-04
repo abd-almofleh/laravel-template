@@ -19,7 +19,7 @@ class BlogsController extends Controller
     $blogs = CmsBlog::with('category')->whereHas('category', function (Builder $query) use ($request) {
       $category = $request->get('category');
       $query->when($category !== null, fn (Builder $q) => $q->category($category));
-    })->paginate();
+    })->withLanguage()->paginate();
     return view('frontend.blogs.index', compact('blogs'));
   }
 

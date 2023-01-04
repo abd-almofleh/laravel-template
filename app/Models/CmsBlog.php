@@ -229,7 +229,7 @@ class CmsBlog extends Model implements HasMedia
    *
    * @return Builder A query builder object.
    */
-  public function withLanguageScope(Builder $query): Builder
+  public function scopeWithLanguage(Builder $query): Builder
   {
     switch(app()->getLocale()) {
       case 'en':
