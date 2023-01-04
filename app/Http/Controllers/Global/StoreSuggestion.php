@@ -18,6 +18,7 @@ class StoreSuggestion extends Controller
    */
   public function __invoke(StoreSuggestionRequest $request)
   {
+    dd($request);
     $suggestion = $request->suggestion;
     $email = $request->email;
     $this->handel($suggestion, $email);
@@ -30,6 +31,12 @@ class StoreSuggestion extends Controller
 
   private function GetResponse(bool $isJson = false): JsonResponse | RedirectResponse
   {
-    return $isJson ? $this->response('Your suggestion has been received successfully.', null, 201) : redirect()->route('home');
+    $message = 'Your suggestion has been received successfully.';
+    error_log($isJson);
+    if ($isJson) {
+      return $this->response($message, null, 201);
+    }
+    toastr()->success($message);
+    // return redirect()->back();
   }
 }

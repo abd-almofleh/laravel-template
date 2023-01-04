@@ -1,8 +1,12 @@
 <?php
 
 return [
-  'yes'   => 'Yes',
-  'no'    => 'No',
+  'yes'        => 'Yes',
+  'no'         => 'No',
+  'contact_us' => [
+    'title'       => 'Send us a message',
+    'description' => 'If you have any suggestion or any problem send us a message and let us now...',
+  ],
   'table' => [
     'sl'                       => 'SL',
     'name'                     => 'Name',

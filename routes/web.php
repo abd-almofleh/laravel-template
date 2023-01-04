@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Global\StoreSuggestion;
 use Illuminate\Support\Facades\Route;
 
 Route::get('setlocale/{locale}', function ($lang) {
@@ -175,6 +176,9 @@ Route::group(['middleware' => 'language'], function () {
     Route::prefix('listed-horses')->name('listed_horses.')->group(function () {
       Route::get('/', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'index'])->name('list');
       Route::get('/{listedHorse}', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'show'])->name('show');
+    });
+    Route::withoutMiddleware(App\Http\Middleware\CheckValidatePhoneNumberUsingOTP::class)->group(function () {
+      Route::post('suggestion', StoreSuggestion::class)->name('storeSuggestion');
     });
   });
 });
