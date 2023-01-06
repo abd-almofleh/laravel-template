@@ -60,6 +60,7 @@ class CmsBlog extends Model implements HasMedia
     'description',
     'photo',
     'media',
+    'pref',
   ];
 
   /* It's telling Laravel to hide these attributes when the model is converted to JSON or array. */
