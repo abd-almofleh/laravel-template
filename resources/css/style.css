@@ -42,6 +42,12 @@ Table of Content:
 @import url("http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700&amp;display=swap");
 @import url("http://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&amp;display=swap");
 
+@font-face {
+  font-family: quest;
+  src: url(../fonts/questv1-regular.ttf);
+  font-weight: 400;
+  font-style: normal;
+}
 /*======================================================================
   variables
 ========================================================================*/
@@ -67,12 +73,24 @@ html {
     overflow: hidden;
     overflow-y: auto;
 }
-body {
+:dir(ltr) body {
     font-size: 13px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: "Poppins", Helvetica, Tahoma, Arial, serif;
+    color: #424242;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+:dir(rtl) body {
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "quest", Arial, serif;
     color: #424242;
     font-weight: 400;
     margin: 0;
@@ -102,12 +120,19 @@ audio:not([controls]) {
 [hidden] {
     display: none;
 }
-html,
+:dir(ltr) html,
 button,
 input,
 select,
 textarea {
     font-family: "Poppins", sans-serif;
+}
+:dir(rtl) html,
+button,
+input,
+select,
+textarea {
+    font-family: "quest", sans-serif;
 }
 input:focus,
 textarea:focus,
@@ -281,7 +306,7 @@ hr {
     margin: 0;
     margin-bottom: 15px;
 }
-h1,
+:dir(ltr) h1,
 .h1,
 h2,
 .h2,
@@ -296,6 +321,26 @@ h6,
     color: #000;
     margin: 0 0 10px;
     font-family: "Roboto Slab", Helvetica, Tahoma, Arial, serif;
+    font-weight: 400;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+:dir(rtl) h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+    color: #000;
+    margin: 0 0 10px;
+    font-family: "quest", Helvetica, Tahoma, Arial, serif;
     font-weight: 400;
     line-height: 1.2;
     overflow-wrap: break-word;
@@ -453,7 +498,11 @@ hr {
     clear: both;
 }
 
-th {
+:dir(ltr) th {
+    font-family: "Roboto Slab", Helvetica, Tahoma, Arial, serif;
+    font-weight: 700;
+}
+:dir(rtl) th {
     font-family: "Roboto Slab", Helvetica, Tahoma, Arial, serif;
     font-weight: 700;
 }
@@ -469,11 +518,11 @@ th {
     font-style: underline;
 }
 /* Font specialized */
-.body-font {
+:dir(ltr) .body-font, .heading-font {
     font-family: "Poppins", sans-serif;
 }
-.heading-font {
-    font-family: "Poppins", sans-serif;
+:dir(rtl) .body-font, .heading-font {
+    font-family: "quest", sans-serif;
 }
 
 .list--inline {
@@ -535,7 +584,7 @@ th {
 /*======================================================================
   6. Button
 ========================================================================*/
-.btn,
+:dir(ltr) .btn,
 .shopify-payment-button__button--unbranded {
     -moz-user-select: none;
     -ms-user-select: none;
@@ -557,6 +606,39 @@ th {
     background-color: #000;
     color: #fff;
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: normal;
+    white-space: normal;
+    font-size: 13px;
+    -ms-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+:dir(rtl) .btn,
+.shopify-payment-button__button--unbranded {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 8px 15px 8px;
+    background-color: #000;
+    color: #fff;
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -721,6 +803,7 @@ textarea:-ms-input-placeholder {
     vertical-align: middle;
     padding-left: 5px;
 }
+
 .header-wrap .language-dropdown {
     display: inline;
     position: relative;
@@ -2160,8 +2243,11 @@ a.quick-view {
 .latest-blog .wrap-blog {
     display: table;
 }
-.latest-blog .article__title.h3 {
+:dir(ltr) .latest-blog .article__title.h3 {
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+}
+:dir(rtl) .latest-blog .article__title.h3 {
+    font-family: 'quest', Helvetica, Tahoma, Arial, sans-serif;
 }
 .latest-blog .wrap-blog .article__grid-image,
 .latest-blog .wrap-blog .article__grid-meta {
@@ -2201,14 +2287,23 @@ a.quick-view {
 /*======================================================================
   17. Store Feature
 ========================================================================*/
-.store-info h5,
-.store-info .h5 {
+:dir(ltr) .store-info h5,
+:dir(ltr) .store-info .h5 {
     margin-bottom: 5px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 13px;
     font-weight: 600;
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+}
+:dir(rtl) .store-info h5,
+:dir(rtl) .store-info .h5 {
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
 }
 .store-info li {
     padding: 0 20px;
@@ -3801,9 +3896,14 @@ table {
 .sidebar-product .prFeatures {
     padding-top: 0;
 }
-.sidebar-product .prFeatures h5 {
+:dir(ltr) .sidebar-product .prFeatures h5 {
     font-size: 1.07692em;
     font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+:dir(rtl) .sidebar-product .prFeatures h5 {
+    font-size: 1.07692em;
+    font-family: "quest", sans-serif;
     font-weight: 600;
 }
 .template-product-right-thumb .sidebar-product .prFeatures {
@@ -3972,8 +4072,14 @@ table {
     margin-bottom: 15px;
     display: block;
 }
-.categories-item h4 {
+:dir(ltr) .categories-item h4 {
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+}
+:dir(rtl) .categories-item h4 {
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
     font-size: 14px;
     text-transform: uppercase;
     margin: 0 0 10px;
@@ -4065,9 +4171,24 @@ table {
 #accordionExample .title {
     margin: 35px 0 20px;
 }
-#accordionExample .panel-title {
+:dir(ltr) #accordionExample .panel-title {
     cursor: pointer;
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+    font-size: 14px;
+    text-transform: none;
+    margin: 0;
+    background: none;
+    padding: 15px;
+    border-top: 2px solid #eee;
+    display: block;
+    color: #555;
+    padding-left: 30px;
+    position: relative;
+}
+
+:dir(rtl) #accordionExample .panel-title {
+    cursor: pointer;
+    font-family: 'quest', Helvetica, Tahoma, Arial, sans-serif;
     font-size: 14px;
     text-transform: none;
     margin: 0;
@@ -4663,15 +4784,27 @@ table {
     padding: 20px;
     margin-bottom: 20px;
 }
-.cart__footer h5,
-.cart__footer .h5,
-.cart__footer h5 label,
-.cart__footer .h5 label,
-.cart__footer .cart__subtotal-title {
+:dir(ltr) .cart__footer h5,
+:dir(ltr) .cart__footer .h5,
+:dir(ltr) .cart__footer h5 label,
+:dir(ltr) .cart__footer .h5 label,
+:dir(ltr) .cart__footer .cart__subtotal-title {
     color: #000;
     text-transform: uppercase;
     font-size: 14px;
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+    letter-spacing: 0.02em;
+}
+
+:dir(rtl) .cart__footer h5,
+:dir(rtl) .cart__footer .h5,
+:dir(rtl) .cart__footer h5 label,
+:dir(rtl) .cart__footer .h5 label,
+:dir(rtl) .cart__footer .cart__subtotal-title {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
     letter-spacing: 0.02em;
 }
 .cart-note__input {
@@ -4830,13 +4963,23 @@ input.checkbox {
 .imgBnrOuter .inner:hover .ttl {
     background-color: #fff;
 }
-.imgBnrOuter .inner .ttl h3 {
+:dir(ltr) .imgBnrOuter .inner .ttl h3 {
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
     font-weight: 700;
     font-size: 21px;
 }
-.imgBnrOuter .inner .ttl h5 {
+:dir(rtl) .imgBnrOuter .inner .ttl h3 {
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+}
+:dir(ltr) .imgBnrOuter .inner .ttl h5 {
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+}
+:dir(rtl) .imgBnrOuter .inner .ttl h5 {
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
     font-weight: 700;
     font-size: 16px;
 }
@@ -4981,9 +5124,14 @@ input.checkbox {
 .hero[data-stellar-background-ratio] {
     background-attachment: fixed;
 }
-.hero .text-small .mega-title {
+:dir(ltr) .hero .text-small .mega-title {
     font-size: 25px;
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+    font-weight: 700;
+}
+:dir(rtl) .hero .text-small .mega-title {
+    font-size: 25px;
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
     font-weight: 700;
 }
 .hero .text-small .mega-subtitle {
@@ -5154,12 +5302,20 @@ input.checkbox {
 .footer-2 .site-footer {
     background-color: #fff;
 }
-.footer-2 .footer-top h4,
-.footer-2 .footer-top .h4 {
+:dir(ltr) .footer-2 .footer-top h4,
+:dir(ltr) .footer-2 .footer-top .h4 {
     color: #000000;
     font-size: 15px;
     font-weight: 400;
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+    margin-bottom: 15px;
+}
+:dir(rtl) .footer-2 .footer-top h4,
+:dir(rtl) .footer-2 .footer-top .h4 {
+    color: #000000;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
     margin-bottom: 15px;
 }
 .footer-2 .footer-top,
@@ -5180,22 +5336,35 @@ input.checkbox {
 .footer-4 .site-footer {
     background-color: #fff;
 }
-.footer-4 .footer-top h4,
-.footer-4 .footer-top .h4 {
+:dir(ltr) .footer-4 .footer-top h4,
+:dir(ltr) .footer-4 .footer-top .h4 {
     color: #000000;
     font-size: 15px;
     font-weight: 400;
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
     margin-bottom: 15px;
 }
+:dir(rtl) .footer-4 .footer-top h4,
+:dir(rtl) .footer-4 .footer-top .h4 {
+    color: #000000;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
+    margin-bottom: 15px;
+}
 .footer-4 .newsletter-section {
     background-color: #000;
     border: 1px solid #000;
 }
-.footer-4 .newsletter-section .section-header label,
-.footer-4 .newsletter-section .section-header span {
+:dir(ltr) .footer-4 .newsletter-section .section-header label,
+:dir(ltr) .footer-4 .newsletter-section .section-header span {
     color: #fff;
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+}
+:dir(rtl) .footer-4 .newsletter-section .section-header label,
+:dir(rtl) .footer-4 .newsletter-section .section-header span {
+    color: #fff;
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
 }
 .footer-4 .newsletter-section .btn {
     background-color: #1cb5b5;
@@ -5235,10 +5404,15 @@ input.checkbox {
     background-color: #000;
     border: 1px solid #000;
 }
-.footer-5 .newsletter-section .section-header label,
-.footer-5 .newsletter-section .section-header span {
+:dir(ltr) .footer-5 .newsletter-section .section-header label,
+:dir(ltr) .footer-5 .newsletter-section .section-header span {
     color: #fff;
     font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+}
+:dir(rtl) .footer-5 .newsletter-section .section-header label,
+:dir(rtl) .footer-5 .newsletter-section .section-header span {
+    color: #fff;
+    font-family: "quest", Helvetica, Tahoma, Arial, sans-serif;
 }
 .footer-5 .footer-top,
 .footer-5 .footer-links a,
@@ -5515,7 +5689,8 @@ input.checkbox {
 .home-default .slideshow .slideshow__title { color:#000; font-size:55px; font-weight:700; font-family:Poppins,Helvetica,Tahoma,Arial,sans-serif; text-transform:none; }
 .home-default .slideshow .slideshow__subtitle { color:#000; font-size:26px; text-transform:none; line-height:1.2; text-shadow:1px 1px 4px rgba(0,0,0,0); }
 
-.home-default .section-header h2, .home2-default .section-header .h2 { font-family:Poppins,Helvetica,Tahoma,Arial,sans-serif; font-size:1.92308em; text-transform:none; letter-spacing:0.03em; }
+:dir(ltr) .home-default .section-header h2, :dir(ltr) .home2-default .section-header .h2 { font-family:Poppins,Helvetica,Tahoma,Arial,sans-serif; font-size:1.92308em; text-transform:none; letter-spacing:0.03em; }
+:dir(rtl) .home-default .section-header h2, :dir(rtl) .home2-default .section-header .h2 { font-family:"quest",Helvetica,Tahoma,Arial,sans-serif; font-size:1.92308em; text-transform:none; letter-spacing:0.03em; }
 
 .home-default .hero--large { background-attachment:fixed; }
 

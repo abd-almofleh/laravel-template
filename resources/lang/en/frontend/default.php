@@ -70,6 +70,7 @@ return [
     'download_our_app'         => 'Download Our App',
     'available_on'             => 'Available On',
     'recent_blogs'             => 'Recent Blogs',
+    'listed_horses'            => 'Listed Horses',
     'best_horses'              => 'Best horses from all of the world',
     'browse_now'               => 'Browse Now',
     'browse_by_type'           => 'Browse by horse type',

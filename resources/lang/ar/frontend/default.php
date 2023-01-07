@@ -71,6 +71,7 @@ return [
     'available_on'             => 'متوفر على',
     'recent_blogs'             => 'أحدث المقالات',
     'best_horses'              => 'افضل الخيول من انحاء العالم',
+    'listed_horses'            => 'الأحصنة المعروضة',
     'browse_now'               => 'تصفح الان',
     'browse_by_type'           => 'تصفح من خلال نوع الحصان',
     'best_horses_in_types'     => 'افضل الاحصنة من انواعها',

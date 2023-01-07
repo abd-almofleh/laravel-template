@@ -100,7 +100,7 @@
         <div class="row">
           <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <div class="section-header text-center">
-              <h2 class="h2">{{ __('listedHorses.index.title') }}</h2>
+              <h2 class="h2">{{ __('frontend/default.general.listed_horses') }}</h2>
               <p>{{ __('frontend/default.general.best_horses') }}</p>
             </div>
           </div>
