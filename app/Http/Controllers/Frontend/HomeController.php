@@ -32,4 +32,9 @@ class HomeController extends Controller
   {
     return view('frontend.contact-us');
   }
+
+  public function privacyPolicy()
+  {
+    return view('frontend.privacy-policy');
+  }
 }

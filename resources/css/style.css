@@ -4003,6 +4003,8 @@ table {
 .page-template .addressFooter {
     font-size: 14px;
     list-style: none;
+    margin-bottom: 0;
+    display: flex;
 }
 .page-template #page-content .addressFooter .icon {
     color: #000 !important;
@@ -4013,6 +4015,7 @@ table {
 }
 :dir(rtl) .page-template .addressFooter li p {
     padding-right: 30px;
+
 }
 
 .contact-template .section-header {
@@ -5273,7 +5276,7 @@ input.checkbox {
 .newsletter-section {
     background-color: #f9f9f9;
     border: 1px solid #e8e9eb;
-    padding: 35px 0;
+    padding: 16px 0;
 }
 .newsletter-section .footer-newsletter {
     width: 60%;
@@ -5385,21 +5388,19 @@ input.checkbox {
 .footer-bottom {
     color: #ffffff;
 }
-:dir(ltr).addressFooter .icon {
-    color: #ffffff !important;
+:dir(ltr) .addressFooter .icon {
+    color: #000 !important;
     float: left;
     font-size: 14px;
     margin-top: 2px;
 }
 :dir(rtl) .addressFooter .icon {
-    color: #ffffff !important;
+    color: #000 !important;
     float: right;
     font-size: 14px;
     margin-top: 2px;
 }
-.addressFooter li {
-    padding-bottom: 12px;
-}
+
 .addressFooter li p {
     padding-left: 25px;
 }

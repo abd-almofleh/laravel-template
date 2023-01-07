@@ -120,6 +120,8 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
     Route::get('about-us', [App\Http\Controllers\Frontend\HomeController::class, 'aboutUs'])->name('about_us');
     Route::get('contact-us', [App\Http\Controllers\Frontend\HomeController::class, 'contactUs'])->name('contact_us');
+    Route::get('privacy-policy', [App\Http\Controllers\Frontend\HomeController::class, 'privacyPolicy'])->name('privacy_policy');
+    Route::post('suggestion', StoreSuggestion::class)->name('storeSuggestion');
 
     //!/* -------------------------------------------------------------------------- */
     //!/*                               Customer Routes                              */
@@ -176,9 +178,6 @@ Route::group(['middleware' => 'language'], function () {
     Route::prefix('listed-horses')->name('listed_horses.')->group(function () {
       Route::get('/', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'index'])->name('list');
       Route::get('/{listedHorse}', [App\Http\Controllers\Frontend\ListedHorsesController::class, 'show'])->name('show');
-    });
-    Route::withoutMiddleware(App\Http\Middleware\CheckValidatePhoneNumberUsingOTP::class)->group(function () {
-      Route::post('suggestion', StoreSuggestion::class)->name('storeSuggestion');
     });
   });
 });
