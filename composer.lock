@@ -114,16 +114,16 @@
         },
         {
             "name": "brian2694/laravel-toastr",
-            "version": "5.57",
+            "version": "5.59",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brian2694/laravel-toastr.git",
-                "reference": "1274f58564b9d845dfe82d5aca60b99b6fbb5a71"
+                "reference": "60f90a7b25973549c3992b3dc5965d4f0e27838c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brian2694/laravel-toastr/zipball/1274f58564b9d845dfe82d5aca60b99b6fbb5a71",
-                "reference": "1274f58564b9d845dfe82d5aca60b99b6fbb5a71",
+                "url": "https://api.github.com/repos/brian2694/laravel-toastr/zipball/60f90a7b25973549c3992b3dc5965d4f0e27838c",
+                "reference": "60f90a7b25973549c3992b3dc5965d4f0e27838c",
                 "shasum": ""
             },
             "require": {
@@ -170,9 +170,9 @@
             ],
             "support": {
                 "issues": "https://github.com/brian2694/laravel-toastr/issues",
-                "source": "https://github.com/brian2694/laravel-toastr/tree/5.57"
+                "source": "https://github.com/brian2694/laravel-toastr/tree/5.59"
             },
-            "time": "2022-02-21T04:34:55+00:00"
+            "time": "2024-01-02T16:03:28+00:00"
         },
         {
             "name": "brick/math",
