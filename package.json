@@ -32,7 +32,7 @@
         "jquery-ui": "jquery/jquery-ui#1.13.2",
         "lazysizes": "^5.3.2",
         "slick-carousel": "^1.8.1",
-        "sweetalert2": "^11.14.1",
+        "sweetalert2": "^11.14.2",
         "toastr": "^2.1.4"
     }
 }
